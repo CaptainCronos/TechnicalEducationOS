@@ -1,0 +1,162 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://technicaleducationos.local/schemas/week.schema.json",
+  "title": "TechnicalEducationOS weekly curriculum record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "course_id",
+    "week_number",
+    "title",
+    "objectives",
+    "lectures",
+    "labs",
+    "assessments"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "course_id": {"$ref": "#/$defs/id"},
+    "week_number": {"type": "integer", "minimum": 1, "maximum": 99},
+    "title": {"type": "string", "minLength": 1},
+    "preparation": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1}
+    },
+    "objectives": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "statement", "competency_ids"],
+        "properties": {
+          "id": {"$ref": "#/$defs/id"},
+          "statement": {"type": "string", "minLength": 1},
+          "competency_ids": {
+            "type": "array",
+            "minItems": 1,
+            "items": {"$ref": "#/$defs/id"}
+          }
+        }
+      }
+    },
+    "lectures": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/lecture"}
+    },
+    "labs": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/lab"}
+    },
+    "assessments": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/assessment"}
+    },
+    "teaching_notes": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1}
+    }
+  },
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9._-]*$"
+    },
+    "id_list": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/id"}
+    },
+    "lecture": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "title", "objective_ids", "duration_minutes", "topics"],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"},
+        "title": {"type": "string", "minLength": 1},
+        "objective_ids": {"$ref": "#/$defs/id_list"},
+        "duration_minutes": {"type": "integer", "minimum": 1},
+        "topics": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "instructor_notes": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "lab": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "title",
+        "objective_ids",
+        "duration_minutes",
+        "procedure",
+        "deliverables"
+      ],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"},
+        "title": {"type": "string", "minLength": 1},
+        "objective_ids": {"$ref": "#/$defs/id_list"},
+        "duration_minutes": {"type": "integer", "minimum": 1},
+        "procedure": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "deliverables": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "safety_notes": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "assessment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "title", "type", "objective_ids", "question_bank"],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"},
+        "title": {"type": "string", "minLength": 1},
+        "type": {
+          "enum": ["diagnostic", "formative", "summative"]
+        },
+        "objective_ids": {"$ref": "#/$defs/id_list"},
+        "question_bank": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/question"}
+        }
+      }
+    },
+    "question": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "prompt", "type", "objective_ids"],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"},
+        "prompt": {"type": "string", "minLength": 1},
+        "type": {
+          "enum": ["multiple_choice", "short_answer", "performance"]
+        },
+        "objective_ids": {"$ref": "#/$defs/id_list"},
+        "choices": {
+          "type": "array",
+          "minItems": 2,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "answer": {"type": "string", "minLength": 1},
+        "rubric": {"type": "string", "minLength": 1}
+      }
+    }
+  }
+}

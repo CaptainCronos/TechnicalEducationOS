@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://technicaleducationos.local/schemas/course.schema.json",
+  "title": "TechnicalEducationOS course record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "course_id", "title", "competencies"],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "course_id": {"$ref": "#/$defs/id"},
+    "title": {"type": "string", "minLength": 1},
+    "description": {"type": "string"},
+    "competencies": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "statement"],
+        "properties": {
+          "id": {"$ref": "#/$defs/id"},
+          "statement": {"type": "string", "minLength": 1}
+        }
+      }
+    }
+  },
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9._-]*$"
+    }
+  }
+}

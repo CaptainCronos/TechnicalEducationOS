@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://technicaleducationos.local/schemas/institution.schema.json",
+  "title": "TechnicalEducationOS institution overlay",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "institution_id", "institution_name"],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "institution_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9._-]*$"
+    },
+    "institution_name": {"type": "string", "minLength": 1},
+    "program_name": {"type": "string", "minLength": 1},
+    "administrative_fields": {
+      "type": "object",
+      "additionalProperties": {"type": "string"}
+    }
+  }
+}
