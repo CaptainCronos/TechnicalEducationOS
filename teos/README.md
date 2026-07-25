@@ -1,10 +1,11 @@
 # TEOS application
 
-This package contains the command-line workflow, validation, audits, and
-document renderers. It reads authoritative records and writes only generated
-outputs. Active Phase 1 development and acceptance are limited to the J-Tech
-Administrative Lesson Plan DOCX pipeline; the older general generators remain
-available but are not being expanded in this phase.
+This package contains the current command-line compatibility workflow,
+validation, audits, and document renderers. It reads authoritative legacy
+course/week records and writes only generated outputs. The implementation
+remains operational while TEOS introduces knowledge ingestion, course
+blueprints, and structured curriculum models upstream. New renderer work must
+follow the governing educational-artifact contract.
 
 From the repository root:
 

@@ -1,18 +1,22 @@
 # Schemas
 
-These JSON Schemas document source-record contracts. Runtime validation also
-checks cross-record ID relationships that JSON Schema cannot conveniently
-express.
+Purpose: own machine-readable contracts for knowledge records, blueprints,
+curriculum models, mappings, institution overlays, and compatibility records.
 
-`course.schema.json`, `week.schema.json`, and `institution.schema.json` are the
-machine-readable source contracts. The week contract supports both explicit
-lecture/lab records and approved daily lesson plans with typed activities.
+Inputs are governing subsystem specifications and accepted architecture
+decisions. Outputs are versioned schemas consumed by validators, authoring
+tools, compilers, renderers, and tests.
 
-Daily lessons include the populated sections required by the Administrative
-Lesson Plan template: materials, terminology, assessment alignment, industry
-applications, common technician errors, shop tip, homework, and flex
-activities. Required presentation labels and blank reflection prompts remain
-renderer-owned.
+Current executable schemas:
 
-Schema changes must be driven by real curriculum or required outputs and
-recorded in `docs/decisions/`.
+- `course.schema.json` — legacy course record;
+- `week.schema.json` — legacy weekly curriculum record;
+- `institution.schema.json` — institution overlay.
+
+Blueprint, knowledge-source, curriculum-model, traceability, and artifact
+manifest schemas will be added with their implementation milestones. A schema
+MUST follow the governing prose specification and MUST NOT be invented merely
+to satisfy one renderer.
+
+Runtime validation also checks cross-record and semantic relationships that
+JSON Schema cannot conveniently express.

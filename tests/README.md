@@ -1,6 +1,8 @@
 # Tests
 
-Tests use synthetic curriculum fixtures. Real curriculum remains solely under
+Tests own automated verification and synthetic fixtures. Inputs are schemas,
+compiler and renderer behavior, and deliberately synthetic records. Outputs are
+test results and diagnostics. Real curriculum remains solely under
 `curriculum/`.
 
 Run the suite from the repository root:

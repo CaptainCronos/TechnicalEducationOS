@@ -9,3 +9,6 @@ that explain context, decision, consequences, and status.
   approved DSL204 daily plans.
 - `0003-jtech-administrative-presentation.md` isolates the production J-Tech
   DOCX presentation adapter from curriculum and generated output.
+- `0004-curriculum-compiler-architecture.md` establishes registered knowledge,
+  course blueprints, structured curriculum models, and artifact renderers as
+  the governing compiler pipeline.

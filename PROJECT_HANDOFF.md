@@ -1,155 +1,124 @@
-PROJECT_HANDOFF.md
+# TechnicalEducationOS Repository Constitution
 
-TechnicalEducationOS Repository Constitution
+Version: 2.0
+Effective: 2026-07-25
 
-Version: 1.0
+## 1. Mission
 
-1. Executive Summary
+TechnicalEducationOS (TEOS) is a curriculum compiler. It transforms registered
+knowledge sources and institutional constraints into a reviewed, structured
+curriculum model, then renders that model into educational artifacts.
 
-TechnicalEducationOS exists to organize an already-established technical
-curriculum into a single source of truth from which lesson plans,
-assessments, labs, reports, audits, and instructional documents can be
-generated repeatedly.
+Its purpose is to reduce instructor workload while preserving instructional
+quality, source evidence, and the ability to explain why every instructional
+element exists.
 
-The objective is not to recreate curriculum.
+## 2. Governing principle
 
-The objective is to eliminate duplicate work.
+The structured curriculum model is the single authoritative source for
+educational artifacts. A lesson plan is one compiled output, not the curriculum
+itself.
 
-2. Mission
+```text
+knowledge sources
+      ↓
+course blueprint
+      ↓
+structured curriculum model
+      ↓
+validated educational artifacts
+```
 
-Reduce instructor workload while preserving and improving instructional
-quality.
+PowerPoint files, manuals, standards, and calendars are evidence or constraints.
+They do not render directly into lesson plans. Templates control presentation;
+they do not provide curriculum content. Generated artifacts never become source
+records.
 
-Primary measurable goal:
+## 3. Authority order
 
-Reduce weekly lesson planning from approximately 12 hours to
-approximately 1 hour.
+When records disagree, resolve the disagreement instead of silently choosing:
 
-3. Vision
+1. approved educational standards and regulatory requirements;
+2. approved institutional requirements and calendar constraints;
+3. reviewed course blueprints;
+4. approved structured curriculum models;
+5. instructional-resource evidence;
+6. generated artifacts.
 
-Build a curriculum operating system that preserves instructional
-knowledge, automates repetitive documentation, and supports instructors
-throughout the lifecycle of a technical education program.
+The order describes governance, not automatic truth. Conflicts MUST be recorded
+and reviewed by an authorized curriculum owner.
 
-4. Guiding Principles
+## 4. Architectural boundaries
 
--   Curriculum is the source.
--   Documents are outputs.
--   Never duplicate information.
--   Generate instead of copy.
--   One authoritative record for every objective.
--   Preserve improvements between semesters.
--   Build only what provides measurable value.
+- `knowledge/` registers source evidence and provenance.
+- `curriculum/blueprints/` defines course scope, sequence, and allocation.
+- `curriculum/models/` contains renderer-ready curriculum models.
+- `curriculum/mappings/` contains explicit cross-source mappings and migration
+  work products.
+- `schemas/` defines machine-readable contracts.
+- `renderers/`, `teos/`, and institution presentation adapters compile approved
+  models into artifacts.
+- `templates/` owns presentation assets only.
+- `outputs/` contains reproducible, disposable artifacts.
+- `docs/` governs architecture and authoring practice.
 
-5. Project Scope
+The existing `curriculum/courses/` week records remain supported as legacy
+authoritative records during migration. New compiler development MUST target
+the blueprint and curriculum-model contracts rather than deepen a
+week-document-first design.
 
-Current work supports existing curriculum.
+## 5. Non-negotiable rules
 
-Out of scope for Phase 1: - New LMS development - Student information
-system - Commercial product development - Features unrelated to
-instructor efficiency
+1. Every generated educational claim MUST resolve to the approved curriculum
+   model.
+2. Every curriculum requirement MUST be traceable to a registered source,
+   approved authoring decision, or documented exception.
+3. Renderers MUST NOT invent objectives, durations, labs, assessment content,
+   safety requirements, tools, or materials.
+4. Generated files MUST NOT be edited as source.
+5. Stable identifiers MUST connect records; wording MUST NOT be used as an
+   identifier.
+6. Source versions, schema versions, and generation metadata MUST be explicit.
+7. Institution-specific policy and presentation MUST remain isolated from
+   institution-independent curriculum.
+8. A change to an upstream source MUST be detectable in downstream validation.
+9. Human approval gates MUST remain visible; automation MUST NOT silently
+   resolve ambiguous curriculum decisions.
+10. Significant boundary changes MUST be recorded in `docs/decisions/`.
 
-6. Current Development Window
+## 6. Instructor-facing workflow
 
-Next 2.5 weeks.
+TEOS preserves the familiar Week 1, Week 2, Week 3 presentation. Internally, a
+week is a scheduled projection of competencies, objectives, activities,
+resources, and assessments. The schedule may change without duplicating or
+redefining those curriculum entities.
 
-Complete Weeks 8–11 without repeating the difficulties experienced
-during Weeks 1–7.
+## 7. Delivery sequence
 
-Repository work must directly support lesson creation.
+Development proceeds in this order:
 
-7. Immediate Priorities
+1. architecture and repository foundation;
+2. standards and knowledge-source ingestion;
+3. course blueprint generation;
+4. curriculum model generation;
+5. artifact renderers;
+6. validation and traceability;
+7. LMS and external integrations.
 
--   Administrative lesson plans
--   Instructor lesson plans
--   Assessment generation
--   Existing curriculum organization
--   Document consistency
--   Lesson planning workflow
+Existing renderers may continue operating while upstream compiler capabilities
+are added incrementally.
 
-8. Near-Term Goals
+## 8. Definition of success
 
--   Organize curriculum into reusable records.
--   Support question banks in batches of ten.
--   Maintain objective → lecture → lab → assessment → competency
-    relationships.
--   Build lesson and curriculum audits.
+An authorized curriculum owner can register evidence, approve a course
+blueprint, compile a validated curriculum model, generate all required
+educational artifacts, and trace any artifact element back through the model to
+its source or recorded authoring decision.
 
-9. Long-Term Goals
+## 9. Governing documentation
 
-Purpose: Design today’s architecture so future capabilities can be added
-without redesign.
-
-Future areas: - Single source of truth - Curriculum preservation -
-Automated documentation - Instructor mentoring - Audit readiness -
-Accreditation support - Program management - Institution independence -
-Commercial evaluation (only after personal success)
-
-10. Repository Architecture
-
-Organize around reusable source records.
-
-Generated documents belong in outputs.
-
-Never make generated documents the authoritative source.
-
-11. Repository Rules
-
--   Never duplicate curriculum.
--   Never manually maintain duplicate documents.
--   Never manually edit generated outputs.
--   Institution-specific content remains isolated.
--   Prefer automation over repetition.
--   Every folder has a documented purpose.
--   Every major architectural decision is documented.
--   Favor simple solutions over unnecessary complexity.
-
-12. Roadmap
-
-Phase 1 - Complete Weeks 8–11 - Build lesson workflow - Build assessment
-workflow - Measure planning-time reduction
-
-Phase 2 - Refine templates - Expand audits - Capture teaching
-knowledge - Improve automation
-
-Phase 3 - Mentoring - Accreditation - Program reporting - Generic
-platform architecture
-
-13. Phase Definitions
-
-Phase 1 solves today’s workload.
-
-Phase 2 improves repeatability.
-
-Phase 3 expands capability without changing the foundation.
-
-14. Codex Expectations
-
-When working in this repository:
-
--   Think long-term.
--   Build incrementally.
--   Preserve working systems.
--   Avoid unnecessary redesign.
--   Respect the single-source-of-truth philosophy.
--   Prefer reusable components.
--   Document significant decisions.
--   Keep the repository organized.
--   Focus on current priorities before future possibilities.
-
-15. Definition of Success
-
-An instructor should be able to:
-
-1.  Select a course and week.
-2.  Review objectives.
-3.  Make minor adjustments.
-4.  Generate all required instructional documents.
-5.  Teach.
-
-Target planning time: Approximately one hour per week.
-
-16. Future Considerations
-
-Only after Phase 1 succeeds should attention shift toward mentoring,
-accreditation, program management, and evaluating a broader platform.
+The normative architecture begins at
+[`docs/architecture/overview.md`](docs/architecture/overview.md). Detailed
+contracts live in `docs/specifications/`. If an older document conflicts with
+this constitution, this constitution and accepted architecture decisions take
+precedence.

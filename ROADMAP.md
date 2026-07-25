@@ -1,43 +1,80 @@
-# Phase 1 Roadmap
+# TechnicalEducationOS Roadmap
 
-This roadmap implements the current priority within `PROJECT_HANDOFF.md`.
-Phase 1 is limited to completing one production-quality J-Tech Administrative
-Lesson Plan pipeline before expanding output types.
+The sequence follows the compiler dependency chain. Downstream features do not
+define upstream curriculum.
 
-## P0 — Authoritative daily-plan records
+## Milestone 0 — Curriculum architecture foundation
 
-- Preserve existing curriculum in course and week records.
-- Validate objective, competency, activity, and assessment relationships.
-- Require every populated instructional field to resolve to a structured
-  curriculum value.
+- Establish the repository constitution and governing specifications.
+- Separate knowledge sources, blueprints, models, mappings, renderers, and
+  outputs.
+- Define ownership, inputs, outputs, data flow, and traceability requirements.
+- Preserve existing week-based records and renderers during transition.
 
-Success check: a daily plan can be projected without invented or duplicated
-instructional content.
+Exit criterion: every major subsystem has a documented boundary and future
+implementation has one unambiguous compiler pipeline.
 
-## P1 — Production J-Tech DOCX
+## Milestone 1 — Standards ingestion
 
-- Use the official blank form as the institutional package/branding base.
-- Keep all labels, layout, typography, spacing, and reflection prompts in the
-  J-Tech presentation layer.
-- Match the organization, density, usability, and two-page presentation of the
-  approved FUN101 Week 7 plans.
-- Generate one disposable DOCX per daily lesson.
+- Register ASE and other standards with source identity, version, provenance,
+  and rights metadata.
+- Extract addressable standard and task records without losing page or section
+  citations.
+- Validate stable identifiers and source integrity.
 
-Success check: current source records produce plans that are functionally
-equivalent to the approved production standard.
+Exit criterion: standards can be cited and versioned as structured knowledge.
 
-## P2 — Acceptance
+## Milestone 2 — Knowledge-source ingestion
 
-- Open generated plans in J-Tech's supported Microsoft Word environment.
-- Obtain instructor/administrative acceptance.
-- Record planning-time impact and any presentation-only corrections.
+- Register institutional calendars, policies, and requirements.
+- Register CDX materials, manuals, presentations, notes, videos, and
+  demonstrations.
+- Preserve source locations and distinguish extracted facts from interpretation.
 
-Success check: the Administrative Lesson Plan pipeline is accepted for routine
-use and preserves the one-authoritative-source workflow.
+Exit criterion: all three knowledge layers use a common provenance contract.
 
-## Deferred
+## Milestone 3 — Course blueprint generation
 
-Instructor Lesson Plans, quizzes, labs, PowerPoint outlines, question-bank
-generation, LMS work, mentoring, accreditation management, program reporting,
-and broader platform work remain deferred until the Administrative Lesson Plan
-pipeline is accepted.
+- Define course constraints, meetings, instructional hours, holidays, exams,
+  scope and sequence, and competency allocation.
+- Detect scheduling and coverage conflicts.
+- Add explicit human review and approval.
+
+Exit criterion: an approved blueprint accounts for requirements and available
+instructional time before lesson authoring.
+
+## Milestone 4 — Curriculum model generation
+
+- Compile blueprints and knowledge references into structured instructional
+  units, objectives, activities, labs, assessments, and resource requirements.
+- Validate references, time budgets, safety coverage, and renderer readiness.
+- Migrate existing course/week records without breaking current outputs.
+
+Exit criterion: a versioned model is the complete educational input to
+renderers.
+
+## Milestone 5 — Educational artifact renderers
+
+- Adapt existing lesson-plan renderers to the curriculum-model contract.
+- Add student notes, labs, quizzes, exams, question banks, reports, and LMS
+  exports.
+- Emit generation manifests and trace metadata with every artifact.
+
+Exit criterion: renderers contain presentation logic only and never invent
+curriculum.
+
+## Milestone 6 — Validation and traceability
+
+- Produce coverage, gap, conflict, and impact analysis.
+- Trace standards through objectives, schedule, instruction, and assessment.
+- Generate accreditation evidence and change-impact reports.
+
+Exit criterion: required paths are machine-verifiable and gaps are actionable.
+
+## Milestone 7 — Integrations
+
+- Add LMS and approved external-system adapters.
+- Keep external formats downstream of the curriculum model.
+
+Exit criterion: integrations exchange versioned model projections without
+becoming curriculum authorities.

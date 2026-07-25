@@ -1,7 +1,12 @@
-# Recording Existing Curriculum
+# Recording Existing Curriculum (Legacy Compatibility)
 
-This workflow transcribes existing curriculum into authoritative records. It
-does not invite curriculum redesign.
+This guide applies to the existing course/week pipeline while TEOS migrates to
+course blueprints and structured curriculum models. New architecture work must
+follow the governing specifications in `docs/specifications/`.
+
+This workflow transcribes existing curriculum into authoritative compatibility
+records. It does not invite curriculum redesign or direct extraction from
+slides into generated artifacts.
 
 ## Create a course
 

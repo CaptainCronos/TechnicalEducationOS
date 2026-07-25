@@ -1,4 +1,9 @@
-# Phase 1 Administrative Lesson Plan Status
+# Phase 1 Administrative Lesson Plan Status (Historical)
+
+This document records the lesson-plan compatibility milestone that preceded the
+curriculum compiler architecture. It remains useful implementation history but
+is not the current roadmap. See [`ROADMAP.md`](../ROADMAP.md) and the
+[architecture overview](architecture/overview.md).
 
 Date reviewed: 2026-07-25
 

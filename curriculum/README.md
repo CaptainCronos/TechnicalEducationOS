@@ -1,10 +1,15 @@
 # Curriculum
 
-This directory contains the authoritative, institution-independent curriculum.
-One subdirectory represents one course and contains:
+Purpose: own governed course design and instructional meaning derived from
+registered knowledge sources.
 
-- `course.json` for course identity and competencies.
-- `weeks/NN.json` for each weekly source record.
+- `blueprints/` — approved scope, sequence, schedule, and competency allocation.
+- `models/` — approved renderer-ready curriculum models.
+- `mappings/` — reviewed crosswalks and migration mappings.
+- `courses/` — legacy course/week source records retained during migration.
 
-Record existing curriculum faithfully. Do not copy generated lesson plans back
-into this directory.
+Inputs are registered knowledge records, institutional constraints, and
+authorized curriculum decisions. Outputs are approved blueprints, models,
+trace mappings, and validation inputs for renderers.
+
+Generated artifacts and raw source documents do not belong here.

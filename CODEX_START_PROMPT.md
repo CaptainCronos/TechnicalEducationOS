@@ -1,18 +1,20 @@
-Initialize the TechnicalEducationOS repository using PROJECT_HANDOFF.md
-as the governing document.
+Initialize work in TechnicalEducationOS by reading `PROJECT_HANDOFF.md`,
+`docs/architecture/overview.md`, `ROADMAP.md`, and the relevant governing
+specification.
 
-Read the entire handoff before making architectural decisions.
+Treat TEOS as a curriculum compiler:
 
-Treat it as the repository constitution.
+```text
+registered knowledge
+  → approved course blueprint
+  → approved structured curriculum model
+  → educational artifacts
+```
 
-Create the initial Phase 1 directory structure, README, ROADMAP,
-placeholder files, and documentation needed to support Weeks 8–11 lesson
-development.
+Preserve the current legacy course/week records and renderers until a tested
+migration exists. Do not let slides, standards documents, calendars, templates,
+or generated artifacts bypass the structured curriculum model as educational
+content sources.
 
-Do not over-engineer. Do not build future features unless they directly
-support the current phase.
-
-When uncertain, choose the simpler architecture that preserves the
-single-source-of-truth philosophy and reduces instructor workload.
-
-Document any significant design decisions as they are made.
+Keep changes within the active roadmap milestone, maintain explicit provenance
+and traceability, and record significant architectural decisions.

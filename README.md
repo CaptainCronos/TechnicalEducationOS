@@ -1,42 +1,54 @@
 # TechnicalEducationOS
 
-TechnicalEducationOS organizes an existing technical curriculum into one
-authoritative set of source records. Administrative lesson plans, instructor
-lesson plans, assessments, labs, audits, and reports are generated from those
-records; generated files are never curriculum sources.
+TechnicalEducationOS (TEOS) is a curriculum compiler. It turns educational
+standards, institutional constraints, and instructional resources into a
+reviewed course blueprint and structured curriculum model, then renders lesson
+plans, labs, assessments, student guides, reports, and other artifacts.
 
-The governing document is [PROJECT_HANDOFF.md](PROJECT_HANDOFF.md). Read it
-before proposing architectural changes.
+The curriculum model is authoritative. Slides and manuals are evidence,
+templates are presentation assets, and generated documents are disposable
+outputs.
 
-## Phase 1
+Read the [repository constitution](PROJECT_HANDOFF.md), then the
+[architecture overview](docs/architecture/overview.md).
 
-The active Phase 1 work is intentionally limited to one production-quality
-pipeline: J-Tech Administrative Lesson Plans.
+## Compiler pipeline
 
-1. Record existing course and weekly curriculum without rewriting it.
-2. Validate the structured relationships used by each daily plan.
-3. Generate a finished J-Tech Administrative Lesson Plan for each lesson.
-4. Verify curriculum provenance and presentation quality against approved
-   plans.
+```text
+knowledge/                  curriculum/                 outputs/
+standards ──────────┐       blueprints                  lesson plans
+institutional ──────┼─────> models ─────> renderers ──> labs
+instructional ──────┘       mappings                    assessments
+                                                       reports
+```
 
-See [ROADMAP.md](ROADMAP.md) for the prioritized implementation plan and
-[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for repository boundaries. Use
-[docs/CURRICULUM_AUTHORING.md](docs/CURRICULUM_AUTHORING.md) when loading the
-existing curriculum.
-
-Instructor Lesson Plans, quizzes, labs, PowerPoint outlines, and other output
-pipelines remain out of active Phase 1 scope.
+Every renderer consumes a validated curriculum model. No educational artifact
+may be generated directly from a slide deck, source PDF, calendar, or template.
 
 ## Repository map
 
-- `curriculum/` — authoritative, institution-independent curriculum records.
-- `institutions/` — optional institution-specific presentation and
-  administrative overlays.
-- `schemas/` — machine-readable contracts for source records.
-- `teos/` — validation, audit, and generation code.
-- `tests/` — automated behavior checks using synthetic fixtures.
-- `outputs/` — generated, disposable documents (ignored by Git).
-- `docs/decisions/` — significant architectural decision records.
-- `scripts/` — thin command wrappers only when they improve the workflow.
+- `docs/` — governing architecture, specifications, decisions, and guidance.
+- `knowledge/` — registered standards, institutional resources, and
+  instructional resources with provenance.
+- `curriculum/` — course blueprints, curriculum models, mappings, and legacy
+  course/week records.
+- `schemas/` — machine-readable data contracts.
+- `renderers/` — renderer contracts and artifact-specific implementations.
+- `teos/` — current Python validation, audit, and generation application.
+- `templates/` — presentation assets; never curriculum sources.
+- `institutions/` — institution-specific configuration and overlays.
+- `outputs/` — generated, reproducible artifacts.
+- `tests/` — automated contract and behavior verification.
+- `scripts/` — thin workflow wrappers.
 
-Do not manually edit generated files in `outputs/`.
+The full ownership and input/output rules are defined in the
+[Repository Organization Standard](docs/architecture/repository-organization.md).
+
+## Current transition
+
+The existing DSL204 week records and lesson-plan renderers remain working
+assets. They are not being discarded. They represent an earlier source model
+that will migrate behind the blueprint and curriculum-model boundary as those
+contracts become executable.
+
+See [ROADMAP.md](ROADMAP.md) for the current milestone sequence.
