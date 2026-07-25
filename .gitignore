@@ -14,3 +14,7 @@ venv/
 # OS files
 .DS_Store
 Thumbs.db
+
+# Generated instructional documents
+outputs/*
+!outputs/README.md
