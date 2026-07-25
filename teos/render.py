@@ -126,3 +126,126 @@ def render_instructor(
         lines.append("None recorded.")
     lines.extend(["", "## Preserved teaching notes", "", _bullets(week.get("teaching_notes", []))])
     return "\n".join(lines) + "\n"
+
+
+def render_lab(
+    course: dict[str, Any],
+    week: dict[str, Any],
+    lab: dict[str, Any],
+    institution: dict[str, Any] | None = None,
+) -> str:
+    lines = _header(f"Lab: {lab['title']}", course, week, institution)
+    objective_statements = {
+        objective["id"]: objective["statement"] for objective in week["objectives"]
+    }
+    lines.extend(
+        [
+            f"- Duration: {lab['duration_minutes']} minutes",
+            "",
+            "## Objectives",
+            "",
+            *(
+                f"- **{objective_id}** — {objective_statements[objective_id]}"
+                for objective_id in lab["objective_ids"]
+            ),
+        ]
+    )
+    if lab.get("safety_notes"):
+        lines.extend(["", "## Safety", "", _bullets(lab["safety_notes"])])
+    lines.extend(
+        [
+            "",
+            "## Procedure",
+            "",
+            _numbered(lab["procedure"]),
+            "",
+            "## Deliverables",
+            "",
+            _bullets(lab["deliverables"]),
+        ]
+    )
+    return "\n".join(lines) + "\n"
+
+
+def assessment_batches(
+    assessment: dict[str, Any], size: int = 10
+) -> list[list[dict[str, Any]]]:
+    questions = assessment["question_bank"]
+    return [questions[index : index + size] for index in range(0, len(questions), size)]
+
+
+def _question_text(question: dict[str, Any], number: int) -> list[str]:
+    lines = [f"{number}. {question['prompt']}"]
+    if question["type"] == "multiple_choice":
+        lines.extend(
+            f"   {chr(65 + index)}. {choice}"
+            for index, choice in enumerate(question.get("choices", []))
+        )
+    return lines
+
+
+def render_assessment_batch(
+    course: dict[str, Any],
+    week: dict[str, Any],
+    assessment: dict[str, Any],
+    questions: list[dict[str, Any]],
+    batch_number: int,
+    institution: dict[str, Any] | None = None,
+) -> str:
+    lines = _header(
+        f"Assessment: {assessment['title']} — Batch {batch_number}",
+        course,
+        week,
+        institution,
+    )
+    lines.extend(
+        [
+            f"- Type: {assessment['type']}",
+            f"- Objectives: {', '.join(assessment['objective_ids'])}",
+            "",
+            "## Questions",
+            "",
+        ]
+    )
+    for number, question in enumerate(questions, 1):
+        lines.extend(_question_text(question, number))
+        lines.append("")
+    return "\n".join(lines).rstrip() + "\n"
+
+
+def render_assessment_key(
+    course: dict[str, Any],
+    week: dict[str, Any],
+    assessment: dict[str, Any],
+    questions: list[dict[str, Any]],
+    batch_number: int,
+    institution: dict[str, Any] | None = None,
+) -> str:
+    lines = _header(
+        f"Assessment Key: {assessment['title']} — Batch {batch_number}",
+        course,
+        week,
+        institution,
+    )
+    lines.extend(["", "## Answers and rubrics", ""])
+    for number, question in enumerate(questions, 1):
+        guidance = question.get("answer") or question.get("rubric") or "Not recorded."
+        lines.append(f"{number}. **{question['id']}** — {guidance}")
+    return "\n".join(lines) + "\n"
+
+
+def render_audit(
+    course: dict[str, Any], week: dict[str, Any], findings: list[str]
+) -> str:
+    lines = [
+        "# Curriculum Relationship Audit",
+        "",
+        f"- Course: {course['title']} (`{course['course_id']}`)",
+        f"- Week: {week['week_number']} — {week['title']}",
+        f"- Result: {'PASS' if not findings else 'REVIEW'}",
+        "",
+        "## Findings",
+        "",
+        _bullets(findings, "No relationship gaps found."),
+    ]
+    return "\n".join(lines) + "\n"

@@ -13,6 +13,13 @@ python -m teos generate --course curriculum/courses/COURSE_ID --week 8
 
 Add `--institution institutions/INSTITUTION_ID.json` to apply an optional
 administrative overlay. Generated Markdown is written to `outputs/` by default.
+One generation run creates:
+
+- Administrative and instructor lesson plans.
+- A guide for each lab.
+- Learner assessments in batches of at most ten questions.
+- Separate answer keys for each assessment batch.
+- A curriculum relationship audit.
 
 An audit returns a nonzero exit status when a valid record has objectives
 without lecture, lab, or assessment alignment. Invalid or broken source

@@ -15,7 +15,15 @@ from teos.records import (
     validate_institution,
     validate_week,
 )
-from teos.render import render_administrative, render_instructor
+from teos.render import (
+    assessment_batches,
+    render_administrative,
+    render_assessment_batch,
+    render_assessment_key,
+    render_audit,
+    render_instructor,
+    render_lab,
+)
 
 
 def _load(args: argparse.Namespace):
@@ -43,18 +51,60 @@ def _generate(args: argparse.Namespace) -> int:
             course, week, institution
         ),
     }
+    documents.update(
+        {
+            output_directory / f"{stem}-lab-{lab['id']}.md": render_lab(
+                course, week, lab, institution
+            )
+            for lab in week["labs"]
+        }
+    )
+    for assessment in week["assessments"]:
+        for batch_number, questions in enumerate(
+            assessment_batches(assessment), start=1
+        ):
+            batch_stem = (
+                output_directory
+                / f"{stem}-assessment-{assessment['id']}-batch-{batch_number:02d}"
+            )
+            documents[Path(f"{batch_stem}.md")] = render_assessment_batch(
+                course,
+                week,
+                assessment,
+                questions,
+                batch_number,
+                institution,
+            )
+            documents[
+                batch_stem.with_name(f"{batch_stem.name}-key.md")
+            ] = render_assessment_key(
+                course,
+                week,
+                assessment,
+                questions,
+                batch_number,
+                institution,
+            )
+    findings = coverage_findings(week)
+    documents[output_directory / f"{stem}-audit.md"] = render_audit(
+        course, week, findings
+    )
     for path, content in documents.items():
         path.write_text(content, encoding="utf-8")
         print(path)
-    findings = coverage_findings(week)
     if findings:
         print(f"Audit: {len(findings)} coverage finding(s); run 'audit' for details.")
     return 0
 
 
 def _audit(args: argparse.Namespace) -> int:
-    _, week, _ = _load(args)
+    course, week, _ = _load(args)
     findings = coverage_findings(week)
+    if args.output:
+        output_path = Path(args.output)
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        output_path.write_text(render_audit(course, week, findings), encoding="utf-8")
+        print(output_path)
     if not findings:
         print("Audit passed: every objective aligns to a lecture, lab, and assessment.")
         return 0
@@ -77,6 +127,8 @@ def build_parser() -> argparse.ArgumentParser:
         command.add_argument("--institution", help="Optional institution overlay JSON")
         if name == "generate":
             command.add_argument("--output", default="outputs", help="Output directory")
+        else:
+            command.add_argument("--output", help="Optional Markdown audit report path")
         command.set_defaults(handler=handler)
     return parser
 

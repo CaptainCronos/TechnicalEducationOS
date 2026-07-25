@@ -19,7 +19,9 @@ Phase 1 supports the immediate Weeks 8–11 lesson-planning workflow:
 4. Measure whether the workflow reduces weekly planning time toward one hour.
 
 See [ROADMAP.md](ROADMAP.md) for the prioritized implementation plan and
-[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for repository boundaries.
+[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for repository boundaries. Use
+[docs/CURRICULUM_AUTHORING.md](docs/CURRICULUM_AUTHORING.md) when loading the
+existing curriculum.
 
 ## Repository map
 

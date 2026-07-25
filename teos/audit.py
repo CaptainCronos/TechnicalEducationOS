@@ -23,4 +23,7 @@ def coverage_findings(week: dict[str, Any]) -> list[str]:
             findings.append(f"{objective_id}: no lab alignment")
         if objective_id not in coverage["assessments"]:
             findings.append(f"{objective_id}: no assessment alignment")
+    for assessment in week["assessments"]:
+        if not assessment["question_bank"]:
+            findings.append(f"{assessment['id']}: question bank is empty")
     return findings

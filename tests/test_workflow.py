@@ -9,7 +9,13 @@ from pathlib import Path
 from teos.audit import coverage_findings
 from teos.cli import main
 from teos.records import RecordError, validate_course, validate_week
-from teos.render import render_administrative, render_instructor
+from teos.render import (
+    assessment_batches,
+    render_administrative,
+    render_assessment_key,
+    render_instructor,
+    render_lab,
+)
 
 
 COURSE = {
@@ -114,9 +120,32 @@ class AuditAndRenderTests(unittest.TestCase):
         self.assertIn(statement, instructor)
         self.assertIn("Completed identification record.", instructor)
 
+    def test_lab_and_assessment_key_derive_from_week(self):
+        lab = render_lab(COURSE, WEEK, WEEK["labs"][0])
+        key = render_assessment_key(
+            COURSE,
+            WEEK,
+            WEEK["assessments"][0],
+            WEEK["assessments"][0]["question_bank"],
+            1,
+        )
+        self.assertIn("Inspect the training component.", lab)
+        self.assertIn("The synthetic component.", key)
+
+    def test_question_bank_is_split_in_batches_of_ten(self):
+        assessment = deepcopy(WEEK["assessments"][0])
+        assessment["question_bank"] = [
+            {**assessment["question_bank"][0], "id": f"q.identify.{index:02d}"}
+            for index in range(1, 24)
+        ]
+        self.assertEqual(
+            [len(batch) for batch in assessment_batches(assessment)],
+            [10, 10, 3],
+        )
+
 
 class CliTests(unittest.TestCase):
-    def test_generate_writes_two_documents(self):
+    def test_generate_writes_all_weekly_documents(self):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
             course_directory = root / "synthetic-101"
@@ -148,6 +177,27 @@ class CliTests(unittest.TestCase):
             )
             self.assertTrue(
                 (output_directory / "synthetic-101-week-08-instructor.md").is_file()
+            )
+            self.assertTrue(
+                (
+                    output_directory
+                    / "synthetic-101-week-08-lab-lab.identify.md"
+                ).is_file()
+            )
+            self.assertTrue(
+                (
+                    output_directory
+                    / "synthetic-101-week-08-assessment-assess.check-batch-01.md"
+                ).is_file()
+            )
+            self.assertTrue(
+                (
+                    output_directory
+                    / "synthetic-101-week-08-assessment-assess.check-batch-01-key.md"
+                ).is_file()
+            )
+            self.assertTrue(
+                (output_directory / "synthetic-101-week-08-audit.md").is_file()
             )
 
 
