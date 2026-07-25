@@ -61,5 +61,5 @@ an additive refinement, not a forced migration.
   objective or activity text into document-specific sources.
 - The model records only details present in the approved curriculum.
 - A week may generate multiple administrative plans, one per daily lesson.
-- Markdown remains the Phase 1 rendering target. A future Word renderer can
-  consume the same records without changing curriculum ownership.
+- The model is independent of output format. ADR 0003 subsequently adds the
+  production J-Tech Word presentation without changing curriculum ownership.

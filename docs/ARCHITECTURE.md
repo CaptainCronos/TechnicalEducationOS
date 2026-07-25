@@ -39,6 +39,10 @@ has an unambiguous data model, and avoids a package-management dependency.
 - Generators are deterministic: identical inputs produce identical content.
 - Renderers contain document presentation; curriculum records contain teaching
   knowledge.
+- Institution presentation adapters contain institution-specific labels,
+  typography, layout, and template integration. The J-Tech Administrative
+  adapter lives in `teos/institutions/jtech.py`; generic validation and source
+  records do not depend on it.
 - Daily administrative plans are generated once per lesson. Academic and shop
   activity links participate in the same objective-coverage audit as explicit
   lecture and lab records.

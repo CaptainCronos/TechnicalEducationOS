@@ -1,39 +1,43 @@
 # Phase 1 Roadmap
 
-This roadmap implements the priorities in `PROJECT_HANDOFF.md`. Work is ordered
-by instructor value and dependency, not by speculative future capability.
+This roadmap implements the current priority within `PROJECT_HANDOFF.md`.
+Phase 1 is limited to completing one production-quality J-Tech Administrative
+Lesson Plan pipeline before expanding output types.
 
-## P0 — Weekly lesson workflow
+## P0 — Authoritative daily-plan records
 
-- Define authoritative course and week source-record contracts.
-- Validate objective → lecture → lab → assessment → competency relationships.
-- Generate administrative and instructor lesson plans from one weekly record.
-- Prove the workflow with synthetic tests, then load the existing Weeks 8–11
-  curriculum without rewriting it.
+- Preserve existing curriculum in course and week records.
+- Validate objective, competency, activity, and assessment relationships.
+- Require every populated instructional field to resolve to a structured
+  curriculum value.
 
-Success check: an instructor can select a course and week, review the source,
-make minor adjustments, and generate both lesson plans.
+Success check: a daily plan can be projected without invented or duplicated
+instructional content.
 
-## P1 — Assessment and audit workflow
+## P1 — Production J-Tech DOCX
 
-- Generate assessments from source question banks in batches of ten.
-- Add coverage audits for unassessed objectives, disconnected labs, and missing
-  competency mappings.
-- Produce a concise curriculum audit report.
+- Use the official blank form as the institutional package/branding base.
+- Keep all labels, layout, typography, spacing, and reflection prompts in the
+  J-Tech presentation layer.
+- Match the organization, density, usability, and two-page presentation of the
+  approved FUN101 Week 7 plans.
+- Generate one disposable DOCX per daily lesson.
 
-Success check: assessment and relationship gaps are visible without manually
-comparing documents.
+Success check: current source records produce plans that are functionally
+equivalent to the approved production standard.
 
-## P2 — Workflow refinement
+## P2 — Acceptance
 
-- Measure planning time for Weeks 8–11.
-- Refine templates based on real instructor use.
-- Capture reusable teaching notes and improvements in the source records.
+- Open generated plans in J-Tech's supported Microsoft Word environment.
+- Obtain instructor/administrative acceptance.
+- Record planning-time impact and any presentation-only corrections.
 
-Success check: weekly planning approaches the constitutional target of one
-hour, and improvements survive between semesters.
+Success check: the Administrative Lesson Plan pipeline is accepted for routine
+use and preserves the one-authoritative-source workflow.
 
-## Deferred until Phase 1 succeeds
+## Deferred
 
-LMS, student information, mentoring, accreditation management, commercial
-platform work, and generic product architecture remain out of scope.
+Instructor Lesson Plans, quizzes, labs, PowerPoint outlines, question-bank
+generation, LMS work, mentoring, accreditation management, program reporting,
+and broader platform work remain deferred until the Administrative Lesson Plan
+pipeline is accepted.

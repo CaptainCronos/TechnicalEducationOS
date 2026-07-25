@@ -401,9 +401,91 @@ class ApprovedLessonPlanTests(unittest.TestCase):
         self.assertNotIn("Summer/Week 1", rendered)
         self.assertNotIn("AUT-218 Advanced Technology", rendered)
         self.assertNotIn("3Hrs 45min", rendered)
-        self.assertIn("Week 5 / Day 1", rendered)
-        self.assertIn("Course: DSL204", rendered)
+        self.assertIn(
+            "DSL204 – Week 5 Day 1 Administrative Lesson Plan",
+            rendered,
+        )
         self.assertIn("4 Hrs (2 Hrs Classroom / 2 Hrs Shop)", rendered)
+
+    def test_renderer_matches_approved_fun101_presentation_contract(self):
+        content = render_administrative_docx(
+            ADMINISTRATIVE_TEMPLATE,
+            self.course,
+            self.week,
+            self.week["lessons"][0],
+        )
+        approved_path = (
+            REPOSITORY_ROOT
+            / "templates"
+            / "jtech"
+            / "FUN101 – Week 7 Day 1 Administrative Lesson Plan.docx"
+        )
+        with zipfile.ZipFile(io.BytesIO(content)) as generated:
+            document = ElementTree.fromstring(
+                generated.read("word/document.xml")
+            )
+            self.assertNotIn("FUN101", document_bytes_text(content))
+        with zipfile.ZipFile(approved_path) as approved:
+            approved_document = ElementTree.fromstring(
+                approved.read("word/document.xml")
+            )
+
+        def headings(document):
+            return [
+                "".join(
+                    node.text or ""
+                    for node in paragraph.findall(".//w:t", WORD_NAMESPACE)
+                )
+                for paragraph in document.findall(".//w:p", WORD_NAMESPACE)
+                if (
+                    (style := paragraph.find("./w:pPr/w:pStyle", WORD_NAMESPACE))
+                    is not None
+                    and style.get(
+                        "{http://schemas.openxmlformats.org/wordprocessingml/2006/main}val"
+                    )
+                    == "Heading2"
+                )
+            ]
+
+        generated_headings = headings(document)
+        for heading in headings(approved_document):
+            self.assertIn(heading, generated_headings)
+        title_style = document.find(
+            ".//w:body/w:p/w:pPr/w:pStyle", WORD_NAMESPACE
+        )
+        self.assertEqual(
+            title_style.get(
+                "{http://schemas.openxmlformats.org/wordprocessingml/2006/main}val"
+            ),
+            "Heading1",
+        )
+        table = document.find(".//w:body/w:tbl", WORD_NAMESPACE)
+        self.assertIsNotNone(table)
+        rows = table.findall("./w:tr", WORD_NAMESPACE)
+        self.assertEqual(len(rows), 5)
+        self.assertTrue(
+            all(
+                len(row.findall("./w:tc", WORD_NAMESPACE)) == 2
+                for row in rows
+            )
+        )
+        list_items = [
+            "".join(
+                node.text or ""
+                for node in paragraph.findall(".//w:t", WORD_NAMESPACE)
+            )
+            for paragraph in document.findall(".//w:p", WORD_NAMESPACE)
+            if (
+                (style := paragraph.find("./w:pPr/w:pStyle", WORD_NAMESPACE))
+                is not None
+                and style.get(
+                    "{http://schemas.openxmlformats.org/wordprocessingml/2006/main}val"
+                )
+                == "ListParagraph"
+            )
+        ]
+        self.assertTrue(list_items)
+        self.assertTrue(list_items[0].startswith("• "))
 
     def test_template_renderer_populates_second_approved_lesson(self):
         lesson = self.week["lessons"][1]

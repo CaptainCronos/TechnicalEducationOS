@@ -10,18 +10,22 @@ before proposing architectural changes.
 
 ## Phase 1
 
-Phase 1 supports the immediate Weeks 8–11 lesson-planning workflow:
+The active Phase 1 work is intentionally limited to one production-quality
+pipeline: J-Tech Administrative Lesson Plans.
 
 1. Record existing course and weekly curriculum without rewriting it.
-2. Validate relationships between objectives, instruction, labs, assessments,
-   and competencies.
-3. Generate consistent instructional documents.
-4. Measure whether the workflow reduces weekly planning time toward one hour.
+2. Validate the structured relationships used by each daily plan.
+3. Generate a finished J-Tech Administrative Lesson Plan for each lesson.
+4. Verify curriculum provenance and presentation quality against approved
+   plans.
 
 See [ROADMAP.md](ROADMAP.md) for the prioritized implementation plan and
 [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for repository boundaries. Use
 [docs/CURRICULUM_AUTHORING.md](docs/CURRICULUM_AUTHORING.md) when loading the
 existing curriculum.
+
+Instructor Lesson Plans, quizzes, labs, PowerPoint outlines, and other output
+pipelines remain out of active Phase 1 scope.
 
 ## Repository map
 

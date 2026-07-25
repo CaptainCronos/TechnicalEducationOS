@@ -1,8 +1,10 @@
 # TEOS application
 
-This package contains the Phase 1 command-line workflow, validation, audits,
-and document renderers. It reads authoritative records and writes only
-generated outputs.
+This package contains the command-line workflow, validation, audits, and
+document renderers. It reads authoritative records and writes only generated
+outputs. Active Phase 1 development and acceptance are limited to the J-Tech
+Administrative Lesson Plan DOCX pipeline; the older general generators remain
+available but are not being expanded in this phase.
 
 From the repository root:
 
@@ -41,10 +43,11 @@ python -m teos generate-administrative \
   --template templates/jtech/admin_lesson_plan_template.docx
 ```
 
-This writes one DOCX per daily lesson. The renderer uses only the Python
-standard library, preserves the template package and header artwork, replaces
-the template placeholders, and appends the curriculum-backed sections required
-by the approved plans.
+This writes one DOCX per daily lesson. The J-Tech presentation adapter uses
+only the Python standard library, preserves the official template package and
+header artwork, and constructs the finished two-page presentation demonstrated
+by the approved FUN101 Week 7 plans. Every populated instructional value still
+comes from the validated course/week records.
 
 An audit returns a nonzero exit status when a valid record has objectives
 without lecture, lab, or assessment alignment. Invalid or broken source
