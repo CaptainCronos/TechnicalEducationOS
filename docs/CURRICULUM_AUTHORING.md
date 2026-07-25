@@ -1,62 +1,41 @@
-# Recording Existing Curriculum (Legacy Compatibility)
+# Curriculum Authoring
 
-This guide applies to the existing course/week pipeline while TEOS migrates to
-course blueprints and structured curriculum models. New architecture work must
-follow the governing specifications in `docs/specifications/`.
+Author curriculum in instructional order, never calendar order.
 
-This workflow transcribes existing curriculum into authoritative compatibility
-records. It does not invite curriculum redesign or direct extraction from
-slides into generated artifacts.
+1. Define the course identity, standards, competencies, and modules in
+   `course.json`.
+2. Define each reusable instructional unit in `units/*.json`. A unit owns its
+   objectives, lecture material, demonstrations, labs, assessments, resources,
+   and estimated instructional time.
+3. Divide units into the ordered meetings required to teach them in
+   `sessions.json`. A session references exactly one unit and may select a phase
+   and objective subset.
+4. Validate the calendar-independent curriculum:
 
-## Create a course
+   ```bash
+   python -m teos build --course curriculum/courses/COURSE_ID
+   ```
 
-1. Create `curriculum/courses/COURSE_ID/course.json`.
-2. Record the course identity and its existing competencies using
-   `schemas/course.schema.json`.
-3. Create a `weeks/` directory beneath the course.
+5. Separately define an institution-specific calendar and generate a schedule:
 
-Use stable lowercase IDs. IDs are references, not display text, so they should
-not change when wording is corrected.
+   ```bash
+   python -m teos schedule \
+     --course curriculum/courses/COURSE_ID \
+     --calendar institutions/INSTITUTION_ID/calendars/COURSE_ID-TERM.json \
+     --output outputs/COURSE_ID-TERM-schedule.json
+   ```
 
-## Record a week
+6. Render a canonical session directly, or resolve a calendar alias first:
 
-Create `weeks/08.json`, `weeks/09.json`, and so on using
-`schemas/week.schema.json`.
+   ```bash
+   python -m teos render --course curriculum/courses/COURSE_ID --session 12
 
-- Write each objective statement once in `objectives`.
-- Reference objective IDs from lectures, labs, assessments, and questions.
-- Reference course competency IDs from objectives.
-- Preserve practical instructor knowledge in `instructor_notes`,
-  `safety_notes`, and `teaching_notes`.
-- Preserve existing assessment answers or rubrics in the question bank; they
-  are emitted only into separate key documents.
-- If an approved plan is organized by instructional day, record it in
-  `lessons`. Use typed activities for its warm-up, academic, shop, and exit
-  work. Do not invent lecture durations, lab procedures, deliverables, or
-  assessment questions that are absent from the source.
-- An observational or performance assessment may use `description` without a
-  `question_bank`.
+   python -m teos render \
+     --course curriculum/courses/COURSE_ID \
+     --week 5 --day 2 \
+     --schedule outputs/COURSE_ID-TERM-schedule.json
+   ```
 
-Do not copy document headings, institution names, or formatting into curriculum
-fields.
-
-## Check before generating
-
-```bash
-python -m teos audit --course curriculum/courses/COURSE_ID --week 8
-```
-
-Validation errors indicate broken or malformed source relationships. Audit
-findings indicate valid records that need instructional review, such as an
-objective without a lab or assessment. An audit finding should be resolved from
-the existing curriculum or explicitly reviewed by the instructor—never filled
-with invented content just to make the audit pass.
-
-## Generate
-
-```bash
-python -m teos generate --course curriculum/courses/COURSE_ID --week 8
-```
-
-Review changes in the source record and regenerate. Do not correct generated
-files directly.
+Never edit a generated lesson plan, guide, calendar, or LMS export as curriculum.
+Change the unit or session and regenerate. The `weeks/` format and the
+`generate --week` commands exist only to reproduce legacy approved artifacts.

@@ -1,7 +1,12 @@
 # Course Blueprint Specification
 
-Status: Governing  
-Version: 1.0
+Status: Superseded by ADR 0005
+Version: 1.1
+
+> This specification is retained for design history. It must not be used to
+> place calendar, term, week, or meeting data above the Session boundary. Course
+> scope belongs to canonical curriculum; offering-specific constraints belong
+> to an Academic Calendar consumed by the Scheduler.
 
 ## Purpose
 

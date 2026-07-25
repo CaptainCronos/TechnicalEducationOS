@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://technicaleducationos.local/schemas/academic-calendar.schema.json",
+  "title": "TechnicalEducationOS academic calendar",
+  "type": "object",
+  "required": ["schema_version", "calendar_id", "course_id", "meeting_slots"],
+  "properties": {
+    "schema_version": {"const": "2.0"},
+    "calendar_id": {"type": "string", "minLength": 1},
+    "course_id": {"type": "string", "minLength": 1},
+    "meeting_slots": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["date"],
+        "properties": {
+          "date": {"type": "string", "format": "date"},
+          "available": {"type": "boolean"},
+          "duration_minutes": {"type": "integer", "minimum": 1},
+          "reason": {"type": "string"},
+          "aliases": {
+            "type": "object",
+            "properties": {
+              "week": {"type": "integer", "minimum": 1},
+              "day": {"type": "integer", "minimum": 1}
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://technicaleducationos.local/schemas/session-plan.schema.json",
+  "title": "TechnicalEducationOS session plan",
+  "type": "object",
+  "required": ["schema_version", "course_id", "sessions"],
+  "properties": {
+    "schema_version": {"const": "2.0"},
+    "course_id": {"$ref": "#/$defs/id"},
+    "sessions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "session_number",
+          "unit_id",
+          "title",
+          "phase",
+          "duration_minutes",
+          "objective_ids"
+        ],
+        "properties": {
+          "id": {"$ref": "#/$defs/id"},
+          "session_number": {"type": "integer", "minimum": 1},
+          "unit_id": {"$ref": "#/$defs/id"},
+          "title": {"type": "string", "minLength": 1},
+          "phase": {
+            "enum": ["theory", "demonstration", "lab", "assessment", "integrated"]
+          },
+          "duration_minutes": {"type": "integer", "minimum": 1},
+          "objective_ids": {"$ref": "#/$defs/id_list"},
+          "instruction": {"type": "object"}
+        }
+      }
+    }
+  },
+  "$defs": {
+    "id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]*$"},
+    "id_list": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/id"}
+    }
+  }
+}

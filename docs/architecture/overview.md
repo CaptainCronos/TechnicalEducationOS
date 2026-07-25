@@ -1,7 +1,7 @@
 # TEOS Architecture Overview
 
 Status: Governing  
-Version: 1.0  
+Version: 2.0
 Date: 2026-07-25
 
 ## Purpose
@@ -19,22 +19,26 @@ change without silently redefining the others.
 └──────────────────────────┬───────────────────────────────┘
                            │ register, extract, cite
                            ▼
-                  ┌──────────────────┐
-                  │ Course Blueprint │
-                  │ scope + schedule │
-                  └────────┬─────────┘
-                           │ compile + review
+                  ┌─────────────────────┐
+                  │ Curriculum Compiler │
+                  └──────────┬──────────┘
+                             │ compile + review
                            ▼
              ┌───────────────────────────┐
              │ Structured Curriculum     │
              │ Model                     │
-             │ objectives, instruction,  │
-             │ labs, assessments, safety │
+             │ competencies → units      │
+             │ → ordered sessions        │
              └─────────────┬─────────────┘
-                           │ validate + render
+                           │
+                  ┌────────▼─────────┐
+                  │ Scheduler        │
+                  │ calendar mapping │
+                  └────────┬─────────┘
+                           │ resolved sessions
              ┌─────────────┴──────────────────┐
              ▼                                ▼
-     Educational artifacts          Trace and audit products
+     Educational artifacts          Calendar/administrative views
 ```
 
 ## Major subsystems
@@ -50,19 +54,19 @@ state, and addressable locations. It contains three layers:
 
 Registration does not make extracted content an approved curriculum decision.
 
-### Course blueprint
-
-Defines a course before individual artifacts exist. It reconciles course
-requirements with the academic calendar and available instructional time,
-producing scope and sequence, competency allocation, assessment windows, and a
-week-based schedule projection.
-
 ### Structured curriculum model
 
-Owns approved instructional meaning: competencies, objectives, units,
-meetings, activities, demonstrations, labs, assessments, safety requirements,
-tools, materials, time estimates, and source references. It is the sole
-educational-content input to artifact renderers.
+Owns approved instructional meaning in this order: course, modules,
+competencies, instructional units, and sessions. Units own coherent instruction
+and sessions divide that instruction into ordered meetings. Neither object
+contains weeks, semesters, dates, or institution calendars.
+
+### Scheduler
+
+Maps ordered sessions onto available academic-calendar meeting slots. It honors
+closures and availability by skipping unavailable slots and shifting later
+sessions. It emits a disposable schedule projection and never mutates the
+course, unit, or session records.
 
 ### Traceability service
 
@@ -103,8 +107,8 @@ affected approvals and outputs stale; it does not rewrite them silently.
 - Every source-derived assertion carries a citation or explicit authoring
   decision.
 - Institution-specific overlays cannot replace standards or curriculum facts.
-- Calendars schedule curriculum entities; weeks do not own duplicate copies of
-  them.
+- Calendars map sessions to dates; weeks and days are aliases in that mapping.
+- A calendar selector resolves to a session before a renderer is invoked.
 - Generated artifacts carry a manifest identifying model, renderer, template,
   and generation versions.
 - Original source files and generated outputs are not committed when licensing,
@@ -112,11 +116,10 @@ affected approvals and outputs stale; it does not rewrite them silently.
 
 ## Compatibility strategy
 
-The current `curriculum/courses/<course>/weeks/` records combine curriculum and
-schedule concerns but already enforce valuable relationships. They remain valid
-inputs to the existing renderers. Migration will map them into blueprint and
-model entities, compare generated output, and only then retire direct legacy
-paths.
+`curriculum/courses/<course>/weeks/` is a read-only compatibility path for
+reproducing previously approved artifacts. It is not an authoring surface.
+Canonical courses use `course.json`, `units/*.json`, and `sessions.json`;
+institution-specific calendars live below `calendars/` and generate schedules.
 
 ## Related specifications
 

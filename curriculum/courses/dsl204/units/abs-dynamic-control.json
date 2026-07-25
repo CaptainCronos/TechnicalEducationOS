@@ -1,0 +1,140 @@
+{
+  "schema_version": "2.0",
+  "id": "unit.abs-dynamic-control",
+  "course_id": "dsl204",
+  "title": "Antilock Braking and Vehicle Dynamic Control",
+  "competency_ids": [
+    "cdx.37.1-37.4",
+    "cdx.37.5-37.9"
+  ],
+  "objectives": [
+    {
+      "id": "obj.abs-fundamentals",
+      "statement": "Explain how an antilock braking system (ABS) prevents wheel lock-up, describe FMVSS 121 system requirements, and identify basic ABS components and configurations.",
+      "competency_ids": [
+        "cdx.37.1-37.4"
+      ]
+    },
+    {
+      "id": "obj.vehicle-dynamic-control",
+      "statement": "Describe the purpose and operation of traction control, rollover protection, directional stability, and collision avoidance systems, and identify maintenance and service procedures for these systems.",
+      "competency_ids": [
+        "cdx.37.5-37.9"
+      ]
+    }
+  ],
+  "lectures": [
+    {
+      "id": "lecture.day-1",
+      "title": "Chapter 37 – ABS Fundamentals, Requirements, Components, and Configurations (CDX LO 37-1 – 37-4)",
+      "objective_ids": [
+        "obj.abs-fundamentals"
+      ]
+    },
+    {
+      "id": "lecture.day-2",
+      "title": "Chapter 37 – Vehicle Dynamic Control, Rollover/Stability, Collision Avoidance, and Service (CDX LO 37-5 – 37-9)",
+      "objective_ids": [
+        "obj.vehicle-dynamic-control"
+      ]
+    }
+  ],
+  "demonstrations": [
+    {
+      "id": "demonstration.day-1",
+      "title": "Chapter 37 – ABS Fundamentals, Requirements, Components, and Configurations (CDX LO 37-1 – 37-4) Demonstration",
+      "objective_ids": [
+        "obj.abs-fundamentals"
+      ]
+    },
+    {
+      "id": "demonstration.day-2",
+      "title": "Chapter 37 – Vehicle Dynamic Control, Rollover/Stability, Collision Avoidance, and Service (CDX LO 37-5 – 37-9) Demonstration",
+      "objective_ids": [
+        "obj.vehicle-dynamic-control"
+      ]
+    }
+  ],
+  "labs": [
+    {
+      "id": "lab.day-1",
+      "title": "Chapter 37 – ABS Fundamentals, Requirements, Components, and Configurations (CDX LO 37-1 – 37-4) Lab",
+      "objective_ids": [
+        "obj.abs-fundamentals"
+      ],
+      "procedure": [
+        "Locate and identify ABS components (ECU, wheel speed sensors, modulator valves) on a shop tractor and trailer.",
+        "Trace the trailer ABS power and warning-lamp circuit from the stop-lamp connector to the ABS module.",
+        "Perform a Chuff Test to validate modulator valve operation.",
+        "Identify the ABS configuration (sensors/modulators) on the shop vehicle and compare it to the service manual.",
+        "Retrieve and record ABS fault information using a diagnostic scan tool or blink codes."
+      ],
+      "deliverables": [
+        "Students identify ABS components on a tractor/trailer diagram and state the sensor/modulator configuration for a given axle count."
+      ],
+      "safety_notes": [
+        "Assuming a trailer with no power to the ABS module has a bad ECU rather than checking the stop-lamp circuit first.",
+        "Ignoring a sensor air-gap check after wheel-end service.",
+        "Misreading the ABS configuration and ordering the wrong replacement modulator or sensor.",
+        "Skipping the Chuff Test and assuming a modulator is good without functional verification."
+      ]
+    },
+    {
+      "id": "lab.day-2",
+      "title": "Chapter 37 – Vehicle Dynamic Control, Rollover/Stability, Collision Avoidance, and Service (CDX LO 37-5 – 37-9) Lab",
+      "objective_ids": [
+        "obj.vehicle-dynamic-control"
+      ],
+      "procedure": [
+        "Locate the steering angle sensor, yaw sensor/stability control module, and lateral acceleration sensor on a shop vehicle.",
+        "Verify sensor air gap and mounting on a wheel end after simulated service work.",
+        "Locate the CAS front radar sensor and discuss its alignment sensitivity after bumper contact.",
+        "Use OEM or scan-tool software to view active and inactive faults and system configuration data.",
+        "Perform a wheel speed sensor and rolling-circumference ratio check between steer and drive axle tires."
+      ],
+      "deliverables": [
+        "Students explain the difference between ATC, RSC, DSC, and CAS, and identify which sensors require special attention after service work."
+      ],
+      "safety_notes": [
+        "Reinstalling a yaw/stability control module in a different location or orientation than the original.",
+        "Failing to recheck steering angle sensor calibration after front-end alignment work.",
+        "Overlooking a CAS front sensor misalignment after bumper contact.",
+        "Ignoring the rolling-circumference ratio between steer and drive tires after a tire change."
+      ]
+    }
+  ],
+  "assessments": [
+    {
+      "id": "assess.day-1",
+      "title": "Day 1 observation and practical assessment",
+      "type": "formative",
+      "objective_ids": [
+        "obj.abs-fundamentals"
+      ],
+      "description": "Instructor observation, guided questioning during component identification, participation in the shop rotation, practical demonstration of the Chuff Test and fault-code retrieval, and exit activity."
+    },
+    {
+      "id": "assess.day-2",
+      "title": "Day 2 observation and practical assessment",
+      "type": "formative",
+      "objective_ids": [
+        "obj.vehicle-dynamic-control"
+      ],
+      "description": "Instructor observation, guided questioning during sensor location and inspection, participation in the shop rotation, practical demonstration of sensor air-gap verification and fault review, and exit activity."
+    }
+  ],
+  "required_resources": [
+    "ABS wiring diagrams",
+    "CAS radar sensor location diagram",
+    "CDX Chapter 37 presentation",
+    "diagnostic scan tool",
+    "inspection checklist",
+    "manufacturer service manual",
+    "multimeter",
+    "shop tractor/trailer with ABS",
+    "shop tractor/trailer with ABS/ATC and stability control",
+    "steering angle sensor location diagram",
+    "wheel speed sensor and modulator valve samples or shop units"
+  ],
+  "estimated_minutes": 480
+}

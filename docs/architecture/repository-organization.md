@@ -1,7 +1,7 @@
 # Repository Organization Standard
 
 Status: Governing  
-Version: 1.0
+Version: 2.0
 
 ## Ownership rule
 
@@ -16,17 +16,17 @@ produced outputs, and prohibited content.
 |---|---|---|---|
 | `docs/` | governing prose, decisions, and authoring guidance | approved architectural decisions | people and implementation work |
 | `knowledge/standards/` | registered educational and regulatory requirements | ASE, FMCSA, OSHA, OEM, and institutional outcomes | blueprint and model references |
-| `knowledge/institutional/` | calendars, schedules, policies, and delivery constraints | approved institutional records | blueprint constraints |
+| `knowledge/institutional/` | calendars, schedules, policies, and delivery constraints | approved institutional records | Scheduler inputs |
 | `knowledge/instructional/` | teaching resources and source locators | presentations, notes, manuals, labs, videos | reviewed model references |
-| `curriculum/blueprints/` | course scope, sequence, time, and allocation | knowledge records and course requirements | curriculum compiler |
+| `curriculum/blueprints/` | reusable design inputs without calendar ownership | knowledge records and course requirements | curriculum compiler |
 | `curriculum/models/` | approved renderer-ready curriculum meaning | approved blueprint and reviewed evidence | validators, renderers, audits |
 | `curriculum/mappings/` | explicit crosswalks and migration maps | stable IDs from two or more authorities | compilation and impact analysis |
-| `curriculum/courses/` | legacy course/week source records | transcribed approved curriculum | current validators and renderers |
+| `curriculum/courses/` | courses, modules, competencies, units, and sessions | compiled/reviewed curriculum | validators, Scheduler, renderers |
 | `schemas/` | machine-readable contracts | governing specifications | validators, editors, automation |
 | `renderers/` | artifact projection contracts and implementations | approved model plus presentation configuration | generated artifacts |
-| `teos/` | current Python application and compatibility pipeline | validated source records and configuration | audits and outputs |
+| `teos/` | validation, Scheduler, alias resolver, renderers, and compatibility pipeline | validated source records and configuration | schedules, audits, and artifacts |
 | `templates/` | layout, styles, labels, and branding assets | approved presentation designs | renderers |
-| `institutions/` | institution configuration and administrative overlays | approved institution data | compilation and presentation adapters |
+| `institutions/` | institution configuration, academic calendars, and administrative overlays | approved institution data | Scheduler and presentation adapters |
 | `outputs/` | generated artifacts and build manifests | renderer results | instructors, students, reviewers, integrations |
 | `tests/` | synthetic fixtures and automated verification | schemas, compiler, and renderer behavior | validation evidence |
 | `scripts/` | thin repeatable workflow entry points | supported commands | developer/operator workflows |
@@ -48,7 +48,11 @@ curriculum/
   blueprints/
   models/
   mappings/
-  courses/              # compatibility records during migration
+  courses/
+    <course-id>/
+      course.json
+      units/
+      sessions.json
 renderers/
 outputs/
 schemas/

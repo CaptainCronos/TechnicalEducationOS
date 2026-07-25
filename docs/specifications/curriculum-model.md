@@ -1,7 +1,7 @@
 # Structured Curriculum Model Specification
 
 Status: Governing  
-Version: 1.0
+Version: 2.0
 
 ## Purpose
 
@@ -29,7 +29,7 @@ Only an approved model may produce release artifacts.
 | Competency | demonstrable course capability and required-standard references |
 | Learning objective | measurable instructional outcome and competency links |
 | Unit | coherent scope, sequence, prerequisites, and time estimate |
-| Meeting assignment | placement of model entities into a blueprint meeting |
+| Session | ordered instructional meeting, unit reference, phase, objective subset, and time |
 | Instructional activity | delivery method, objective links, time, and resources |
 | Demonstration | instructor performance, conditions, safety, tools, and observation points |
 | Lab | student performance, procedure, safety, tools, materials, deliverables, and criteria |
@@ -55,7 +55,7 @@ An instructional unit MUST define:
 - source/resource references;
 - safety requirements or an explicit reviewed `not_applicable` disposition;
 - required tools and materials or an explicit reviewed disposition; and
-- placement or placement constraints from the blueprint.
+- the ordered sessions required to deliver it.
 
 Labs, demonstrations, and assessment items are required only when called for by
 the blueprint, standards, or approved curriculum design. Their absence MUST
@@ -76,10 +76,10 @@ draft content remains an `author_decision` in draft state until human approval.
 
 ## Scheduling separation
 
-Educational entities own meaning; blueprint meetings own available time;
-meeting assignments connect the two. The model MAY expose a week-based
-projection, but that projection references stable entities and MUST NOT become
-a second authoritative copy.
+Educational entities own meaning. Sessions provide instructional order without
+dates. Academic calendars own available meeting slots, and the Scheduler emits
+the session-to-date mapping. A week-based projection may exist only as aliases
+in that mapping and MUST NOT become a second authoritative copy.
 
 ## Validation classes
 
@@ -89,7 +89,7 @@ Schema validity, unique IDs, allowed values, and required fields.
 
 ### Referential
 
-All blueprint, source, standard, objective, activity, assessment, and resource
+All source, standard, objective, activity, assessment, unit, session, and resource
 references resolve to permitted versions.
 
 ### Semantic
@@ -105,8 +105,8 @@ the traceability policy.
 
 ### Temporal
 
-Assigned time fits blueprint meetings, prerequisites are respected, and totals
-reconcile.
+Unit estimates reconcile with session time, prerequisites are respected, and a
+Scheduler reports whether available calendar slots can complete the course.
 
 ### Renderer readiness
 
@@ -118,7 +118,7 @@ The model emits a versioned renderer-ready package, trace graph, validation
 report, change summary, and dependency manifest. A model is never reconstructed
 from its generated documents.
 
-## Legacy migration
+## Deprecated compatibility mapping
 
 Existing course/week records map as follows:
 
@@ -127,7 +127,7 @@ Existing course/week records map as follows:
 - lectures and typed activities → instructional activities;
 - labs → lab entities;
 - assessments and question banks → assessment entities and items;
-- lessons → meeting assignments plus week projection;
+- lessons → sessions; historical week/day labels → calendar aliases;
 - teaching and safety notes → source-derived or author-decision records.
 
 Migration MUST retain existing stable IDs where valid and compare current

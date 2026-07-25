@@ -16,10 +16,11 @@ Read the [repository constitution](PROJECT_HANDOFF.md), then the
 
 ```text
 knowledge/                  curriculum/                 outputs/
-standards ──────────┐       blueprints                  lesson plans
-institutional ──────┼─────> models ─────> renderers ──> labs
-instructional ──────┘       mappings                    assessments
-                                                       reports
+standards ──────────┐       competencies                lesson plans
+instructional ──────┼─────> units ──> sessions ──────> labs
+institutional ──────┘       modules          │          assessments
+                                             ├─ scheduler ─> calendars
+                                             └─ renderers ─> reports/LMS
 ```
 
 Every renderer consumes a validated curriculum model. No educational artifact
@@ -30,8 +31,7 @@ may be generated directly from a slide deck, source PDF, calendar, or template.
 - `docs/` — governing architecture, specifications, decisions, and guidance.
 - `knowledge/` — registered standards, institutional resources, and
   instructional resources with provenance.
-- `curriculum/` — course blueprints, curriculum models, mappings, and legacy
-  course/week records.
+- `curriculum/` — courses, modules, competencies, units, sessions, and mappings.
 - `schemas/` — machine-readable data contracts.
 - `renderers/` — renderer contracts and artifact-specific implementations.
 - `teos/` — current Python validation, audit, and generation application.
@@ -44,11 +44,11 @@ may be generated directly from a slide deck, source PDF, calendar, or template.
 The full ownership and input/output rules are defined in the
 [Repository Organization Standard](docs/architecture/repository-organization.md).
 
-## Current transition
+## Current model
 
-The existing DSL204 week records and lesson-plan renderers remain working
-assets. They are not being discarded. They represent an earlier source model
-that will migrate behind the blueprint and curriculum-model boundary as those
-contracts become executable.
+Curriculum is authored as competencies, instructional units, and ordered
+sessions. Academic calendars only map those sessions to dates. Week/day
+requests are resolved through a generated schedule before rendering. Legacy
+week records remain read-only inputs solely for reproducing approved documents.
 
 See [ROADMAP.md](ROADMAP.md) for the current milestone sequence.

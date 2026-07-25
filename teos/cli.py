@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import json
 import sys
 from pathlib import Path
 
@@ -11,11 +12,14 @@ from teos.docx import render_administrative_docx
 from teos.records import (
     RecordError,
     load_course,
+    load_curriculum,
     load_json,
     load_week,
     validate_institution,
     validate_week,
 )
+from teos.scheduler import resolve_session, schedule_sessions
+from teos.session_render import SESSION_RENDERERS
 from teos.render import (
     assessment_batches,
     render_administrative,
@@ -158,12 +162,131 @@ def _generate_administrative(args: argparse.Namespace) -> int:
     return 0
 
 
+def _build_curriculum(args: argparse.Namespace) -> int:
+    course, units, sessions = load_curriculum(Path(args.course))
+    print(
+        f"Build passed: {course['course_id']} has {len(units)} instructional "
+        f"unit(s) and {len(sessions)} session(s)."
+    )
+    return 0
+
+
+def _schedule(args: argparse.Namespace) -> int:
+    course, _, sessions = load_curriculum(Path(args.course))
+    calendar = load_json(Path(args.calendar))
+    schedule = schedule_sessions(course, sessions, calendar)
+    output_path = Path(args.output)
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    output_path.write_text(
+        json.dumps(schedule, indent=2) + "\n",
+        encoding="utf-8",
+    )
+    print(output_path)
+    return 0
+
+
+def _render_session(args: argparse.Namespace) -> int:
+    course, units, sessions = load_curriculum(Path(args.course))
+    if args.day is not None and args.week is None:
+        raise RecordError("--day may only be used with --week")
+    session_number = args.session
+    if args.week is not None or args.date is not None:
+        if not args.schedule:
+            raise RecordError(
+                "calendar aliases require --schedule; renderers never interpret "
+                "weeks or dates directly"
+            )
+        schedule = load_json(Path(args.schedule))
+        session_number = resolve_session(
+            schedule,
+            week=args.week,
+            day=args.day,
+            meeting_date=args.date,
+        )
+    elif session_number is None:
+        raise RecordError("render requires --session, --date, or --week with --day")
+
+    session = next(
+        (
+            item
+            for item in sessions
+            if item["session_number"] == session_number
+        ),
+        None,
+    )
+    if session is None:
+        raise RecordError(f"session {session_number} not found")
+    unit = next(item for item in units if item["id"] == session["unit_id"])
+    institution = None
+    if args.institution:
+        institution = load_json(Path(args.institution))
+        validate_institution(institution)
+
+    artifact_names = (
+        list(SESSION_RENDERERS) if args.artifact == "all" else [args.artifact]
+    )
+    output_directory = Path(args.output)
+    output_directory.mkdir(parents=True, exist_ok=True)
+    for artifact_name in artifact_names:
+        content = SESSION_RENDERERS[artifact_name](
+            course,
+            unit,
+            session,
+            institution,
+        )
+        path = (
+            output_directory
+            / f"{course['course_id']}-session-{session_number:03d}-{artifact_name}.md"
+        )
+        path.write_text(content, encoding="utf-8")
+        print(path)
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="teos",
         description="Validate, audit, and generate documents from curriculum records.",
     )
     subparsers = parser.add_subparsers(dest="command", required=True)
+    build = subparsers.add_parser(
+        "build",
+        help="Validate the canonical course, units, and sessions",
+    )
+    build.add_argument("--course", required=True, help="Course record directory")
+    build.set_defaults(handler=_build_curriculum)
+
+    schedule = subparsers.add_parser(
+        "schedule",
+        help="Map canonical sessions onto an academic calendar",
+    )
+    schedule.add_argument("--course", required=True, help="Course record directory")
+    schedule.add_argument("--calendar", required=True, help="Academic calendar JSON")
+    schedule.add_argument("--output", required=True, help="Generated schedule JSON")
+    schedule.set_defaults(handler=_schedule)
+
+    render = subparsers.add_parser(
+        "render",
+        help="Render artifacts from a session or resolved calendar alias",
+    )
+    render.add_argument("--course", required=True, help="Course record directory")
+    selectors = render.add_mutually_exclusive_group(required=False)
+    selectors.add_argument("--session", type=int, help="Canonical session number")
+    selectors.add_argument("--date", help="Scheduled meeting date (YYYY-MM-DD)")
+    selectors.add_argument("--week", type=int, help="Calendar week alias")
+    render.add_argument("--day", type=int, help="Day alias used with --week")
+    render.add_argument("--schedule", help="Generated schedule for alias resolution")
+    render.add_argument(
+        "--artifact",
+        choices=["all", *SESSION_RENDERERS],
+        default="all",
+    )
+    render.add_argument("--institution", help="Optional institution overlay JSON")
+    render.add_argument("--output", default="outputs", help="Output directory")
+    render.set_defaults(handler=_render_session)
+
+    # Deprecated commands remain temporarily available for reproducibility of
+    # approved artifacts. New authoring and renderer work uses the commands above.
     for name, handler in (("generate", _generate), ("audit", _audit)):
         command = subparsers.add_parser(name)
         command.add_argument("--course", required=True, help="Course record directory")

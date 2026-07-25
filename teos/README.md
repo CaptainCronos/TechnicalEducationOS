@@ -1,58 +1,35 @@
 # TEOS application
 
-This package contains the current command-line compatibility workflow,
-validation, audits, and document renderers. It reads authoritative legacy
-course/week records and writes only generated outputs. The implementation
-remains operational while TEOS introduces knowledge ingestion, course
-blueprints, and structured curriculum models upstream. New renderer work must
-follow the governing educational-artifact contract.
-
-From the repository root:
+The application validates canonical course/unit/session records, schedules
+sessions onto institution calendars, resolves calendar aliases, and renders
+artifacts from the resolved session.
 
 ```bash
-python -m teos audit --course curriculum/courses/COURSE_ID --week 8
-python -m teos generate --course curriculum/courses/COURSE_ID --week 8
-```
+python -m teos build --course curriculum/courses/dsl204
 
-Add `--institution institutions/INSTITUTION_ID/institution.json` to apply an
-optional administrative overlay. Generated Markdown is written to `outputs/`
-by default. One generation run creates:
-
-- One administrative plan per daily lesson (or one weekly plan for the original
-  lecture/lab representation) and an instructor lesson plan.
-- A guide for each lab.
-- Learner assessments in batches of at most ten questions.
-- Separate answer keys for each assessment batch.
-- A curriculum relationship audit.
-
-The approved DSL204 Week 5 proof can be regenerated with:
-
-```bash
-python -m teos generate \
+python -m teos schedule \
   --course curriculum/courses/dsl204 \
-  --week 5 \
-  --institution institutions/j-tech/institution.json
-```
+  --calendar institutions/j-tech/calendars/dsl204-fall-2026.json \
+  --output outputs/dsl204-fall-2026-schedule.json
 
-To populate the official blank J-Tech Administrative Lesson Plan template
-directly, run the administrative-only command:
-
-```bash
-python -m teos generate-administrative \
+python -m teos render \
   --course curriculum/courses/dsl204 \
-  --week 5 \
-  --template templates/jtech/admin_lesson_plan_template.docx
+  --session 2 \
+  --artifact all
+
+python -m teos render \
+  --course curriculum/courses/dsl204 \
+  --week 5 --day 2 \
+  --schedule outputs/dsl204-fall-2026-schedule.json
 ```
 
-This writes one DOCX per daily lesson. The J-Tech presentation adapter uses
-only the Python standard library, preserves the official template package and
-header artwork, and constructs the finished two-page presentation demonstrated
-by the approved FUN101 Week 7 plans. Every populated instructional value still
-comes from the validated course/week records.
+The scheduler skips unavailable slots without changing curriculum. Renderers
+receive only a resolved session and its instructional unit; they never consume
+weeks or calendar dates.
 
-An audit returns a nonzero exit status when a valid record has objectives
-without lecture, lab, or assessment alignment. Invalid or broken source
-relationships return exit status 2.
+`generate`, `audit`, and `generate-administrative` are deprecated compatibility
+commands for reproducing approved week-based artifacts. Do not use them for new
+curriculum.
 
 Run the dependency-free test suite with:
 

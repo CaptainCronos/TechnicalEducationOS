@@ -1,7 +1,7 @@
 # Data Flow Specification
 
 Status: Governing  
-Version: 1.0
+Version: 2.0
 
 ## Permitted pipeline
 
@@ -15,19 +15,17 @@ external sources
 2. extract/normalize ──> addressable knowledge records
     │
     ▼
-3. design ──> draft course blueprint
-    │              │ human review
-    │              ▼
-    │         approved blueprint
-    ▼
-4. compile ──> draft structured curriculum model
+3. compile ──> draft structured curriculum model
                    │ human review + validation
                    ▼
               approved curriculum model
                    │
-          ┌────────┴────────┐
-          ▼                 ▼
-5. render artifacts   6. audit/trace reports
+          ┌────────┴───────────────┐
+          ▼                        ▼
+4. schedule sessions       5. audit/trace reports
+          │
+          ▼
+6. resolve session ──> render artifacts
 ```
 
 ## Stage contracts
@@ -36,9 +34,10 @@ external sources
 |---|---|---|---|
 | Register | external file, URL, or authoritative record | source manifest and preserved/referenceable original | identity, version, rights, checksum, provenance |
 | Extract | registered source package | structured, addressable records and citations | fidelity, locator validity, extraction method |
-| Design | standards, institutional constraints, course requirements | course blueprint | time feasibility, required coverage, conflicts |
-| Compile | approved blueprint and reviewed knowledge references | structured curriculum model and trace graph | schema, references, coverage, safety, time |
-| Render | approved curriculum model, renderer configuration, optional template | artifact and generation manifest | model approval, renderer prerequisites, deterministic identity |
+| Compile | standards and reviewed knowledge references | competencies, units, sessions, and trace graph | schema, references, coverage, safety, instructional time |
+| Schedule | sessions and one institutional calendar | session-to-date mapping | closures, availability, slot capacity, completion |
+| Resolve | session ID or calendar alias plus generated schedule | canonical session | unique alias and valid session reference |
+| Render | resolved session, its instructional unit, renderer configuration, optional template | artifact and generation manifest | model approval, renderer prerequisites, deterministic identity |
 | Audit | versioned sources, blueprint, model, and manifests | coverage, gap, impact, and accreditation reports | graph integrity and freshness |
 
 ## Prohibited flows
@@ -51,6 +50,8 @@ standard PDF ─────────X──> assessment
 template placeholder ─X──> curriculum fact
 generated artifact ───X──> curriculum model
 institution overlay ──X──> replacement objective
+academic calendar ─────X──> curriculum mutation
+week/day alias ─────────X──> renderer
 ```
 
 Source files may be shown or cited inside an artifact only through an approved
@@ -76,7 +77,7 @@ Instead TEOS:
 
 1. registers a new source or record version;
 2. identifies affected trace paths;
-3. marks dependent blueprints, models, and artifacts stale;
+3. marks dependent units, sessions, schedules, and artifacts stale;
 4. recompiles drafts;
 5. presents semantic changes for review; and
 6. generates new artifacts only after required approval.
@@ -92,7 +93,6 @@ Instead TEOS:
 
 ## Legacy bridge
 
-Until blueprint and model schemas are executable, existing validated course/week
-records may flow through current renderers. That compatibility path is
-explicitly transitional and MUST NOT be used to justify new direct
-instructional-resource-to-renderer dependencies.
+Existing validated course/week records may flow only through deprecated
+compatibility renderers to reproduce approved artifacts. New curriculum,
+scheduling, and renderer work MUST use units and sessions.

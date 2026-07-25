@@ -1,15 +1,31 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "2.0",
   "course_id": "dsl204",
   "title": "DSL204",
+  "description": "Heavy-duty vehicle braking, antilock braking, and vehicle dynamic control systems.",
+  "credit_hours": 3,
+  "contact_hours": 8,
+  "standards": [
+    "CDX Chapter 37 learning outcomes",
+    "ASE Medium/Heavy Truck standards"
+  ],
   "competencies": [
     {
       "id": "cdx.37.1-37.4",
-      "statement": "CDX Chapter 37 learning objectives 37-1 through 37-4 and shop safety outcomes."
+      "statement": "CDX Chapter 37 learning objectives 37-1 through 37-4 and shop safety outcomes.",
+      "standard_ids": ["CDX.37.1", "CDX.37.2", "CDX.37.3", "CDX.37.4"]
     },
     {
       "id": "cdx.37.5-37.9",
-      "statement": "CDX Chapter 37 learning objectives 37-5 through 37-9 and shop safety outcomes."
+      "statement": "CDX Chapter 37 learning objectives 37-5 through 37-9 and shop safety outcomes.",
+      "standard_ids": ["CDX.37.5", "CDX.37.6", "CDX.37.7", "CDX.37.8", "CDX.37.9"]
+    }
+  ],
+  "modules": [
+    {
+      "id": "module.vehicle-safety-controls",
+      "title": "Vehicle Safety Controls",
+      "unit_ids": ["unit.abs-dynamic-control"]
     }
   ]
 }

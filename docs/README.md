@@ -23,8 +23,7 @@ The documents below define how that constitution is implemented.
 - `decisions/` — accepted architectural decision records.
 - `blueprints/` — blueprint authoring and review guidance.
 - `standards/` — standards-specific ingestion guidance.
-- `CURRICULUM_AUTHORING.md` — legacy course/week authoring guidance during
-  migration.
+- `CURRICULUM_AUTHORING.md` — canonical unit/session authoring and scheduling.
 
 Normative terms such as **MUST**, **MUST NOT**, **SHOULD**, and **MAY** describe
 requirements, recommendations, and permitted options respectively.

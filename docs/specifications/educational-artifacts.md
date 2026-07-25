@@ -1,7 +1,7 @@
 # Educational Artifact Specification
 
 Status: Governing  
-Version: 1.0
+Version: 2.0
 
 ## Purpose
 
@@ -32,6 +32,10 @@ Every renderer MUST declare:
 - security rules, including separation of student and answer-key content;
 - output naming and packaging rules; and
 - validation and failure behavior.
+
+Every invocation receives a resolved Session and its Instructional Unit.
+Calendar dates and week/day aliases MUST be resolved by the Scheduler boundary
+before invocation and are never instructional renderer inputs.
 
 ## Allowed renderer behavior
 
@@ -68,7 +72,7 @@ Each released artifact or artifact package MUST be accompanied by metadata
 containing:
 
 - artifact ID, type, audience, format, and generation time;
-- course, offering, blueprint, and model IDs/versions;
+- course, unit, session, schedule (when applicable), and model IDs/versions;
 - renderer and template IDs/versions;
 - compiler/build version;
 - relevant trace-edge or trace-bundle ID;

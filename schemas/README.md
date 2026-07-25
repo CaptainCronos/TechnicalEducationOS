@@ -9,8 +9,11 @@ tools, compilers, renderers, and tests.
 
 Current executable schemas:
 
-- `course.schema.json` — legacy course record;
-- `week.schema.json` — legacy weekly curriculum record;
+- `course.schema.json` — calendar-independent course, competency, and module record;
+- `instructional-unit.schema.json` — reusable instructional unit;
+- `session-plan.schema.json` — ordered canonical sessions;
+- `academic-calendar.schema.json` — institution-specific meeting availability;
+- `week.schema.json` — deprecated read-only compatibility record;
 - `institution.schema.json` — institution overlay.
 
 Blueprint, knowledge-source, curriculum-model, traceability, and artifact

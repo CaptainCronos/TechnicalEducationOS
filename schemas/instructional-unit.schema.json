@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://technicaleducationos.local/schemas/instructional-unit.schema.json",
+  "title": "TechnicalEducationOS instructional unit",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "id",
+    "course_id",
+    "title",
+    "competency_ids",
+    "objectives",
+    "lectures",
+    "demonstrations",
+    "labs",
+    "assessments",
+    "required_resources",
+    "estimated_minutes"
+  ],
+  "properties": {
+    "schema_version": {"const": "2.0"},
+    "id": {"$ref": "#/$defs/id"},
+    "course_id": {"$ref": "#/$defs/id"},
+    "title": {"type": "string", "minLength": 1},
+    "competency_ids": {"$ref": "#/$defs/id_list"},
+    "objectives": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "statement", "competency_ids"],
+        "properties": {
+          "id": {"$ref": "#/$defs/id"},
+          "statement": {"type": "string", "minLength": 1},
+          "competency_ids": {"$ref": "#/$defs/id_list"}
+        }
+      }
+    },
+    "lectures": {"type": "array", "items": {"$ref": "#/$defs/component"}},
+    "demonstrations": {"type": "array", "items": {"$ref": "#/$defs/component"}},
+    "labs": {"type": "array", "items": {"$ref": "#/$defs/component"}},
+    "assessments": {"type": "array", "items": {"$ref": "#/$defs/component"}},
+    "required_resources": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "estimated_minutes": {"type": "integer", "minimum": 1}
+  },
+  "$defs": {
+    "id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]*$"},
+    "id_list": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/id"}
+    },
+    "component": {
+      "type": "object",
+      "required": ["id", "title", "objective_ids"],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"},
+        "title": {"type": "string", "minLength": 1},
+        "objective_ids": {"$ref": "#/$defs/id_list"}
+      }
+    }
+  }
+}

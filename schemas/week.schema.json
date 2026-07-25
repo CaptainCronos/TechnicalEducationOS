@@ -1,7 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://technicaleducationos.local/schemas/week.schema.json",
-  "title": "TechnicalEducationOS weekly curriculum record",
+  "title": "DEPRECATED: TechnicalEducationOS weekly compatibility record",
+  "description": "Read-only compatibility schema. New curriculum uses instructional units and sessions.",
   "type": "object",
   "additionalProperties": false,
   "required": [
