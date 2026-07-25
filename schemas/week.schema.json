@@ -14,6 +14,10 @@
     "labs",
     "assessments"
   ],
+  "anyOf": [
+    {"properties": {"lectures": {"minItems": 1}}},
+    {"required": ["lessons"]}
+  ],
   "properties": {
     "schema_version": {"const": "1.0"},
     "course_id": {"$ref": "#/$defs/id"},
@@ -43,7 +47,6 @@
     },
     "lectures": {
       "type": "array",
-      "minItems": 1,
       "items": {"$ref": "#/$defs/lecture"}
     },
     "labs": {
@@ -53,6 +56,11 @@
     "assessments": {
       "type": "array",
       "items": {"$ref": "#/$defs/assessment"}
+    },
+    "lessons": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/lesson"}
     },
     "teaching_notes": {
       "type": "array",
@@ -124,7 +132,7 @@
     "assessment": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["id", "title", "type", "objective_ids", "question_bank"],
+      "required": ["id", "title", "type", "objective_ids"],
       "properties": {
         "id": {"$ref": "#/$defs/id"},
         "title": {"type": "string", "minLength": 1},
@@ -132,10 +140,95 @@
           "enum": ["diagnostic", "formative", "summative"]
         },
         "objective_ids": {"$ref": "#/$defs/id_list"},
+        "description": {"type": "string", "minLength": 1},
         "question_bank": {
           "type": "array",
           "items": {"$ref": "#/$defs/question"}
         }
+      }
+    },
+    "lesson": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "day_number",
+        "title",
+        "objective_ids",
+        "duration",
+        "objective_summary",
+        "essential_question",
+        "materials",
+        "terminology",
+        "activities",
+        "assessment_ids"
+      ],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"},
+        "day_number": {"type": "integer", "minimum": 1},
+        "title": {"type": "string", "minLength": 1},
+        "objective_ids": {"$ref": "#/$defs/id_list"},
+        "duration": {"$ref": "#/$defs/duration"},
+        "objective_summary": {"type": "string", "minLength": 1},
+        "essential_question": {"type": "string", "minLength": 1},
+        "materials": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1}
+        },
+        "terminology": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1}
+        },
+        "activities": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"$ref": "#/$defs/activity"}
+        },
+        "assessment_ids": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/id"}
+        },
+        "industry_applications": {"type": "string", "minLength": 1},
+        "common_technician_errors": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1}
+        },
+        "instructor_shop_tip": {"type": "string", "minLength": 1},
+        "homework": {"type": "string", "minLength": 1},
+        "flex_activities": {"type": "string", "minLength": 1}
+      }
+    },
+    "duration": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["total_minutes", "segments"],
+      "properties": {
+        "total_minutes": {"type": "integer", "minimum": 1},
+        "segments": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["label", "minutes"],
+            "properties": {
+              "label": {"type": "string", "minLength": 1},
+              "minutes": {"type": "integer", "minimum": 1}
+            }
+          }
+        }
+      }
+    },
+    "activity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "category", "description", "objective_ids"],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"},
+        "category": {
+          "enum": ["warm_up", "academic", "shop", "exit"]
+        },
+        "description": {"type": "string", "minLength": 1},
+        "objective_ids": {"$ref": "#/$defs/id_list"}
       }
     },
     "question": {

@@ -1,0 +1,359 @@
+{
+  "schema_version": "1.0",
+  "course_id": "dsl204",
+  "week_number": 5,
+  "title": "Chapter 37",
+  "objectives": [
+    {
+      "id": "obj.abs-fundamentals",
+      "statement": "Explain how an antilock braking system (ABS) prevents wheel lock-up, describe FMVSS 121 system requirements, and identify basic ABS components and configurations.",
+      "competency_ids": [
+        "cdx.37.1-37.4"
+      ]
+    },
+    {
+      "id": "obj.vehicle-dynamic-control",
+      "statement": "Describe the purpose and operation of traction control, rollover protection, directional stability, and collision avoidance systems, and identify maintenance and service procedures for these systems.",
+      "competency_ids": [
+        "cdx.37.5-37.9"
+      ]
+    }
+  ],
+  "lectures": [],
+  "labs": [],
+  "assessments": [
+    {
+      "id": "assess.day-1",
+      "title": "Day 1 observation and practical assessment",
+      "type": "formative",
+      "objective_ids": [
+        "obj.abs-fundamentals"
+      ],
+      "description": "Instructor observation, guided questioning during component identification, participation in the shop rotation, practical demonstration of the Chuff Test and fault-code retrieval, and exit activity."
+    },
+    {
+      "id": "assess.day-2",
+      "title": "Day 2 observation and practical assessment",
+      "type": "formative",
+      "objective_ids": [
+        "obj.vehicle-dynamic-control"
+      ],
+      "description": "Instructor observation, guided questioning during sensor location and inspection, participation in the shop rotation, practical demonstration of sensor air-gap verification and fault review, and exit activity."
+    }
+  ],
+  "lessons": [
+    {
+      "id": "lesson.day-1",
+      "day_number": 1,
+      "title": "Chapter 37 – ABS Fundamentals, Requirements, Components, and Configurations (CDX LO 37-1 – 37-4)",
+      "objective_ids": [
+        "obj.abs-fundamentals"
+      ],
+      "duration": {
+        "total_minutes": 240,
+        "segments": [
+          {
+            "label": "Classroom",
+            "minutes": 120
+          },
+          {
+            "label": "Shop",
+            "minutes": 120
+          }
+        ]
+      },
+      "objective_summary": "Students will describe ABS fundamentals and their stopping-distance and steering-control benefits, identify FMVSS 121 system requirements, describe ABS components (ECU, wheel speed sensors, modulator valves) and their functions, and identify common tractor and trailer ABS configurations.",
+      "essential_question": "Why does preventing wheel lock-up improve both stopping distance and steering control at the same time?",
+      "materials": [
+        "CDX Chapter 37 presentation",
+        "shop tractor/trailer with ABS",
+        "ABS wiring diagrams",
+        "wheel speed sensor and modulator valve samples or shop units",
+        "diagnostic scan tool",
+        "multimeter",
+        "manufacturer service manual",
+        "inspection checklist"
+      ],
+      "terminology": [
+        "ABS",
+        "FMVSS 121",
+        "electronic control unit (ECU)",
+        "wheel speed sensor",
+        "modulator valve",
+        "exhaust / hold / reapply",
+        "Chuff Test",
+        "4S/4M",
+        "6S/4M",
+        "6S/6M",
+        "power line carrier"
+      ],
+      "activities": [
+        {
+          "id": "activity.day-1.warm-up",
+          "category": "warm_up",
+          "description": "Students discuss a time they felt a vehicle's brakes pulse or grab during hard braking and relate the sensation to wheel lock-up.",
+          "objective_ids": [
+            "obj.abs-fundamentals"
+          ]
+        },
+        {
+          "id": "activity.day-1.academic-1",
+          "category": "academic",
+          "description": "Discuss how ABS electronically measures individual wheel speeds and modulates brake pressure to stay just below the wheel lock-up threshold.",
+          "objective_ids": [
+            "obj.abs-fundamentals"
+          ]
+        },
+        {
+          "id": "activity.day-1.academic-2",
+          "category": "academic",
+          "description": "Review FMVSS 121 stopping-distance and stability requirements and how they apply to tractors, trailers, and converter dollies.",
+          "objective_ids": [
+            "obj.abs-fundamentals"
+          ]
+        },
+        {
+          "id": "activity.day-1.academic-3",
+          "category": "academic",
+          "description": "Identify ABS components and their functions: the ECU, wheel speed sensors, modulator valves, and the trailer ABS power and warning-lamp circuit.",
+          "objective_ids": [
+            "obj.abs-fundamentals"
+          ]
+        },
+        {
+          "id": "activity.day-1.academic-4",
+          "category": "academic",
+          "description": "Explain the three phases of the antilock braking cycle – exhaust, hold, and reapply – and the purpose of the Chuff Test.",
+          "objective_ids": [
+            "obj.abs-fundamentals"
+          ]
+        },
+        {
+          "id": "activity.day-1.academic-5",
+          "category": "academic",
+          "description": "Compare common tractor configurations (4S/4M, 6S/4M, 6S/6M) and trailer configurations (2S/1M through 4S/3M).",
+          "objective_ids": [
+            "obj.abs-fundamentals"
+          ]
+        },
+        {
+          "id": "activity.day-1.shop-1",
+          "category": "shop",
+          "description": "Locate and identify ABS components (ECU, wheel speed sensors, modulator valves) on a shop tractor and trailer.",
+          "objective_ids": [
+            "obj.abs-fundamentals"
+          ]
+        },
+        {
+          "id": "activity.day-1.shop-2",
+          "category": "shop",
+          "description": "Trace the trailer ABS power and warning-lamp circuit from the stop-lamp connector to the ABS module.",
+          "objective_ids": [
+            "obj.abs-fundamentals"
+          ]
+        },
+        {
+          "id": "activity.day-1.shop-3",
+          "category": "shop",
+          "description": "Perform a Chuff Test to validate modulator valve operation.",
+          "objective_ids": [
+            "obj.abs-fundamentals"
+          ]
+        },
+        {
+          "id": "activity.day-1.shop-4",
+          "category": "shop",
+          "description": "Identify the ABS configuration (sensors/modulators) on the shop vehicle and compare it to the service manual.",
+          "objective_ids": [
+            "obj.abs-fundamentals"
+          ]
+        },
+        {
+          "id": "activity.day-1.shop-5",
+          "category": "shop",
+          "description": "Retrieve and record ABS fault information using a diagnostic scan tool or blink codes.",
+          "objective_ids": [
+            "obj.abs-fundamentals"
+          ]
+        },
+        {
+          "id": "activity.day-1.exit",
+          "category": "exit",
+          "description": "Students identify ABS components on a tractor/trailer diagram and state the sensor/modulator configuration for a given axle count.",
+          "objective_ids": [
+            "obj.abs-fundamentals"
+          ]
+        }
+      ],
+      "assessment_ids": [
+        "assess.day-1"
+      ],
+      "industry_applications": "ABS is standard on tractors, trailers, and converter dollies, is common on motor coaches, and is increasingly used on agricultural and construction equipment operating on public roads; the same wheel-speed-sensor and modulator-valve principles apply across air and hydraulic brake systems.",
+      "common_technician_errors": [
+        "Assuming a trailer with no power to the ABS module has a bad ECU rather than checking the stop-lamp circuit first.",
+        "Ignoring a sensor air-gap check after wheel-end service.",
+        "Misreading the ABS configuration and ordering the wrong replacement modulator or sensor.",
+        "Skipping the Chuff Test and assuming a modulator is good without functional verification."
+      ],
+      "instructor_shop_tip": "A lit ABS lamp doesn't always mean a bad ABS. Check the simple things first — connector, ground, and stop-lamp power — before you condemn the module.",
+      "homework": "Complete Chapter 37 review questions 1–5 and review the ABS configuration and wiring diagram for the shop's demonstration tractor/trailer.",
+      "flex_activities": "If time allows, incorporate the “You Are the Technician” case study discussion from the chapter opener. Early finishers may trace the ABS circuit on a second unit."
+    },
+    {
+      "id": "lesson.day-2",
+      "day_number": 2,
+      "title": "Chapter 37 – Vehicle Dynamic Control, Rollover/Stability, Collision Avoidance, and Service (CDX LO 37-5 – 37-9)",
+      "objective_ids": [
+        "obj.vehicle-dynamic-control"
+      ],
+      "duration": {
+        "total_minutes": 240,
+        "segments": [
+          {
+            "label": "Classroom",
+            "minutes": 120
+          },
+          {
+            "label": "Shop",
+            "minutes": 120
+          }
+        ]
+      },
+      "objective_summary": "Students will describe automatic traction control (ATC) and its two control strategies, describe roll stability control (RSC) and directional stability control (DSC) operation, describe collision avoidance system (CAS) components including adaptive cruise control, and identify maintenance and service procedures for ABS, stability, and CAS sensors.",
+      "essential_question": "Why must a sensor that is disturbed during unrelated repair work, such as an alignment, be checked before a stability-equipped vehicle is returned to service?",
+      "materials": [
+        "CDX Chapter 37 presentation",
+        "shop tractor/trailer with ABS/ATC and stability control",
+        "diagnostic scan tool",
+        "steering angle sensor location diagram",
+        "CAS radar sensor location diagram",
+        "manufacturer service manual",
+        "inspection checklist"
+      ],
+      "terminology": [
+        "Automatic traction control (ATC/ASR)",
+        "differential braking",
+        "torque limiting",
+        "fishtailing",
+        "roll stability control (RSC)",
+        "lateral acceleration sensor",
+        "tripped vs. untripped rollover",
+        "directional stability control (DSC)",
+        "yaw sensor",
+        "collision avoidance system (CAS)",
+        "adaptive cruise control (ACC)"
+      ],
+      "activities": [
+        {
+          "id": "activity.day-2.warm-up",
+          "category": "warm_up",
+          "description": "Students review Day 1 ABS fundamentals and discuss a situation where a truck could jackknife, fishtail, or roll over.",
+          "objective_ids": [
+            "obj.vehicle-dynamic-control"
+          ]
+        },
+        {
+          "id": "activity.day-2.academic-1",
+          "category": "academic",
+          "description": "Discuss automatic traction control (ATC/ASR) and its two control strategies: engine torque limiting and differential braking.",
+          "objective_ids": [
+            "obj.vehicle-dynamic-control"
+          ]
+        },
+        {
+          "id": "activity.day-2.academic-2",
+          "category": "academic",
+          "description": "Explain roll stability control (RSC), the role of the lateral acceleration sensor, and the difference between tripped and untripped rollovers.",
+          "objective_ids": [
+            "obj.vehicle-dynamic-control"
+          ]
+        },
+        {
+          "id": "activity.day-2.academic-3",
+          "category": "academic",
+          "description": "Describe directional stability control (DSC), yaw control, and the strategies DSC uses to help a driver maintain the vehicle's intended path.",
+          "objective_ids": [
+            "obj.vehicle-dynamic-control"
+          ]
+        },
+        {
+          "id": "activity.day-2.academic-4",
+          "category": "academic",
+          "description": "Introduce collision avoidance systems (CAS), radar detection range, and adaptive cruise control (ACC) operation.",
+          "objective_ids": [
+            "obj.vehicle-dynamic-control"
+          ]
+        },
+        {
+          "id": "activity.day-2.academic-5",
+          "category": "academic",
+          "description": "Review maintenance and service procedures, including which sensors require special attention after wheel-end, alignment, or bumper repair work.",
+          "objective_ids": [
+            "obj.vehicle-dynamic-control"
+          ]
+        },
+        {
+          "id": "activity.day-2.shop-1",
+          "category": "shop",
+          "description": "Locate the steering angle sensor, yaw sensor/stability control module, and lateral acceleration sensor on a shop vehicle.",
+          "objective_ids": [
+            "obj.vehicle-dynamic-control"
+          ]
+        },
+        {
+          "id": "activity.day-2.shop-2",
+          "category": "shop",
+          "description": "Verify sensor air gap and mounting on a wheel end after simulated service work.",
+          "objective_ids": [
+            "obj.vehicle-dynamic-control"
+          ]
+        },
+        {
+          "id": "activity.day-2.shop-3",
+          "category": "shop",
+          "description": "Locate the CAS front radar sensor and discuss its alignment sensitivity after bumper contact.",
+          "objective_ids": [
+            "obj.vehicle-dynamic-control"
+          ]
+        },
+        {
+          "id": "activity.day-2.shop-4",
+          "category": "shop",
+          "description": "Use OEM or scan-tool software to view active and inactive faults and system configuration data.",
+          "objective_ids": [
+            "obj.vehicle-dynamic-control"
+          ]
+        },
+        {
+          "id": "activity.day-2.shop-5",
+          "category": "shop",
+          "description": "Perform a wheel speed sensor and rolling-circumference ratio check between steer and drive axle tires.",
+          "objective_ids": [
+            "obj.vehicle-dynamic-control"
+          ]
+        },
+        {
+          "id": "activity.day-2.exit",
+          "category": "exit",
+          "description": "Students explain the difference between ATC, RSC, DSC, and CAS, and identify which sensors require special attention after service work.",
+          "objective_ids": [
+            "obj.vehicle-dynamic-control"
+          ]
+        }
+      ],
+      "assessment_ids": [
+        "assess.day-2"
+      ],
+      "industry_applications": "Traction control, rollover protection, directional stability, and collision avoidance systems are standard on modern tractors and are increasingly required on trailers, motor coaches, and other heavy vehicles operating in fleets with safety-technology mandates.",
+      "common_technician_errors": [
+        "Reinstalling a yaw/stability control module in a different location or orientation than the original.",
+        "Failing to recheck steering angle sensor calibration after front-end alignment work.",
+        "Overlooking a CAS front sensor misalignment after bumper contact.",
+        "Ignoring the rolling-circumference ratio between steer and drive tires after a tire change."
+      ],
+      "instructor_shop_tip": "Any time you touch a wheel end, an alignment, or a bumper, ask yourself what sensor lives there. On a stability-equipped truck, that question is the difference between a clean repair and a comeback.",
+      "homework": "Complete Chapter 37 review questions 6–10 and review which sensors on the shop's demonstration vehicle require special attention after service work.",
+      "flex_activities": "If time allows, run the end-of-chapter review questions as a class discussion. Early finishers can research an OEM service bulletin related to ABS/stability sensor calibration."
+    }
+  ]
+}

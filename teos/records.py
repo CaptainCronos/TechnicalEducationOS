@@ -102,6 +102,20 @@ def _validate_references(
             )
 
 
+def _validate_objective_id_list(
+    values: Any, valid_objectives: set[str], context: str
+) -> None:
+    references = _list(values, context, allow_empty=False)
+    unknown = {
+        _identifier(value, context) for value in references
+    } - valid_objectives
+    if unknown:
+        raise RecordError(
+            f"{context} references unknown objectives: "
+            f"{', '.join(sorted(unknown))}"
+        )
+
+
 def validate_course(course: dict[str, Any]) -> None:
     _required(
         course,
@@ -165,10 +179,13 @@ def validate_week(course: dict[str, Any], week: dict[str, Any]) -> None:
         items = _list(
             week[field],
             f"week.{field}",
-            allow_empty=field != "lectures",
+            allow_empty=True,
         )
         _unique_ids(items, f"week.{field}")
         _validate_references(items, objective_ids, f"week.{field}")
+    lessons = _list(week.get("lessons", []), "week.lessons")
+    if not week["lectures"] and not lessons:
+        raise RecordError("week must contain at least one lecture or daily lesson")
 
     for index, lecture in enumerate(week["lectures"]):
         if (
@@ -207,9 +224,18 @@ def validate_week(course: dict[str, Any], week: dict[str, Any]) -> None:
                 "or summative"
             )
         questions = _list(
-            assessment.get("question_bank"),
+            assessment.get("question_bank", []),
             f"week.assessments[{index}].question_bank",
         )
+        if not questions and not assessment.get("description"):
+            raise RecordError(
+                f"week.assessments[{index}] must contain a description or questions"
+            )
+        if assessment.get("description") is not None:
+            _text(
+                assessment["description"],
+                f"week.assessments[{index}].description",
+            )
         _unique_ids(questions, f"week.assessments[{index}].question_bank")
         _validate_references(
             questions,
@@ -227,6 +253,149 @@ def validate_week(course: dict[str, Any], week: dict[str, Any]) -> None:
                     f"week.assessments[{index}].question_bank[{question_index}].type "
                     "is invalid"
                 )
+
+    assessments_by_id = {
+        item["id"]: item for item in week["assessments"]
+    }
+    _unique_ids(lessons, "week.lessons")
+    day_numbers: set[int] = set()
+    for index, lesson in enumerate(lessons):
+        context = f"week.lessons[{index}]"
+        _required(
+            lesson,
+            (
+                "id",
+                "day_number",
+                "title",
+                "objective_ids",
+                "duration",
+                "objective_summary",
+                "essential_question",
+                "materials",
+                "terminology",
+                "activities",
+                "assessment_ids",
+            ),
+            context,
+        )
+        day_number = lesson["day_number"]
+        if not isinstance(day_number, int) or day_number < 1:
+            raise RecordError(f"{context}.day_number must be a positive integer")
+        if day_number in day_numbers:
+            raise RecordError(f"duplicate day_number {day_number} in week.lessons")
+        day_numbers.add(day_number)
+        _text(lesson["title"], f"{context}.title")
+        for field in ("objective_summary", "essential_question"):
+            _text(lesson[field], f"{context}.{field}")
+        _validate_objective_id_list(
+            lesson["objective_ids"], objective_ids, f"{context}.objective_ids"
+        )
+
+        duration = lesson["duration"]
+        if not isinstance(duration, dict):
+            raise RecordError(f"{context}.duration must be an object")
+        total = duration.get("total_minutes")
+        if not isinstance(total, int) or total < 1:
+            raise RecordError(
+                f"{context}.duration.total_minutes must be a positive integer"
+            )
+        segments = _list(
+            duration.get("segments"), f"{context}.duration.segments"
+        )
+        segment_total = 0
+        for segment_index, segment in enumerate(segments):
+            if not isinstance(segment, dict):
+                raise RecordError(
+                    f"{context}.duration.segments[{segment_index}] must be an object"
+                )
+            _text(
+                segment.get("label"),
+                f"{context}.duration.segments[{segment_index}].label",
+            )
+            minutes = segment.get("minutes")
+            if not isinstance(minutes, int) or minutes < 1:
+                raise RecordError(
+                    f"{context}.duration.segments[{segment_index}].minutes "
+                    "must be a positive integer"
+                )
+            segment_total += minutes
+        if segments and segment_total != total:
+            raise RecordError(
+                f"{context}.duration segments must total {total} minutes"
+            )
+
+        for field in ("materials", "terminology"):
+            values = _list(lesson[field], f"{context}.{field}")
+            for value_index, value in enumerate(values):
+                _text(value, f"{context}.{field}[{value_index}]")
+
+        activities = _list(
+            lesson["activities"], f"{context}.activities", allow_empty=False
+        )
+        _unique_ids(activities, f"{context}.activities")
+        _validate_references(
+            activities,
+            objective_ids,
+            f"{context}.activities",
+            label_field="description",
+        )
+        lesson_objective_ids = set(lesson["objective_ids"])
+        categories = {"warm_up", "academic", "shop", "exit"}
+        for activity_index, activity in enumerate(activities):
+            if activity.get("category") not in categories:
+                raise RecordError(
+                    f"{context}.activities[{activity_index}].category is invalid"
+                )
+            unrelated = set(activity["objective_ids"]) - lesson_objective_ids
+            if unrelated:
+                raise RecordError(
+                    f"{context}.activities[{activity_index}] references objectives "
+                    f"outside its lesson: {', '.join(sorted(unrelated))}"
+                )
+        for required_category in ("warm_up", "exit"):
+            count = sum(
+                activity["category"] == required_category for activity in activities
+            )
+            if count != 1:
+                raise RecordError(
+                    f"{context}.activities must contain exactly one "
+                    f"{required_category} activity"
+                )
+
+        referenced_assessments = {
+            _identifier(value, f"{context}.assessment_ids")
+            for value in _list(lesson["assessment_ids"], f"{context}.assessment_ids")
+        }
+        unknown_assessments = referenced_assessments - assessments_by_id.keys()
+        if unknown_assessments:
+            raise RecordError(
+                f"lesson {lesson['id']!r} references unknown assessments: "
+                f"{', '.join(sorted(unknown_assessments))}"
+            )
+        for assessment_id in referenced_assessments:
+            unrelated = (
+                set(assessments_by_id[assessment_id]["objective_ids"])
+                - lesson_objective_ids
+            )
+            if unrelated:
+                raise RecordError(
+                    f"lesson {lesson['id']!r} references assessment "
+                    f"{assessment_id!r} aligned outside the lesson"
+                )
+        for field in (
+            "industry_applications",
+            "instructor_shop_tip",
+            "homework",
+            "flex_activities",
+        ):
+            if lesson.get(field) is not None:
+                _text(lesson[field], f"{context}.{field}")
+        errors = _list(
+            lesson.get("common_technician_errors", []),
+            f"{context}.common_technician_errors",
+        )
+        for error_index, error in enumerate(errors):
+            _text(error, f"{context}.common_technician_errors[{error_index}]")
 
 
 def validate_institution(institution: dict[str, Any]) -> None:

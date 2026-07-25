@@ -25,6 +25,12 @@ Create `weeks/08.json`, `weeks/09.json`, and so on using
   `safety_notes`, and `teaching_notes`.
 - Preserve existing assessment answers or rubrics in the question bank; they
   are emitted only into separate key documents.
+- If an approved plan is organized by instructional day, record it in
+  `lessons`. Use typed activities for its warm-up, academic, shop, and exit
+  work. Do not invent lecture durations, lab procedures, deliverables, or
+  assessment questions that are absent from the source.
+- An observational or performance assessment may use `description` without a
+  `question_bank`.
 
 Do not copy document headings, institution names, or formatting into curriculum
 fields.

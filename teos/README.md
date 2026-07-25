@@ -11,15 +11,25 @@ python -m teos audit --course curriculum/courses/COURSE_ID --week 8
 python -m teos generate --course curriculum/courses/COURSE_ID --week 8
 ```
 
-Add `--institution institutions/INSTITUTION_ID.json` to apply an optional
-administrative overlay. Generated Markdown is written to `outputs/` by default.
-One generation run creates:
+Add `--institution institutions/INSTITUTION_ID/institution.json` to apply an
+optional administrative overlay. Generated Markdown is written to `outputs/`
+by default. One generation run creates:
 
-- Administrative and instructor lesson plans.
+- One administrative plan per daily lesson (or one weekly plan for the original
+  lecture/lab representation) and an instructor lesson plan.
 - A guide for each lab.
 - Learner assessments in batches of at most ten questions.
 - Separate answer keys for each assessment batch.
 - A curriculum relationship audit.
+
+The approved DSL204 Week 5 proof can be regenerated with:
+
+```bash
+python -m teos generate \
+  --course curriculum/courses/dsl204 \
+  --week 5 \
+  --institution institutions/j-tech/institution.json
+```
 
 An audit returns a nonzero exit status when a valid record has objectives
 without lecture, lab, or assessment alignment. Invalid or broken source

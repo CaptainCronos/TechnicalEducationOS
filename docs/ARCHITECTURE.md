@@ -23,7 +23,8 @@ reproducible artifacts and must not be edited as sources.
 
 - A course record owns course identity and competencies.
 - A week record owns that week's objectives, lectures, labs, assessments, and
-  teaching notes.
+  teaching notes. When the existing curriculum is organized as daily plans, the
+  week also owns daily lessons and their typed activities.
 - Stable IDs connect records. Content is written once and referenced by ID.
 - Schema versions make future migrations explicit.
 - Institution overlays are optional and isolated under `institutions/`.
@@ -38,6 +39,9 @@ has an unambiguous data model, and avoids a package-management dependency.
 - Generators are deterministic: identical inputs produce identical content.
 - Renderers contain document presentation; curriculum records contain teaching
   knowledge.
+- Daily administrative plans are generated once per lesson. Academic and shop
+  activity links participate in the same objective-coverage audit as explicit
+  lecture and lab records.
 - The command-line interface is the first workflow surface. A UI is not needed
   to prove Phase 1 value.
 

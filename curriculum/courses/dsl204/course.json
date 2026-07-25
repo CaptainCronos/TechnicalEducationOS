@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "course_id": "dsl204",
+  "title": "DSL204",
+  "competencies": [
+    {
+      "id": "cdx.37.1-37.4",
+      "statement": "CDX Chapter 37 learning objectives 37-1 through 37-4 and shop safety outcomes."
+    },
+    {
+      "id": "cdx.37.5-37.9",
+      "statement": "CDX Chapter 37 learning objectives 37-5 through 37-9 and shop safety outcomes."
+    }
+  ]
+}

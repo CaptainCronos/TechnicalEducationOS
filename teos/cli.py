@@ -44,13 +44,24 @@ def _generate(args: argparse.Namespace) -> int:
     output_directory.mkdir(parents=True, exist_ok=True)
     stem = f"{course['course_id']}-week-{week['week_number']:02d}"
     documents = {
-        output_directory / f"{stem}-administrative.md": render_administrative(
-            course, week, institution
-        ),
         output_directory / f"{stem}-instructor.md": render_instructor(
             course, week, institution
         ),
     }
+    if week.get("lessons"):
+        documents.update(
+            {
+                (
+                    output_directory
+                    / f"{stem}-day-{lesson['day_number']:02d}-administrative.md"
+                ): render_administrative(course, week, institution, lesson)
+                for lesson in week["lessons"]
+            }
+        )
+    else:
+        documents[
+            output_directory / f"{stem}-administrative.md"
+        ] = render_administrative(course, week, institution)
     documents.update(
         {
             output_directory / f"{stem}-lab-{lab['id']}.md": render_lab(

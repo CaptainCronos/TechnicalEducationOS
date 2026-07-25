@@ -13,6 +13,13 @@ def _numbered(values: list[str]) -> str:
     return "\n".join(f"{index}. {value}" for index, value in enumerate(values, 1))
 
 
+def _hours(minutes: int) -> str:
+    hours, remainder = divmod(minutes, 60)
+    if remainder == 0:
+        return f"{hours} Hr" if hours == 1 else f"{hours} Hrs"
+    return f"{minutes} minutes"
+
+
 def _header(
     document_title: str,
     course: dict[str, Any],
@@ -40,7 +47,10 @@ def render_administrative(
     course: dict[str, Any],
     week: dict[str, Any],
     institution: dict[str, Any] | None = None,
+    lesson: dict[str, Any] | None = None,
 ) -> str:
+    if lesson is not None:
+        return _render_daily_administrative(course, week, lesson, institution)
     lines = _header("Administrative Lesson Plan", course, week, institution)
     lines.extend(["", "## Objectives", "", "| ID | Objective | Competencies |", "|---|---|---|"])
     lines.extend(
@@ -64,6 +74,144 @@ def render_administrative(
         )
     else:
         lines.append("None recorded.")
+    return "\n".join(lines) + "\n"
+
+
+def _render_daily_administrative(
+    course: dict[str, Any],
+    week: dict[str, Any],
+    lesson: dict[str, Any],
+    institution: dict[str, Any] | None,
+) -> str:
+    duration = lesson["duration"]
+    segment_text = " / ".join(
+        f"{_hours(segment['minutes'])} {segment['label']}"
+        for segment in duration["segments"]
+    )
+    time_text = _hours(duration["total_minutes"])
+    if segment_text:
+        time_text += f" ({segment_text})"
+
+    objectives = {
+        objective["id"]: objective for objective in week["objectives"]
+    }
+    competencies = {
+        competency["id"]: competency["statement"]
+        for competency in course["competencies"]
+    }
+    lesson_objectives = [
+        objectives[objective_id] for objective_id in lesson["objective_ids"]
+    ]
+    objective_text = " ".join(
+        objective["statement"] for objective in lesson_objectives
+    )
+    competency_ids = dict.fromkeys(
+        competency_id
+        for objective in lesson_objectives
+        for competency_id in objective["competency_ids"]
+    )
+    standard_text = " ".join(
+        competencies[competency_id] for competency_id in competency_ids
+    )
+    activities_by_category = {
+        category: [
+            activity["description"]
+            for activity in lesson["activities"]
+            if activity["category"] == category
+        ]
+        for category in ("warm_up", "academic", "shop", "exit")
+    }
+    assessments = {
+        assessment["id"]: assessment for assessment in week["assessments"]
+    }
+    assessment_text = [
+        assessments[assessment_id]["description"]
+        for assessment_id in lesson["assessment_ids"]
+        if assessments[assessment_id].get("description")
+    ]
+
+    lines = [
+        f"# {course['title']} – Week {week['week_number']} "
+        f"Day {lesson['day_number']} Administrative Lesson Plan",
+        "",
+        lesson["title"],
+        "",
+        f"*Time: {time_text}*",
+    ]
+    if institution:
+        lines.extend(["", f"Institution: {institution['institution_name']}"])
+        if institution.get("program_name"):
+            lines.append(f"Program: {institution['program_name']}")
+        lines.extend(
+            f"{label}: {value}"
+            for label, value in institution.get("administrative_fields", {}).items()
+        )
+    lines.extend(
+        [
+            "",
+            "## Configuration Board",
+            "",
+            "| Element | Plan |",
+            "|---|---|",
+            f"| Warm Up | {activities_by_category['warm_up'][0]} |",
+            f"| Objective | {objective_text} |",
+            f"| Standard | {standard_text} |",
+            f"| Essential Question | {lesson['essential_question']} |",
+            f"| Exit | {activities_by_category['exit'][0]} |",
+            "",
+            "## Student Objectives",
+            "",
+            lesson["objective_summary"],
+            "",
+            "## Necessary Materials",
+            "",
+            ", ".join(lesson["materials"]),
+            "",
+            "## Terminology",
+            "",
+            ", ".join(lesson["terminology"]),
+            "",
+            "## Academic Activities",
+            "",
+            _numbered(activities_by_category["academic"]),
+            "",
+            "## Shop Activities",
+            "",
+            _numbered(activities_by_category["shop"]),
+            "",
+            "## Industry Applications",
+            "",
+            lesson.get("industry_applications", "None recorded."),
+            "",
+            "## Common Technician Errors",
+            "",
+            _numbered(lesson.get("common_technician_errors", [])),
+            "",
+            "## Instructor's Shop Tip",
+            "",
+            lesson.get("instructor_shop_tip", "None recorded."),
+            "",
+            "## Assessment",
+            "",
+            "\n\n".join(assessment_text) if assessment_text else "None recorded.",
+            "",
+            "## Homework",
+            "",
+            lesson.get("homework", "None recorded."),
+            "",
+            "## Notes / Flex Activities",
+            "",
+            lesson.get("flex_activities", "None recorded."),
+            "",
+            "## Instructor Reflection",
+            "",
+            "Student strengths:",
+            "",
+            "Student challenges:",
+            "",
+            "Concepts requiring additional review:",
+        ]
+    )
     return "\n".join(lines) + "\n"
 
 
@@ -170,7 +318,7 @@ def render_lab(
 def assessment_batches(
     assessment: dict[str, Any], size: int = 10
 ) -> list[list[dict[str, Any]]]:
-    questions = assessment["question_bank"]
+    questions = assessment.get("question_bank", [])
     return [questions[index : index + size] for index in range(0, len(questions), size)]
 
 
