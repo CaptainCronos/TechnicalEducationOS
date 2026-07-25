@@ -275,6 +275,11 @@ def validate_week(course: dict[str, Any], week: dict[str, Any]) -> None:
                 "terminology",
                 "activities",
                 "assessment_ids",
+                "industry_applications",
+                "common_technician_errors",
+                "instructor_shop_tip",
+                "homework",
+                "flex_activities",
             ),
             context,
         )
@@ -325,7 +330,9 @@ def validate_week(course: dict[str, Any], week: dict[str, Any]) -> None:
             )
 
         for field in ("materials", "terminology"):
-            values = _list(lesson[field], f"{context}.{field}")
+            values = _list(
+                lesson[field], f"{context}.{field}", allow_empty=False
+            )
             for value_index, value in enumerate(values):
                 _text(value, f"{context}.{field}[{value_index}]")
 
@@ -364,7 +371,11 @@ def validate_week(course: dict[str, Any], week: dict[str, Any]) -> None:
 
         referenced_assessments = {
             _identifier(value, f"{context}.assessment_ids")
-            for value in _list(lesson["assessment_ids"], f"{context}.assessment_ids")
+            for value in _list(
+                lesson["assessment_ids"],
+                f"{context}.assessment_ids",
+                allow_empty=False,
+            )
         }
         unknown_assessments = referenced_assessments - assessments_by_id.keys()
         if unknown_assessments:
@@ -391,8 +402,9 @@ def validate_week(course: dict[str, Any], week: dict[str, Any]) -> None:
             if lesson.get(field) is not None:
                 _text(lesson[field], f"{context}.{field}")
         errors = _list(
-            lesson.get("common_technician_errors", []),
+            lesson["common_technician_errors"],
             f"{context}.common_technician_errors",
+            allow_empty=False,
         )
         for error_index, error in enumerate(errors):
             _text(error, f"{context}.common_technician_errors[{error_index}]")

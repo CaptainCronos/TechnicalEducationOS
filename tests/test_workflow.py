@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import io
 import json
 import tempfile
 import unittest
@@ -10,6 +11,7 @@ from pathlib import Path
 
 from teos.audit import coverage_findings
 from teos.cli import main
+from teos.docx import render_administrative_docx
 from teos.records import (
     RecordError,
     load_course,
@@ -31,6 +33,9 @@ from teos.render import (
 REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
 DSL204_DIRECTORY = REPOSITORY_ROOT / "curriculum" / "courses" / "dsl204"
 J_TECH_OVERLAY = REPOSITORY_ROOT / "institutions" / "j-tech" / "institution.json"
+ADMINISTRATIVE_TEMPLATE = (
+    REPOSITORY_ROOT / "templates" / "jtech" / "admin_lesson_plan_template.docx"
+)
 WORD_NAMESPACE = {
     "w": "http://schemas.openxmlformats.org/wordprocessingml/2006/main"
 }
@@ -38,6 +43,14 @@ WORD_NAMESPACE = {
 
 def reference_document_text(path: Path) -> str:
     with zipfile.ZipFile(path) as archive:
+        document = ElementTree.fromstring(archive.read("word/document.xml"))
+    return "\n".join(
+        node.text or "" for node in document.findall(".//w:t", WORD_NAMESPACE)
+    )
+
+
+def document_bytes_text(content: bytes) -> str:
+    with zipfile.ZipFile(io.BytesIO(content)) as archive:
         document = ElementTree.fromstring(archive.read("word/document.xml"))
     return "\n".join(
         node.text or "" for node in document.findall(".//w:t", WORD_NAMESPACE)
@@ -252,6 +265,12 @@ class ApprovedLessonPlanTests(unittest.TestCase):
         with self.assertRaisesRegex(RecordError, "segments must total"):
             validate_week(self.course, week)
 
+    def test_daily_lesson_required_template_sections_cannot_be_empty(self):
+        week = deepcopy(self.week)
+        week["lessons"][0]["materials"] = []
+        with self.assertRaisesRegex(RecordError, "materials must be a non-empty list"):
+            validate_week(self.course, week)
+
     def test_each_daily_plan_is_derived_from_its_source_record(self):
         objectives = {
             item["id"]: item["statement"] for item in self.week["objectives"]
@@ -329,6 +348,106 @@ class ApprovedLessonPlanTests(unittest.TestCase):
             for value in expected_curriculum:
                 self.assertIn(value, reference)
 
+    def test_template_renderer_populates_every_curriculum_field(self):
+        lesson = self.week["lessons"][0]
+        content = render_administrative_docx(
+            ADMINISTRATIVE_TEMPLATE,
+            self.course,
+            self.week,
+            lesson,
+        )
+        rendered = document_bytes_text(content)
+        approved = reference_document_text(
+            REPOSITORY_ROOT / "DSL204_Week5_Admin_LessonPlan_Day1_v1.0.docx"
+        )
+        objectives = {
+            item["id"]: item for item in self.week["objectives"]
+        }
+        competencies = {
+            item["id"]: item["statement"]
+            for item in self.course["competencies"]
+        }
+        assessments = {
+            item["id"]: item["description"]
+            for item in self.week["assessments"]
+        }
+        source_values = [
+            lesson["title"],
+            lesson["objective_summary"],
+            lesson["essential_question"],
+            lesson["industry_applications"],
+            lesson["instructor_shop_tip"],
+            lesson["homework"],
+            lesson["flex_activities"],
+            *lesson["materials"],
+            *lesson["terminology"],
+            *lesson["common_technician_errors"],
+            *(item["description"] for item in lesson["activities"]),
+            *(
+                assessments[assessment_id]
+                for assessment_id in lesson["assessment_ids"]
+            ),
+        ]
+        for objective_id in lesson["objective_ids"]:
+            objective = objectives[objective_id]
+            source_values.append(objective["statement"])
+            source_values.extend(
+                competencies[competency_id]
+                for competency_id in objective["competency_ids"]
+            )
+        for value in source_values:
+            self.assertIn(value, rendered)
+            self.assertIn(value, approved)
+        self.assertNotIn("Summer/Week 1", rendered)
+        self.assertNotIn("AUT-218 Advanced Technology", rendered)
+        self.assertNotIn("3Hrs 45min", rendered)
+        self.assertIn("Week 5 / Day 1", rendered)
+        self.assertIn("Course: DSL204", rendered)
+        self.assertIn("4 Hrs (2 Hrs Classroom / 2 Hrs Shop)", rendered)
+
+    def test_template_renderer_populates_second_approved_lesson(self):
+        lesson = self.week["lessons"][1]
+        rendered = document_bytes_text(
+            render_administrative_docx(
+                ADMINISTRATIVE_TEMPLATE,
+                self.course,
+                self.week,
+                lesson,
+            )
+        )
+        approved = reference_document_text(
+            REPOSITORY_ROOT / "DSL204_Week5_Admin_LessonPlan_Day2_v1.0.docx"
+        )
+        for value in (
+            lesson["title"],
+            lesson["objective_summary"],
+            lesson["essential_question"],
+            lesson["industry_applications"],
+            lesson["instructor_shop_tip"],
+            lesson["homework"],
+            lesson["flex_activities"],
+            *lesson["materials"],
+            *lesson["terminology"],
+            *lesson["common_technician_errors"],
+            *(item["description"] for item in lesson["activities"]),
+        ):
+            self.assertIn(value, rendered)
+            self.assertIn(value, approved)
+
+    def test_template_renderer_preserves_official_header_artwork(self):
+        content = render_administrative_docx(
+            ADMINISTRATIVE_TEMPLATE,
+            self.course,
+            self.week,
+            self.week["lessons"][0],
+        )
+        with zipfile.ZipFile(ADMINISTRATIVE_TEMPLATE) as template:
+            expected_header = template.read("word/header1.xml")
+            expected_image = template.read("word/media/image1.png")
+        with zipfile.ZipFile(io.BytesIO(content)) as generated:
+            self.assertEqual(generated.read("word/header1.xml"), expected_header)
+            self.assertEqual(generated.read("word/media/image1.png"), expected_image)
+
     def test_institution_branding_is_an_optional_overlay(self):
         curriculum_text = json.dumps(
             {"course": self.course, "week": self.week}
@@ -372,6 +491,34 @@ class ApprovedLessonPlanTests(unittest.TestCase):
                 )
                 self.assertTrue(path.is_file())
                 self.assertIn("Institution: J-Tech", path.read_text(encoding="utf-8"))
+
+    def test_cli_populates_official_administrative_template(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            output_directory = Path(temporary)
+            result = main(
+                [
+                    "generate-administrative",
+                    "--course",
+                    str(DSL204_DIRECTORY),
+                    "--week",
+                    "5",
+                    "--template",
+                    str(ADMINISTRATIVE_TEMPLATE),
+                    "--output",
+                    str(output_directory),
+                ]
+            )
+            self.assertEqual(result, 0)
+            for day_number in (1, 2):
+                path = (
+                    output_directory
+                    / f"dsl204-week-05-day-{day_number:02d}-administrative.docx"
+                )
+                self.assertTrue(path.is_file())
+                self.assertIn(
+                    self.week["lessons"][day_number - 1]["title"],
+                    reference_document_text(path),
+                )
 
 
 if __name__ == "__main__":

@@ -7,6 +7,7 @@ import sys
 from pathlib import Path
 
 from teos.audit import coverage_findings
+from teos.docx import render_administrative_docx
 from teos.records import (
     RecordError,
     load_course,
@@ -125,6 +126,38 @@ def _audit(args: argparse.Namespace) -> int:
     return 1
 
 
+def _generate_administrative(args: argparse.Namespace) -> int:
+    course, week, _ = _load(args)
+    lessons = week.get("lessons", [])
+    if not lessons:
+        raise RecordError(
+            "Administrative DOCX generation requires daily lessons"
+        )
+    template = Path(args.template)
+    output_directory = Path(args.output)
+    output_directory.mkdir(parents=True, exist_ok=True)
+    stem = f"{course['course_id']}-week-{week['week_number']:02d}"
+    try:
+        documents = {
+            (
+                output_directory
+                / f"{stem}-day-{lesson['day_number']:02d}-administrative.docx"
+            ): render_administrative_docx(
+                template,
+                course,
+                week,
+                lesson,
+            )
+            for lesson in lessons
+        }
+    except ValueError as exc:
+        raise RecordError(str(exc)) from exc
+    for path, content in documents.items():
+        path.write_bytes(content)
+        print(path)
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="teos",
@@ -141,6 +174,26 @@ def build_parser() -> argparse.ArgumentParser:
         else:
             command.add_argument("--output", help="Optional Markdown audit report path")
         command.set_defaults(handler=handler)
+    administrative = subparsers.add_parser(
+        "generate-administrative",
+        help="Populate the official Administrative Lesson Plan DOCX template",
+    )
+    administrative.add_argument(
+        "--course", required=True, help="Course record directory"
+    )
+    administrative.add_argument(
+        "--week", required=True, type=int, help="Week number"
+    )
+    administrative.add_argument(
+        "--template", required=True, help="Official blank DOCX template"
+    )
+    administrative.add_argument(
+        "--output", default="outputs", help="Output directory"
+    )
+    administrative.set_defaults(
+        handler=_generate_administrative,
+        institution=None,
+    )
     return parser
 
 

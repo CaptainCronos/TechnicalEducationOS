@@ -31,6 +31,21 @@ python -m teos generate \
   --institution institutions/j-tech/institution.json
 ```
 
+To populate the official blank J-Tech Administrative Lesson Plan template
+directly, run the administrative-only command:
+
+```bash
+python -m teos generate-administrative \
+  --course curriculum/courses/dsl204 \
+  --week 5 \
+  --template templates/jtech/admin_lesson_plan_template.docx
+```
+
+This writes one DOCX per daily lesson. The renderer uses only the Python
+standard library, preserves the template package and header artwork, replaces
+the template placeholders, and appends the curriculum-backed sections required
+by the approved plans.
+
 An audit returns a nonzero exit status when a valid record has objectives
 without lecture, lab, or assessment alignment. Invalid or broken source
 relationships return exit status 2.
