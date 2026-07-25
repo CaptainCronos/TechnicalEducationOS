@@ -1,13 +1,16 @@
 # Institutions
 
-Institution-specific configuration, academic calendars, and presentation
-overlays live here, separated from curriculum. Inputs are approved institution
-configuration, meeting availability, closures, and branding values. Outputs
-are versioned configuration consumed by the Scheduler or presentation
-adapters. Calendars map sessions to dates; overlays may provide presentation
-and administrative labels. Neither may redefine curriculum objectives,
-instruction, labs, assessments, or competencies.
+Institution Profiles, academic calendars, and presentation configuration live
+here, separated from curriculum. A profile owns operating rules such as the
+academic year, terms, meeting patterns, class lengths, policies, systems,
+branding, templates, and report formats. A calendar owns term boundaries and
+events that affect instructional availability. The Scheduler combines those
+records with ordered curriculum sessions to create meeting slots and date
+assignments.
 
-The `j-tech` overlay is intentionally separate from the DSL204 course records.
-Generation may include it with `--institution`; omitting it produces an
-institution-neutral document from the same curriculum.
+Profiles and calendars never own curriculum objectives, instruction, labs,
+assessments, competencies, instructional units, or sessions.
+
+The `j-tech` profile is intentionally separate from the DSL204 course records.
+Rendering may include it as presentation configuration; omitting it produces
+an institution-neutral document from the same curriculum.

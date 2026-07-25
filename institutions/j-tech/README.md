@@ -1,5 +1,7 @@
 # J-Tech
 
-This directory owns J-Tech-specific presentation configuration and academic
-calendars. `calendars/dsl204-fall-2026.json` demonstrates meeting availability,
-a closure, and week/day aliases. It contains no curriculum.
+This directory owns J-Tech-specific operating and presentation configuration.
+`institution.json` defines the academic year and Thursday/Friday meeting
+pattern. `calendars/fall-2026.json` defines term dates and a closure. Neither
+record contains curriculum; the Scheduler derives meeting slots and week/day
+aliases from them.

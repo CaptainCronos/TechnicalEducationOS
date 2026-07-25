@@ -15,12 +15,11 @@ Read the [repository constitution](PROJECT_HANDOFF.md), then the
 ## Compiler pipeline
 
 ```text
-knowledge/                  curriculum/                 outputs/
-standards ──────────┐       competencies                lesson plans
-instructional ──────┼─────> units ──> sessions ──────> labs
-institutional ──────┘       modules          │          assessments
-                                             ├─ scheduler ─> calendars
-                                             └─ renderers ─> reports/LMS
+knowledge/                  curriculum/               operations/       outputs/
+standards ──────────┐       competencies                               lesson plans
+instructional ──────┼─────> units ──> sessions ─┐                     labs
+                    │       modules             ├─> scheduler ───────> assessments
+institution profile ┴─> academic calendar ──────┘                     reports/LMS
 ```
 
 Every renderer consumes a validated curriculum model. No educational artifact
@@ -47,8 +46,10 @@ The full ownership and input/output rules are defined in the
 ## Current model
 
 Curriculum is authored as competencies, instructional units, and ordered
-sessions. Academic calendars only map those sessions to dates. Week/day
-requests are resolved through a generated schedule before rendering. Legacy
-week records remain read-only inputs solely for reproducing approved documents.
+sessions. Institution Profiles define operating and presentation rules;
+Academic Calendars define instructional availability. The Scheduler combines
+them without transferring curriculum ownership. Week/day requests are resolved
+through a generated schedule before rendering. Legacy week records remain
+read-only inputs solely for reproducing approved documents.
 
 See [ROADMAP.md](ROADMAP.md) for the current milestone sequence.

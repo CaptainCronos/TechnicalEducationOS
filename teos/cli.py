@@ -173,8 +173,16 @@ def _build_curriculum(args: argparse.Namespace) -> int:
 
 def _schedule(args: argparse.Namespace) -> int:
     course, _, sessions = load_curriculum(Path(args.course))
+    institution = load_json(Path(args.institution))
+    validate_institution(institution)
     calendar = load_json(Path(args.calendar))
-    schedule = schedule_sessions(course, sessions, calendar)
+    schedule = schedule_sessions(
+        course,
+        sessions,
+        institution,
+        calendar,
+        args.meeting_pattern,
+    )
     output_path = Path(args.output)
     output_path.parent.mkdir(parents=True, exist_ok=True)
     output_path.write_text(
@@ -261,7 +269,17 @@ def build_parser() -> argparse.ArgumentParser:
         help="Map canonical sessions onto an academic calendar",
     )
     schedule.add_argument("--course", required=True, help="Course record directory")
+    schedule.add_argument(
+        "--institution",
+        required=True,
+        help="Institution profile JSON",
+    )
     schedule.add_argument("--calendar", required=True, help="Academic calendar JSON")
+    schedule.add_argument(
+        "--meeting-pattern",
+        required=True,
+        help="Meeting pattern ID from the institution profile",
+    )
     schedule.add_argument("--output", required=True, help="Generated schedule JSON")
     schedule.set_defaults(handler=_schedule)
 
@@ -281,7 +299,7 @@ def build_parser() -> argparse.ArgumentParser:
         choices=["all", *SESSION_RENDERERS],
         default="all",
     )
-    render.add_argument("--institution", help="Optional institution overlay JSON")
+    render.add_argument("--institution", help="Optional Institution Profile JSON")
     render.add_argument("--output", default="outputs", help="Output directory")
     render.set_defaults(handler=_render_session)
 
@@ -291,7 +309,7 @@ def build_parser() -> argparse.ArgumentParser:
         command = subparsers.add_parser(name)
         command.add_argument("--course", required=True, help="Course record directory")
         command.add_argument("--week", required=True, type=int, help="Week number")
-        command.add_argument("--institution", help="Optional institution overlay JSON")
+        command.add_argument("--institution", help="Optional Institution Profile JSON")
         if name == "generate":
             command.add_argument("--output", default="outputs", help="Output directory")
         else:

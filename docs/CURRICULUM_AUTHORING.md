@@ -16,12 +16,15 @@ Author curriculum in instructional order, never calendar order.
    python -m teos build --course curriculum/courses/COURSE_ID
    ```
 
-5. Separately define an institution-specific calendar and generate a schedule:
+5. Separately select an Institution Profile, term calendar, and meeting pattern,
+   then generate a schedule:
 
    ```bash
    python -m teos schedule \
      --course curriculum/courses/COURSE_ID \
-     --calendar institutions/INSTITUTION_ID/calendars/COURSE_ID-TERM.json \
+     --institution institutions/INSTITUTION_ID/institution.json \
+     --calendar institutions/INSTITUTION_ID/calendars/TERM.json \
+     --meeting-pattern MEETING_PATTERN_ID \
      --output outputs/COURSE_ID-TERM-schedule.json
    ```
 
@@ -39,3 +42,8 @@ Author curriculum in instructional order, never calendar order.
 Never edit a generated lesson plan, guide, calendar, or LMS export as curriculum.
 Change the unit or session and regenerate. The `weeks/` format and the
 `generate --week` commands exist only to reproduce legacy approved artifacts.
+
+Institution Profiles own operating rules and presentation configuration, not
+course content. Academic calendars own term boundaries and events, not course
+IDs or preassigned sessions. The Scheduler is the only component that combines
+these records.

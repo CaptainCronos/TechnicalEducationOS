@@ -1,7 +1,7 @@
 # Schemas
 
 Purpose: own machine-readable contracts for knowledge records, blueprints,
-curriculum models, mappings, institution overlays, and compatibility records.
+curriculum models, mappings, Institution Profiles, and compatibility records.
 
 Inputs are governing subsystem specifications and accepted architecture
 decisions. Outputs are versioned schemas consumed by validators, authoring
@@ -12,9 +12,10 @@ Current executable schemas:
 - `course.schema.json` — calendar-independent course, competency, and module record;
 - `instructional-unit.schema.json` — reusable instructional unit;
 - `session-plan.schema.json` — ordered canonical sessions;
-- `academic-calendar.schema.json` — institution-specific meeting availability;
+- `academic-calendar.schema.json` — institution-specific term dates and events;
 - `week.schema.json` — deprecated read-only compatibility record;
-- `institution.schema.json` — institution overlay.
+- `institution.schema.json` — operational Institution Profile, meeting rules,
+  and presentation configuration.
 
 Blueprint, knowledge-source, curriculum-model, traceability, and artifact
 manifest schemas will be added with their implementation milestones. A schema

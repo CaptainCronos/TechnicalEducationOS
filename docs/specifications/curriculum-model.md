@@ -77,9 +77,11 @@ draft content remains an `author_decision` in draft state until human approval.
 ## Scheduling separation
 
 Educational entities own meaning. Sessions provide instructional order without
-dates. Academic calendars own available meeting slots, and the Scheduler emits
-the session-to-date mapping. A week-based projection may exist only as aliases
-in that mapping and MUST NOT become a second authoritative copy.
+dates. Institution Profiles own meeting patterns and class lengths; Academic
+Calendars own term boundaries, holidays, breaks, work days, and closures. The
+Scheduler resolves those operational inputs into meeting slots and emits the
+session-to-date mapping. A week-based projection may exist only as aliases in
+that mapping and MUST NOT become a second authoritative copy.
 
 ## Validation classes
 

@@ -1,6 +1,57 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "2.0",
   "institution_id": "j-tech",
   "institution_name": "J-Tech",
-  "administrative_fields": {}
+  "academic_year": {
+    "academic_year_id": "2026-2027",
+    "name": "2026–2027 Academic Year",
+    "start_date": "2026-07-01",
+    "end_date": "2027-06-30",
+    "terms": [
+      {
+        "term_id": "fall-2026",
+        "name": "Fall 2026",
+        "calendar_id": "fall-2026"
+      }
+    ]
+  },
+  "meeting_patterns": [
+    {
+      "pattern_id": "thursday-friday-am",
+      "name": "Thursday / Friday AM",
+      "starts_on": "2026-09-03",
+      "first_week_number": 5,
+      "meetings": [
+        {
+          "weekday": "thursday",
+          "day": 1,
+          "start_time": "08:00",
+          "duration_minutes": 240
+        },
+        {
+          "weekday": "friday",
+          "day": 2,
+          "start_time": "08:00",
+          "duration_minutes": 240
+        }
+      ]
+    }
+  ],
+  "class_length_minutes": 240,
+  "program_structure": {},
+  "lesson_plan_templates": {
+    "administrative": "templates/jtech/admin_lesson_plan_template.docx"
+  },
+  "branding": {
+    "display_name": "J-Tech"
+  },
+  "footer_requirements": [],
+  "required_administrative_fields": [],
+  "attendance_policy": {},
+  "lms": {
+    "provider": "moodle"
+  },
+  "grading": {},
+  "assessment_policy": {},
+  "report_formats": {}
 }

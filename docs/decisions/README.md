@@ -12,3 +12,7 @@ that explain context, decision, consequences, and status.
 - `0004-curriculum-compiler-architecture.md` establishes registered knowledge,
   course blueprints, structured curriculum models, and artifact renderers as
   the governing compiler pipeline.
+- `0005-session-based-curriculum.md` makes sessions the canonical scheduling
+  object and deprecates week-based authoring.
+- `0006-institution-profiles-and-academic-calendars.md` separates institutional
+  meeting and presentation rules from curriculum-free term calendars.

@@ -31,10 +31,16 @@ change without silently redefining the others.
              │ → ordered sessions        │
              └─────────────┬─────────────┘
                            │
-                  ┌────────▼─────────┐
-                  │ Scheduler        │
-                  │ calendar mapping │
-                  └────────┬─────────┘
+             ┌─────────────┴────────────────────┐
+             │                                  │
+      ┌──────▼──────────────┐       ┌───────────▼──────────┐
+      │ Institution Profile │──────>│ Academic Calendar    │
+      │ meeting + rendering │       │ dates + closures     │
+      └──────────┬──────────┘       └───────────┬──────────┘
+                 └──────────────┬───────────────┘
+                         ┌──────▼───────┐
+                         │ Scheduler    │
+                         └──────┬───────┘
                            │ resolved sessions
              ┌─────────────┴──────────────────┐
              ▼                                ▼
@@ -63,10 +69,20 @@ contains weeks, semesters, dates, or institution calendars.
 
 ### Scheduler
 
-Maps ordered sessions onto available academic-calendar meeting slots. It honors
-closures and availability by skipping unavailable slots and shifting later
-sessions. It emits a disposable schedule projection and never mutates the
+Combines ordered sessions, an Institution Profile meeting pattern, and an
+Academic Calendar. It derives available slots, honors closures by shifting
+later sessions, and emits a disposable schedule projection. It never mutates
 course, unit, or session records.
+
+### Institution operations
+
+An Institution Profile owns replaceable operational and presentation
+configuration: academic-year and term registration, meeting patterns, class
+lengths, program structure, templates, branding, administrative fields,
+policies, LMS and grading configuration, and report formats. An Academic
+Calendar owns only term boundaries and availability events such as holidays,
+breaks, faculty work days, graduation, and closures. Neither may own or redefine
+curriculum.
 
 ### Traceability service
 
@@ -107,7 +123,8 @@ affected approvals and outputs stale; it does not rewrite them silently.
 - Every source-derived assertion carries a citation or explicit authoring
   decision.
 - Institution-specific overlays cannot replace standards or curriculum facts.
-- Calendars map sessions to dates; weeks and days are aliases in that mapping.
+- Profiles and calendars contain no curriculum.
+- The Scheduler maps sessions to dates; weeks and days are aliases in that mapping.
 - A calendar selector resolves to a session before a renderer is invoked.
 - Generated artifacts carry a manifest identifying model, renderer, template,
   and generation versions.

@@ -7,8 +7,8 @@ DSL204 demonstrates the canonical session-based curriculum:
 - `sessions.json` divides units into ordered instructional meetings.
 - `weeks/` is deprecated compatibility data for approved historical documents.
 
-The J-Tech example calendar is deliberately outside the curriculum at
-`institutions/j-tech/calendars/dsl204-fall-2026.json`.
+The J-Tech profile and Fall 2026 calendar are deliberately outside the
+curriculum under `institutions/j-tech/`.
 
 Build and schedule it with:
 
@@ -16,6 +16,8 @@ Build and schedule it with:
 python -m teos build --course curriculum/courses/dsl204
 python -m teos schedule \
   --course curriculum/courses/dsl204 \
-  --calendar institutions/j-tech/calendars/dsl204-fall-2026.json \
+  --institution institutions/j-tech/institution.json \
+  --calendar institutions/j-tech/calendars/fall-2026.json \
+  --meeting-pattern thursday-friday-am \
   --output outputs/dsl204-fall-2026-schedule.json
 ```

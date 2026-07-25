@@ -4,12 +4,14 @@ from __future__ import annotations
 
 import json
 import re
+from datetime import date
 from pathlib import Path
 from typing import Any
 
 ID_PATTERN = re.compile(r"^[a-z0-9][a-z0-9._-]*$")
 SCHEMA_VERSION = "1.0"
 CURRICULUM_SCHEMA_VERSION = "2.0"
+INSTITUTION_SCHEMA_VERSION = "2.0"
 
 
 class RecordError(ValueError):
@@ -718,18 +720,143 @@ def validate_week(course: dict[str, Any], week: dict[str, Any]) -> None:
 def validate_institution(institution: dict[str, Any]) -> None:
     _required(
         institution,
-        ("schema_version", "institution_id", "institution_name"),
-        "institution",
+        (
+            "schema_version",
+            "institution_id",
+            "institution_name",
+            "academic_year",
+            "meeting_patterns",
+        ),
+        "institution profile",
     )
-    if institution["schema_version"] != SCHEMA_VERSION:
+    if institution["schema_version"] != INSTITUTION_SCHEMA_VERSION:
         raise RecordError(
-            f"unsupported institution schema: {institution['schema_version']!r}"
+            "unsupported institution profile schema: "
+            f"{institution['schema_version']!r}"
         )
     _identifier(institution["institution_id"], "institution.institution_id")
     _text(institution["institution_name"], "institution.institution_name")
-    fields = institution.get("administrative_fields", {})
-    if not isinstance(fields, dict) or not all(
-        isinstance(key, str) and isinstance(value, str)
-        for key, value in fields.items()
+
+    academic_year = institution["academic_year"]
+    if not isinstance(academic_year, dict):
+        raise RecordError("institution.academic_year must be an object")
+    _required(
+        academic_year,
+        ("academic_year_id", "name", "start_date", "end_date", "terms"),
+        "institution.academic_year",
+    )
+    _identifier(
+        academic_year["academic_year_id"],
+        "institution.academic_year.academic_year_id",
+    )
+    _text(academic_year["name"], "institution.academic_year.name")
+    try:
+        year_start = date.fromisoformat(academic_year["start_date"])
+        year_end = date.fromisoformat(academic_year["end_date"])
+    except (TypeError, ValueError) as exc:
+        raise RecordError(
+            "institution.academic_year dates must be ISO YYYY-MM-DD"
+        ) from exc
+    if year_end < year_start:
+        raise RecordError("institution.academic_year ends before it starts")
+    terms = _list(
+        academic_year["terms"],
+        "institution.academic_year.terms",
+        allow_empty=False,
+    )
+    _unique_ids(
+        [
+            {**term, "id": term.get("term_id")}
+            if isinstance(term, dict)
+            else term
+            for term in terms
+        ],
+        "institution.academic_year.terms",
+    )
+    for index, term in enumerate(terms):
+        context = f"institution.academic_year.terms[{index}]"
+        _required(term, ("term_id", "name", "calendar_id"), context)
+        _text(term["name"], f"{context}.name")
+        _identifier(term["calendar_id"], f"{context}.calendar_id")
+
+    patterns = _list(
+        institution["meeting_patterns"],
+        "institution.meeting_patterns",
+        allow_empty=False,
+    )
+    pattern_ids: set[str] = set()
+    valid_weekdays = {
+        "monday",
+        "tuesday",
+        "wednesday",
+        "thursday",
+        "friday",
+        "saturday",
+        "sunday",
+    }
+    for index, pattern in enumerate(patterns):
+        context = f"institution.meeting_patterns[{index}]"
+        if not isinstance(pattern, dict):
+            raise RecordError(f"{context} must be an object")
+        _required(pattern, ("pattern_id", "name", "starts_on", "meetings"), context)
+        pattern_id = _identifier(pattern["pattern_id"], f"{context}.pattern_id")
+        if pattern_id in pattern_ids:
+            raise RecordError(f"duplicate meeting pattern ID {pattern_id!r}")
+        pattern_ids.add(pattern_id)
+        _text(pattern["name"], f"{context}.name")
+        pattern_end = None
+        try:
+            pattern_start = date.fromisoformat(pattern["starts_on"])
+            if pattern.get("ends_on") is not None:
+                pattern_end = date.fromisoformat(pattern["ends_on"])
+        except (TypeError, ValueError) as exc:
+            raise RecordError(f"{context} dates must be ISO YYYY-MM-DD") from exc
+        if pattern_end is not None and pattern_end < pattern_start:
+            raise RecordError(f"{context} ends before it starts")
+        first_week = pattern.get("first_week_number", 1)
+        if not isinstance(first_week, int) or first_week < 1:
+            raise RecordError(f"{context}.first_week_number must be positive")
+        meetings = _list(pattern["meetings"], f"{context}.meetings", allow_empty=False)
+        days: set[int] = set()
+        weekdays: set[str] = set()
+        for meeting_index, meeting in enumerate(meetings):
+            meeting_context = f"{context}.meetings[{meeting_index}]"
+            if not isinstance(meeting, dict):
+                raise RecordError(f"{meeting_context} must be an object")
+            _required(
+                meeting,
+                ("weekday", "day", "start_time", "duration_minutes"),
+                meeting_context,
+            )
+            weekday = meeting["weekday"]
+            if weekday not in valid_weekdays or weekday in weekdays:
+                raise RecordError(f"{meeting_context}.weekday is invalid or duplicated")
+            weekdays.add(weekday)
+            day_number = meeting["day"]
+            if not isinstance(day_number, int) or day_number < 1 or day_number in days:
+                raise RecordError(f"{meeting_context}.day is invalid or duplicated")
+            days.add(day_number)
+            if not isinstance(meeting["start_time"], str) or not re.fullmatch(
+                r"(?:[01]\d|2[0-3]):[0-5]\d",
+                meeting["start_time"],
+            ):
+                raise RecordError(f"{meeting_context}.start_time must be HH:MM")
+            if (
+                not isinstance(meeting["duration_minutes"], int)
+                or meeting["duration_minutes"] < 1
+            ):
+                raise RecordError(
+                    f"{meeting_context}.duration_minutes must be positive"
+                )
+
+    class_length = institution.get("class_length_minutes")
+    if class_length is not None and (
+        not isinstance(class_length, int) or class_length < 1
     ):
-        raise RecordError("institution.administrative_fields must contain text values")
+        raise RecordError("institution.class_length_minutes must be positive")
+
+    fields = institution.get("required_administrative_fields", [])
+    for index, field in enumerate(
+        _list(fields, "institution.required_administrative_fields")
+    ):
+        _identifier(field, f"institution.required_administrative_fields[{index}]")

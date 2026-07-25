@@ -23,6 +23,8 @@ external sources
           ┌────────┴───────────────┐
           ▼                        ▼
 4. schedule sessions       5. audit/trace reports
+   + institution profile
+   + academic calendar
           │
           ▼
 6. resolve session ──> render artifacts
@@ -35,7 +37,7 @@ external sources
 | Register | external file, URL, or authoritative record | source manifest and preserved/referenceable original | identity, version, rights, checksum, provenance |
 | Extract | registered source package | structured, addressable records and citations | fidelity, locator validity, extraction method |
 | Compile | standards and reviewed knowledge references | competencies, units, sessions, and trace graph | schema, references, coverage, safety, instructional time |
-| Schedule | sessions and one institutional calendar | session-to-date mapping | closures, availability, slot capacity, completion |
+| Schedule | sessions, Institution Profile meeting pattern, and Academic Calendar | generated slots and session-to-date mapping | institution/term linkage, closures, availability, slot capacity, completion |
 | Resolve | session ID or calendar alias plus generated schedule | canonical session | unique alias and valid session reference |
 | Render | resolved session, its instructional unit, renderer configuration, optional template | artifact and generation manifest | model approval, renderer prerequisites, deterministic identity |
 | Audit | versioned sources, blueprint, model, and manifests | coverage, gap, impact, and accreditation reports | graph integrity and freshness |

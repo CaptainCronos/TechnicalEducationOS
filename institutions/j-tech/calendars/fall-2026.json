@@ -1,0 +1,17 @@
+{
+  "schema_version": "2.0",
+  "calendar_id": "fall-2026",
+  "institution_id": "j-tech",
+  "term_id": "fall-2026",
+  "name": "Fall 2026",
+  "first_day": "2026-08-24",
+  "last_day": "2026-12-18",
+  "events": [
+    {
+      "name": "Institutional closure",
+      "type": "institutional_closure",
+      "start_date": "2026-09-04",
+      "end_date": "2026-09-04"
+    }
+  ]
+}
