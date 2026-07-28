@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import html
 import io
+import textwrap
 import zipfile
 from typing import Any
 
@@ -97,7 +98,19 @@ def _pdf_escape(value: str) -> bytes:
 def generate_pdf(content: str, theme: dict[str, Any]) -> bytes:
     """Create a small deterministic PDF using the built-in Helvetica font."""
     del theme
-    lines = content.splitlines()
+    lines = [
+        wrapped_line
+        for line in content.splitlines()
+        for wrapped_line in (
+            textwrap.wrap(
+                line,
+                width=100,
+                break_long_words=False,
+                break_on_hyphens=False,
+            )
+            or [""]
+        )
+    ]
     pages = [lines[index : index + 64] for index in range(0, len(lines), 64)]
     if not pages:
         pages = [[]]
@@ -118,7 +131,7 @@ def generate_pdf(content: str, theme: dict[str, Any]) -> bytes:
         for line_index, line in enumerate(page_lines):
             if line_index:
                 commands.append(b"T*")
-            commands.append(b"(" + _pdf_escape(line[:110]) + b") Tj")
+            commands.append(b"(" + _pdf_escape(line) + b") Tj")
         commands.append(b"ET")
         stream = b"\n".join(commands)
         objects.extend(

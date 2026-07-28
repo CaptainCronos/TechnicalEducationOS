@@ -122,15 +122,75 @@ def _localized_content(
         "instructor": "artifact.instructor.title",
         "lab": "artifact.lab.title",
     }
-    key = title_keys[artifact_type]
-    title = locale["strings"].get(key)
-    if not title:
+    strings = locale["strings"]
+    replacements = {
+        "# Administrative Lesson Plan": title_keys["administrative"],
+        "# Instructor Guide": title_keys["instructor"],
+        "# Lab Sheet": title_keys["lab"],
+        "## Objectives": "label.objectives",
+        "## Essential Question": "label.essential_question",
+        "## Materials": "label.materials",
+        "## Warm Up": "label.warm_up",
+        "## Academic Activities": "label.academic_activities",
+        "## Shop Activities": "label.shop_activities",
+        "## Exit": "label.exit",
+        "## Assessment": "label.assessment",
+        "## Preparation": "label.preparation",
+        "## Teaching Sequence": "label.teaching_sequence",
+        "## Common Technician Errors": "label.common_technician_errors",
+        "## Instructor Shop Tip": "label.instructor_shop_tip",
+        "## Flex Activities": "label.flex_activities",
+        "### Procedure": "label.procedure",
+        "### Deliverables": "label.deliverables",
+        "### Safety": "label.safety",
+        "No lab is assigned to this session.": "message.no_lab",
+        "None recorded.": "message.none_recorded",
+    }
+    prefix_replacements = {
+        "- Course: ": "label.course",
+        "- Session: ": "label.session",
+        "- Instructional unit: ": "label.instructional_unit",
+        "- Phase: ": "label.phase",
+        "- Duration: ": "label.duration",
+        "- Institution: ": "label.institution",
+    }
+    required_keys = {
+        *replacements.values(),
+        *prefix_replacements.values(),
+        *(
+            f"phase.{phase}"
+            for phase in (
+                "theory",
+                "demonstration",
+                "lab",
+                "assessment",
+                "integrated",
+            )
+        ),
+        "label.minutes",
+    }
+    missing = sorted(key for key in required_keys if not strings.get(key))
+    if missing:
         raise BuildError(
-            f"locale {locale['locale']!r} is missing required string {key!r}"
+            f"locale {locale['locale']!r} is missing required string(s): "
+            f"{', '.join(missing)}"
         )
     lines = content.splitlines()
-    if lines and lines[0].startswith("# "):
-        lines[0] = f"# {title}"
+    for index, line in enumerate(lines):
+        if line in replacements:
+            marker = f"{line.split(' ', 1)[0]} " if line.startswith("#") else ""
+            lines[index] = f"{marker}{strings[replacements[line]]}"
+            continue
+        for prefix, key in prefix_replacements.items():
+            if not line.startswith(prefix):
+                continue
+            value = line[len(prefix) :]
+            if key == "label.phase":
+                value = strings[f"phase.{value.lower()}"]
+            elif key == "label.duration" and value.endswith(" minutes"):
+                value = f"{value[:-8]} {strings['label.minutes']}"
+            lines[index] = f"- {strings[key]}: {value}"
+            break
     return "\n".join(lines) + "\n"
 
 
@@ -253,6 +313,9 @@ def _build(config: BuildConfig) -> BuildResult:
     source_snapshot = _canonical_json(
         [course_record, *unit_records, session_record, institution, calendar]
     )
+    curriculum_revision = _hash_bytes(
+        _canonical_json([course_record, *unit_records, session_record]).encode("utf-8")
+    )
     course, units, sessions = load_curriculum(course_directory)
     unit_order = [
         unit_id
@@ -343,11 +406,15 @@ def _build(config: BuildConfig) -> BuildResult:
                 rendered_record = {
                     "renderer": renderer_id,
                     "artifact_type": renderer_id,
+                    "build_id": build_id,
+                    "curriculum_revision": curriculum_revision,
                     "course_id": course["course_id"],
+                    "curriculum_version": course["schema_version"],
                     "unit_id": unit["id"],
                     "session_id": session["id"],
                     "session_number": session["session_number"],
                     "schedule_id": schedule["schedule_id"],
+                    "institution_id": config.institution_id,
                     "locale": config.locale,
                     "theme": config.theme,
                     "content": rendered,
@@ -373,11 +440,24 @@ def _build(config: BuildConfig) -> BuildResult:
                     path.write_bytes(content)
                     artifact_entries.append(
                         {
+                            "artifact_id": (
+                                f"{course['course_id']}:{session['id']}:"
+                                f"{renderer_id}:{generator_id}"
+                            ),
                             "artifact_type": renderer_id,
                             "renderer": renderer_id,
                             "generator": generator_id,
                             "format": generator_id,
+                            "course_id": course["course_id"],
+                            "curriculum_version": course["schema_version"],
+                            "curriculum_revision": curriculum_revision,
+                            "unit_id": unit["id"],
                             "session_id": session["id"],
+                            "session_number": session["session_number"],
+                            "schedule_id": schedule["schedule_id"],
+                            "institution_id": config.institution_id,
+                            "locale": config.locale,
+                            "theme": config.theme,
                             "output_path": relative.as_posix(),
                             "content_hash": _hash_bytes(content),
                             "pipeline_result": "success",
@@ -386,6 +466,8 @@ def _build(config: BuildConfig) -> BuildResult:
         manifest = {
             "manifest_version": "1.0",
             "build_id": build_id,
+            "curriculum_revision": curriculum_revision,
+            "curriculum_version": course["schema_version"],
             **identity,
             "artifact_count": len(artifact_entries),
             "artifacts": artifact_entries,

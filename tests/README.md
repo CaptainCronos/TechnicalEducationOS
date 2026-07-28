@@ -8,8 +8,16 @@ test results and diagnostics. Real curriculum remains solely under
 Run the suite from the repository root:
 
 ```bash
-python -m unittest discover -s tests -v
+python -m pytest -q
 ```
+
+The permanent generated-document checks live in
+`end_to_end/test_artifact_validation.py`. They build into temporary
+directories and validate inventory, required sections, source fidelity,
+cross-document consistency, all physical formats, metadata, localization,
+themes, and normalized snapshots. The snapshot digests are stored in
+`snapshots/reference_artifacts.json`; generated documents are not fixtures and
+must not be committed.
 
 The Administrative Lesson Plan coverage verifies that the approved reference
 content and populated official-template content both originate in the DSL204

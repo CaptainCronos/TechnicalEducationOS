@@ -1,0 +1,32 @@
+{
+  "logical_artifact_count": 24,
+  "normalization": "LF line endings; trailing whitespace removed",
+  "normalized_content_sha256": {
+    "session-001-administrative": "f952a3b92f29896c3e889088fdbb627f51ad65dbe49f07f11e583acab0c8059b",
+    "session-001-instructor": "72b4c27f71ff6b8d2f5e2e7bacd01ed5d409367c5e51c13dfb9a9dfacab373f7",
+    "session-001-lab": "ffe16c1a0ce6f2ced9ae92fc39a0c8d52369508c9a010efb36ba01c1c9ce4e7f",
+    "session-002-administrative": "0a836c9bff1d97a0188b0456b76396f872a2f133868969743173ae3a10dd027b",
+    "session-002-instructor": "e6799ff6a8c8aad140ba42b55770aac0117ca60806708d36264e97aa88b7e148",
+    "session-002-lab": "711366cd2882aa37e4e205415f64c65735b41f7b6ec2120f2fd7c0cb5c656d87",
+    "session-003-administrative": "8a495a6b0c72639c549ffa304152208957defded4c5ee946465035c1ec84982f",
+    "session-003-instructor": "e4352809325f43053e30bb0d97237bbc54333a747f8d708fa35d68891ec84117",
+    "session-003-lab": "b990a62269c233cdc7dc2a0b8a6c1c64939e026a94d84572075de4ffaebf5244",
+    "session-004-administrative": "a37c6f79f4963f1c1ff24de9f7384b2a994b9e33f173ba5762a7bd84d305a767",
+    "session-004-instructor": "39280ab91e96ee338d8f94b2690ab4425589c5980c6dc4fcc02b4b1f6075cddb",
+    "session-004-lab": "f71f075667e1c6cdfd6f481a784386c3729d9fd9623dbb5d6d1c49c69618738c",
+    "session-005-administrative": "38bf275435fcd2b03f701a4afa4402ff4dfde25712c8e578740eac6acbdd8433",
+    "session-005-instructor": "e86ef8e60b659750bb045c95d31fb1c596537242ac62677a15d3ac78a110864e",
+    "session-005-lab": "4acc0b13699b561e2090074f684eb4299dc5d92a88673745014f5b7e5f1ae0ba",
+    "session-006-administrative": "a8ad98ab37fa6237caa1eee19760cd1a222ee55e11f0c3dd3db51d5a3cae156b",
+    "session-006-instructor": "5418a008d855473b7ac6c9e54dd2ae41c4fbcb8d13c23de657becbe2af810482",
+    "session-006-lab": "1af5c24c4a9e24df7539f74fe1d500192b7e75e3dea28ba2b668c1061a18555b",
+    "session-007-administrative": "089a3e72f0510378b0bf0932b444d38eb5329138fdc616735cb57a0cfee7a41d",
+    "session-007-instructor": "5f8e7952d0f6752674354c89df7b6576be13e46257f81c95172e1a15cdaff1c7",
+    "session-007-lab": "f6b01263956c1729b61032985eb0e268f32bf5230cec16ea37336c8a3424359e",
+    "session-008-administrative": "f8b2afda6decf6db6e761d3245efdef41cca2080b347f2403a286c4f963c90ec",
+    "session-008-instructor": "18de95686a7a95037c682dde625b07342f24ea1627fdd04a85bfff967faa1621",
+    "session-008-lab": "58c121f0498b70d80534708fc8a7fbb03af1405be335709560fcb4d52b552410"
+  },
+  "physical_artifact_count": 96,
+  "snapshot_version": "1.0"
+}

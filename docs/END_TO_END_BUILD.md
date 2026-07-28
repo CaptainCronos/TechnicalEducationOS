@@ -106,6 +106,9 @@ producing 96 physical artifacts in total.
 Automated verification checks non-empty files, extensions and containment,
 UTF-8 Markdown/HTML, DOCX ZIP/XML structure, and PDF header/trailer structure.
 DOCX ZIP member timestamps are fixed; PDF objects contain no timestamps.
+The complete structural, content, cross-document, localization, theme,
+metadata, parser, and snapshot strategy is defined in
+[Document Verification and Artifact Validation](ARTIFACT_VALIDATION.md).
 
 ## Manifest
 
@@ -113,11 +116,13 @@ DOCX ZIP member timestamps are fixed; PDF objects contain no timestamps.
 
 - manifest and TEOS versions;
 - reproducible `build_id`;
+- deterministic curriculum revision and schema/model version;
 - source curriculum, institution, calendar, meeting pattern, locale, and theme;
 - renderer and generator selections;
 - hashes for every loaded source;
 - one record per artifact with type, renderer, generator, session, relative
-  output path, SHA-256 content hash, and pipeline result; and
+  output path, curriculum/institution/locale/theme trace metadata, SHA-256
+  content hash, and pipeline result; and
 - overall artifact count and pipeline result.
 
 The build identifier is a SHA-256 digest of canonical configuration and source

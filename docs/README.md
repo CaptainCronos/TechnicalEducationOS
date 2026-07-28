@@ -16,6 +16,7 @@ The documents below define how that constitution is implemented.
 - [Course Blueprint Specification](specifications/course-blueprint.md)
 - [Curriculum Model Specification](specifications/curriculum-model.md)
 - [Educational Artifact Specification](specifications/educational-artifacts.md)
+- [Document Verification and Artifact Validation](ARTIFACT_VALIDATION.md)
 - [Traceability Specification](specifications/traceability.md)
 
 ## Supporting records
