@@ -56,3 +56,71 @@ jobs:
             coverage.xml
           if-no-files-found: error
           retention-days: 14
+
+  end-to-end:
+    name: Installed wheel end-to-end
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+
+      - name: Build wheel
+        run: |
+          python -m pip install --disable-pip-version-check build
+          python -m build --wheel
+
+      - name: Install wheel and test runner in an isolated environment
+        run: |
+          python -m venv "${{ runner.temp }}/teos-e2e-venv"
+          "${{ runner.temp }}/teos-e2e-venv/bin/python" \
+            -m pip install --disable-pip-version-check dist/*.whl pytest
+
+      - name: Run permanent end-to-end tests outside the source import path
+        working-directory: ${{ runner.temp }}
+        env:
+          PYTHONPATH: ""
+        run: |
+          "${{ runner.temp }}/teos-e2e-venv/bin/python" -m pytest \
+            "${{ github.workspace }}/tests/end_to_end" \
+            --import-mode=importlib \
+            --junitxml="${{ github.workspace }}/e2e-junit.xml"
+
+      - name: Retain one canonical build manifest
+        working-directory: ${{ runner.temp }}
+        env:
+          PYTHONPATH: ""
+        run: |
+          "${{ runner.temp }}/teos-e2e-venv/bin/teos" build \
+            --repository "${{ github.workspace }}/examples/reference_curriculum" \
+            --schemas "${{ github.workspace }}/schemas" \
+            --institution north-valley-community-college \
+            --calendar fall-2026-semester \
+            --meeting-pattern monday-wednesday-evening \
+            --locale en-US \
+            --theme institution-branded \
+            --renderers all \
+            --generators all \
+            --output "${{ runner.temp }}/teos-reference-build"
+
+      - name: Verify checkout was not modified
+        run: git diff --exit-code
+
+      - name: Upload end-to-end evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: end-to-end-evidence
+          path: |
+            e2e-junit.xml
+            ${{ runner.temp }}/teos-reference-build/manifest.json
+            ${{ runner.temp }}/teos-reference-build/compiled-curriculum.json
+            ${{ runner.temp }}/teos-reference-build/schedule.json
+          if-no-files-found: error
+          retention-days: 14

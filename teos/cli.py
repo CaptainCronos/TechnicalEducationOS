@@ -7,6 +7,7 @@ import json
 import sys
 from pathlib import Path
 
+from teos.application import BuildConfig, build as build_application
 from teos.audit import coverage_findings
 from teos.docx import render_administrative_docx
 from teos.records import (
@@ -163,6 +164,51 @@ def _generate_administrative(args: argparse.Namespace) -> int:
 
 
 def _build_curriculum(args: argparse.Namespace) -> int:
+    if args.repository:
+        required = {
+            "--schemas": args.schemas,
+            "--institution": args.build_institution,
+            "--calendar": args.build_calendar,
+            "--meeting-pattern": args.build_meeting_pattern,
+            "--locale": args.locale,
+            "--theme": args.theme,
+            "--output": args.build_output,
+        }
+        missing = [name for name, value in required.items() if value is None]
+        if missing:
+            raise RecordError(
+                "reference build is missing required options: " + ", ".join(missing)
+            )
+        renderer_ids = (
+            tuple(SESSION_RENDERERS)
+            if args.renderers == ["all"]
+            else tuple(args.renderers)
+        )
+        generator_ids = (
+            ("markdown", "html", "docx", "pdf")
+            if args.generators == ["all"]
+            else tuple(args.generators)
+        )
+        result = build_application(
+            BuildConfig(
+                repository=Path(args.repository),
+                schema_directory=Path(args.schemas),
+                institution_id=args.build_institution,
+                calendar_id=args.build_calendar,
+                meeting_pattern_id=args.build_meeting_pattern,
+                locale=args.locale,
+                theme=args.theme,
+                output_directory=Path(args.build_output),
+                renderers=renderer_ids,
+                generators=generator_ids,
+            )
+        )
+        print(result.manifest_path)
+        print(
+            f"Build passed: {result.compilation_summary['course_id']} generated "
+            f"{len(result.artifact_paths)} artifact(s); build {result.build_id}."
+        )
+        return 0
     course, units, sessions = load_curriculum(Path(args.course))
     print(
         f"Build passed: {course['course_id']} has {len(units)} instructional "
@@ -259,9 +305,51 @@ def build_parser() -> argparse.ArgumentParser:
     subparsers = parser.add_subparsers(dest="command", required=True)
     build = subparsers.add_parser(
         "build",
-        help="Validate the canonical course, units, and sessions",
+        help="Run the complete pipeline or validate a legacy course directory",
     )
-    build.add_argument("--course", required=True, help="Course record directory")
+    build_source = build.add_mutually_exclusive_group(required=True)
+    build_source.add_argument("--course", help="Course record directory")
+    build_source.add_argument(
+        "--repository",
+        help="Reference curriculum repository root for a complete build",
+    )
+    build.add_argument("--schemas", help="JSON Schema directory")
+    build.add_argument(
+        "--institution",
+        dest="build_institution",
+        help="Institution identifier",
+    )
+    build.add_argument(
+        "--calendar",
+        dest="build_calendar",
+        help="Academic calendar identifier",
+    )
+    build.add_argument(
+        "--meeting-pattern",
+        dest="build_meeting_pattern",
+        help="Institution meeting pattern identifier",
+    )
+    build.add_argument("--locale", help="Locale identifier")
+    build.add_argument("--theme", help="Theme identifier")
+    build.add_argument(
+        "--renderers",
+        nargs="+",
+        choices=["all", *SESSION_RENDERERS],
+        default=["all"],
+        help="Renderer selections (default: all)",
+    )
+    build.add_argument(
+        "--generators",
+        nargs="+",
+        choices=["all", "markdown", "html", "docx", "pdf"],
+        default=["all"],
+        help="Physical format selections (default: all)",
+    )
+    build.add_argument(
+        "--output",
+        dest="build_output",
+        help="New isolated output directory",
+    )
     build.set_defaults(handler=_build_curriculum)
 
     schedule = subparsers.add_parser(

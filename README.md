@@ -68,3 +68,8 @@ distribution, and build-log artifacts are retained for each applicable run.
 
 Recommended default-branch and version-tag rules are documented in
 [Repository protection recommendations](docs/branch-protection.md).
+
+The complete wheel-installed reference pipeline, canonical command,
+configuration matrix, output manifest, API example, determinism method, and
+failure behavior are documented in the
+[End-to-End Reference Build runbook](docs/END_TO_END_BUILD.md).

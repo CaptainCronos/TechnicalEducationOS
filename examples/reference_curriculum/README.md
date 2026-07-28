@@ -123,13 +123,18 @@ profiles consume the same curriculum records.
 
 Three parallel theme token catalogs and two key-compatible locale catalogs show
 presentation-only variants. English and Spanish translate artifact and field
-labels, not curriculum statements. The current v2 renderers do not consume
-theme tokens or locale catalogs; the regression test therefore verifies their
-shape and curriculum isolation rather than claiming localized or themed output.
+labels, not curriculum statements. The complete application build records both
+selections in its intermediate representation, localizes registered labels,
+and passes theme tokens to physical-format generation without changing
+curriculum content.
 
 ## Execute the supported pipeline
 
 Run all commands from the repository root.
+
+For the complete wheel-installed `Load → Validate → Compile → Schedule → Render
+→ Generate` command, output layout, manifest, and API equivalent, use the
+[End-to-End Reference Build runbook](../../docs/END_TO_END_BUILD.md).
 
 ### Schema and runtime validation / compilation
 
