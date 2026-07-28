@@ -5,7 +5,18 @@ Python distribution versions use PEP 440 pre-release notation.
 
 ## [Unreleased]
 
-No changes yet.
+### Added
+
+- project governance, RFC, compatibility, support, plugin ecosystem,
+  documentation, and long-term maintenance policies;
+- community-driven roadmap intake, prioritization, and major-version planning;
+  and
+- feature/RFC issue and expanded pull request review guidance.
+
+### Changed
+
+- contribution, release, security, conduct, and community templates now share
+  explicit triage, review, cadence, disclosure, and compatibility standards.
 
 ## [1.2.0-alpha1] - 2026-07-28
 

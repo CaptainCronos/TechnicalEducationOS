@@ -1,7 +1,7 @@
 name: Documentation issue
 description: Report inaccurate, incomplete, or broken documentation.
 title: "[Docs]: "
-labels: ["documentation"]
+labels: ["documentation", "needs-triage"]
 body:
   - type: input
     id: location
@@ -19,3 +19,14 @@ body:
     id: correction
     attributes:
       label: Suggested correction
+  - type: dropdown
+    id: impact
+    attributes:
+      label: Impact
+      options:
+        - Blocks installation or a supported workflow
+        - Could cause incorrect, unsafe, or incompatible use
+        - Incomplete or confusing
+        - Typographical or cosmetic
+    validations:
+      required: true

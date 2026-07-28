@@ -78,3 +78,9 @@ Read [PROJECT_HANDOFF.md](../PROJECT_HANDOFF.md) before changing model
 ownership or data flow. Keep generated output out of Git, preserve deterministic
 fixtures, add an ADR for significant boundary changes, and update tests and
 release notes for observable compatibility changes.
+
+Use the complete [contribution workflow](../CONTRIBUTING.md) for issues, pull
+requests, review, tests, documentation, and commit messages. Public contracts,
+governance, and architectural boundaries may also require an
+[RFC](RFC_PROCESS.md). The [support matrix](SUPPORT.md) defines the environments
+that release validation must cover.

@@ -19,7 +19,8 @@ outputs.
 > integration testing. Validate generated educational content before use.
 
 Read the [repository constitution](PROJECT_HANDOFF.md), then the
-[architecture overview](docs/architecture/overview.md).
+[architecture overview](docs/architecture/overview.md). Community decisions
+follow the [project governance model](GOVERNANCE.md).
 
 ## Install
 
@@ -128,7 +129,11 @@ coverage review, and CI behavior are documented in
 - [Curriculum authoring](docs/CURRICULUM_AUTHORING.md)
 - [Architecture](docs/architecture/overview.md)
 - [Testing](docs/TESTING.md)
+- [Compatibility](docs/COMPATIBILITY.md)
+- [Support policy](docs/SUPPORT.md)
 - [Release procedure](docs/RELEASING.md)
+- [Contributing](CONTRIBUTING.md)
+- [Governance](GOVERNANCE.md)
 - [Security policy](SECURITY.md)
 
 TEOS is distributed under the [MIT License](LICENSE). See

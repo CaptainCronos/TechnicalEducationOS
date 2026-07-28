@@ -3,3 +3,6 @@ contact_links:
   - name: Security report
     url: https://github.com/CaptainCronos/TechnicalEducationOS/security/advisories/new
     about: Report vulnerabilities privately.
+  - name: Contribution and RFC guidance
+    url: https://github.com/CaptainCronos/TechnicalEducationOS/blob/main/CONTRIBUTING.md
+    about: Review workflows and proposal requirements before starting substantial work.

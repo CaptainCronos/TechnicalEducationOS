@@ -1,7 +1,7 @@
 name: Bug report
 description: Report a reproducible TEOS defect.
 title: "[Bug]: "
-labels: ["bug"]
+labels: ["bug", "needs-triage"]
 body:
   - type: markdown
     attributes:
@@ -38,6 +38,24 @@ body:
     id: actual
     attributes:
       label: Actual behavior and diagnostics
+    validations:
+      required: true
+  - type: textarea
+    id: workaround
+    attributes:
+      label: Impact and workaround
+      description: Explain who is blocked, whether output may be incorrect, and any safe workaround.
+    validations:
+      required: true
+  - type: dropdown
+    id: regression
+    attributes:
+      label: Regression
+      description: Did this work in an earlier public TEOS version?
+      options:
+        - "Unknown"
+        - "No"
+        - "Yes"
     validations:
       required: true
   - type: checkboxes

@@ -10,9 +10,23 @@ The documents below define how that constitution is implemented.
 - [Public API](API.md)
 - [Developer guide](DEVELOPMENT.md)
 - [Testing](TESTING.md)
+- [Versioning and compatibility](COMPATIBILITY.md)
+- [Support policy](SUPPORT.md)
+- [RFC process](RFC_PROCESS.md)
 - [Release procedure](RELEASING.md)
 - [v1.2.0-alpha1 release notes](releases/v1.2.0-alpha1.md)
 - [v1.2.0-alpha1 release audit](releases/v1.2.0-alpha1-audit.md)
+
+## Governance and stewardship
+
+- [Project governance](../GOVERNANCE.md)
+- [Roadmap](../ROADMAP.md)
+- [Plugin ecosystem governance](PLUGIN_GOVERNANCE.md)
+- [Documentation governance](DOCUMENTATION_GOVERNANCE.md)
+- [Long-term maintenance](MAINTENANCE.md)
+- [Contributing](../CONTRIBUTING.md)
+- [Code of Conduct](../CODE_OF_CONDUCT.md)
+- [Security](../SECURITY.md)
 
 ## Architecture
 

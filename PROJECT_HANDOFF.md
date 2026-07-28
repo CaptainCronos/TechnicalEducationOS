@@ -122,3 +122,9 @@ The normative architecture begins at
 contracts live in `docs/specifications/`. If an older document conflicts with
 this constitution, this constitution and accepted architecture decisions take
 precedence.
+
+People, decisions, compatibility, and stewardship are governed by
+[`GOVERNANCE.md`](GOVERNANCE.md), the
+[compatibility policy](docs/COMPATIBILITY.md), and the maintained index in
+[`docs/README.md`](docs/README.md). Those policies may refine process but may
+not silently weaken this constitution's authority or non-negotiable rules.

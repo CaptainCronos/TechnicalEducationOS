@@ -43,4 +43,6 @@ into place only after a complete successful build. Equivalent CLI and API
 configurations produce the same logical artifacts and build identifier.
 
 Internal modules are importable for implementation and testing but are not part
-of the compatibility promise unless re-exported by `teos`.
+of the compatibility promise unless re-exported by `teos`. See
+[Versioning and compatibility](COMPATIBILITY.md) for the permanent API,
+deprecation, and pre-release guarantees.

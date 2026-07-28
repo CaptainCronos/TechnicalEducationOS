@@ -1,0 +1,46 @@
+name: Support question
+description: Ask about a supported installation or workflow without sharing private data.
+title: "[Support]: "
+labels: ["support"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        TEOS is community-maintained and cannot certify generated curriculum. Do not include credentials, private learner data, proprietary curriculum, or vulnerability details.
+  - type: input
+    id: version
+    attributes:
+      label: TEOS version
+      placeholder: 1.2.0a1
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Python version and operating system
+      placeholder: CPython 3.12.4 on Ubuntu 24.04
+    validations:
+      required: true
+  - type: textarea
+    id: goal
+    attributes:
+      label: Goal
+      description: What supported outcome are you trying to achieve?
+    validations:
+      required: true
+  - type: textarea
+    id: attempts
+    attributes:
+      label: What you tried
+      description: Include exact safe commands, documentation consulted, and diagnostics.
+    validations:
+      required: true
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Safety checks
+      options:
+        - label: I removed credentials, private learner data, and proprietary curriculum content.
+          required: true
+        - label: This is not a security vulnerability.
+          required: true

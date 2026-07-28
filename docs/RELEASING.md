@@ -2,7 +2,34 @@
 
 This checklist is the permanent TEOS release procedure. Perform it from a clean
 checkout on a dedicated release branch. Replace the example version and tag for
-later releases.
+later releases. Version selection follows
+[Versioning and compatibility](COMPATIBILITY.md); support-window decisions
+follow [Support policy](SUPPORT.md).
+
+## Release strategy and cadence
+
+Cadence is a planning target, not an entitlement to ship. A release moves only
+when its exit evidence is complete.
+
+| Release | Purpose | Target cadence | Approval/quality bar |
+|---|---|---|---|
+| Alpha | Early contract and workflow evaluation | Every 4–8 weeks during active alpha development | Intended scope works end to end; known instability is documented |
+| Beta / release candidate | Compatibility freeze, external validation, remediation | Every 6–8 weeks as needed | No known critical defects; migration and support matrix are testable |
+| Stable minor | Backward-compatible features and maintenance | Up to twice per year | All release gates, stable contracts, migration, security and documentation review |
+| Patch | Backward-compatible defects and dependency corrections | Monthly train when fixes are waiting | Focused regression evidence; no avoidable feature work |
+| Hotfix | Urgent data-integrity, severe regression, or operational correction | As soon as validated, normally 24–72 hours after a fix is ready | Narrow change, risk review, exact artifact verification |
+| Security | Coordinated vulnerability remediation | Embargoed and risk-driven | Private advisory process, supported-version fixes, coordinated disclosure |
+
+Empty trains are skipped. Alpha and beta releases may be more frequent during
+active pilots. Patch and hotfix releases do not weaken Semantic Versioning or
+review requirements. A security release may be prepared privately and may use
+an accelerated review path, but must retain test, artifact, provenance, and
+post-release audit evidence.
+
+The release maintainer assigns one of these types, confirms the supported
+versions in `SECURITY.md` and `docs/SUPPORT.md`, and records deferrals. Stable
+and major releases follow the public roadmap/RFC process; security dates are
+not pre-announced when doing so would increase risk.
 
 ## 1. Prepare
 

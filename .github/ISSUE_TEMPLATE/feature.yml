@@ -1,0 +1,52 @@
+name: Feature or RFC proposal
+description: Propose a user-facing capability, contract, or architectural change.
+title: "[Feature]: "
+labels: ["enhancement", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Describe the problem before the implementation. Significant contracts and architecture use the RFC process after triage.
+  - type: textarea
+    id: problem
+    attributes:
+      label: User problem and evidence
+      description: Who is affected, what are they trying to do, and what evidence shows the need?
+    validations:
+      required: true
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Desired outcome
+      description: Describe observable success without assuming one design.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives and workarounds
+      description: Include doing nothing and existing extension approaches where relevant.
+    validations:
+      required: true
+  - type: checkboxes
+    id: surfaces
+    attributes:
+      label: Potentially affected contracts
+      options:
+        - label: Public Python API or CLI
+        - label: Schema, repository, or curriculum compatibility
+        - label: Renderer, generator, theme, profile, locale, or plugin contract
+        - label: Architecture, authority, privacy, security, or learner safety
+        - label: Governance, support, release, or documentation policy
+  - type: textarea
+    id: stewardship
+    attributes:
+      label: Stewardship and validation
+      description: Who can help implement, test, document, and maintain this outcome?
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Safety checks
+      options:
+        - label: This proposal contains no vulnerability details, credentials, or private learner data.
+          required: true
