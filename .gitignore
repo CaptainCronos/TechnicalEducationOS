@@ -10,6 +10,13 @@ __pycache__/
 *.pyc
 .venv/
 venv/
+.coverage
+.pytest_cache/
+build/
+dist/
+*.egg-info/
+coverage.xml
+junit*.xml
 
 # OS files
 .DS_Store

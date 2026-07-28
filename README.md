@@ -1,5 +1,10 @@
 # TechnicalEducationOS
 
+[![Build Status](https://github.com/CaptainCronos/TechnicalEducationOS/actions/workflows/build.yml/badge.svg)](https://github.com/CaptainCronos/TechnicalEducationOS/actions/workflows/build.yml)
+[![Test Status](https://github.com/CaptainCronos/TechnicalEducationOS/actions/workflows/tests.yml/badge.svg)](https://github.com/CaptainCronos/TechnicalEducationOS/actions/workflows/tests.yml)
+![Coverage](https://img.shields.io/badge/coverage-report%20artifact-blue)
+![Python Version](https://img.shields.io/badge/python-3.11%20%7C%203.12-blue)
+
 TechnicalEducationOS (TEOS) is a curriculum compiler. It turns educational
 standards, institutional constraints, and instructional resources into a
 reviewed course blueprint and structured curriculum model, then renders lesson
@@ -53,3 +58,13 @@ through a generated schedule before rendering. Legacy week records remain
 read-only inputs solely for reproducing approved documents.
 
 See [ROADMAP.md](ROADMAP.md) for the current milestone sequence.
+
+## Quality verification
+
+GitHub Actions builds the wheel and source distribution, runs the full test
+suite on Python 3.11 and 3.12, validates JSON Schema contracts, and tests the
+installed wheel from a clean environment. JUnit, coverage, wheel, source
+distribution, and build-log artifacts are retained for each applicable run.
+
+Recommended default-branch and version-tag rules are documented in
+[Repository protection recommendations](docs/branch-protection.md).

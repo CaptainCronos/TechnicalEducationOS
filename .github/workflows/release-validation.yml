@@ -1,0 +1,57 @@
+name: Release Validation
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-validation-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  wheel:
+    name: Installed wheel / Python ${{ matrix.python-version }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.12"]
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install build tooling
+        run: python -m pip install --disable-pip-version-check build
+
+      - name: Build distributions
+        run: python -m build
+
+      - name: Create clean wheel environment
+        run: python -m venv "${{ runner.temp }}/teos-wheel-venv"
+
+      - name: Install wheel
+        run: |
+          "${{ runner.temp }}/teos-wheel-venv/bin/python" \
+            -m pip install --disable-pip-version-check dist/*.whl
+
+      - name: Verify installed package and CLI
+        run: |
+          "${{ runner.temp }}/teos-wheel-venv/bin/python" \
+            scripts/verify_installed_package.py \
+            --repository-root "${{ github.workspace }}"
+
+      - name: Verify checkout was not modified
+        run: git diff --exit-code
+
