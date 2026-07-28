@@ -6,6 +6,7 @@ curriculum compiler subsystem:
 - [Knowledge Sources](knowledge-sources.md)
 - [Course Blueprint](course-blueprint.md)
 - [Curriculum Model](curriculum-model.md)
+- [Canonical Lesson Model](canonical-lesson-model.md)
 - [Educational Artifacts](educational-artifacts.md)
 - [Traceability](traceability.md)
 

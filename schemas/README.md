@@ -9,6 +9,8 @@ tools, compilers, renderers, and tests.
 
 Current executable schemas:
 
+- `canonical-lesson.schema.json` — renderer-independent instructional truth for
+  one lesson, authored as YAML;
 - `course.schema.json` — calendar-independent course, competency, and module record;
 - `instructional-unit.schema.json` — reusable instructional unit;
 - `session-plan.schema.json` — ordered canonical sessions;
@@ -21,4 +23,6 @@ Any future schema MUST follow the governing prose specification and MUST NOT be
 invented merely to satisfy one renderer.
 
 Runtime validation also checks cross-record and semantic relationships that
-JSON Schema cannot conveniently express.
+JSON Schema cannot conveniently express. Canonical lesson checks include global
+ID uniqueness, reference resolution, duration reconciliation, activity
+scheduling coverage, and approval gating.

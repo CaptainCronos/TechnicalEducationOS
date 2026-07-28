@@ -1,0 +1,1297 @@
+schema_version: "1.0"
+
+lesson:
+  id: lesson.dsl204.foundation-brake-preparation
+  course_id: dsl204
+  title: >-
+    Foundation Brake Preparation, Preliminary Inspection, and Drum/Shoe
+    Service
+  summary: >-
+    Learners prepare a vehicle and work area for foundation-brake service,
+    perform a preliminary inspection, inspect drum-and-shoe components, record
+    findings, and determine needed action using approved service information.
+  language: en-US
+  lifecycle:
+    status: in_review
+    version: 0.1.0
+    last_reviewed: "2026-07-28"
+    authors:
+      - Technical Education OS curriculum team
+    reviewers: []
+    approved_by: []
+    change_summary: >-
+      Initial canonical representation. Detailed lesson content requires
+      comparison with the approved lesson source before approval.
+
+sources:
+  - id: source.assignment-brief
+    title: Canonical Lesson Model Design and Validation brief
+    source_type: instructor_input
+    version: "2026-07-28"
+    availability: available
+    notes: >-
+      Establishes the course, source week/day label, lesson title, required
+      model sections, and renderer-independence requirement.
+
+  - id: source.approved-lesson
+    title: Approved DSL204 Week 4 Day 1 lesson
+    source_type: approved_lesson
+    version: unknown
+    availability: not_available
+    notes: >-
+      The named approved source was not present in the repository or connected
+      DSL204 source folder during this review. Fidelity must be confirmed
+      before this record can become approved.
+
+  - id: source.dsl204-framework
+    title: DSL204 Diesel Brakes Curriculum Framework
+    source_type: course_framework
+    version: draft-2026-06-09
+    locator: >-
+      /J-Tech Classes/DSL 204 Brakes/DSL204_Curriculum_Framework_Draft.docx
+    availability: available
+    notes: >-
+      Maps Week 4 to Chapter 36, Foundation and Parking Brake Systems.
+
+  - id: source.cdx-mht3a002
+    title: CDX Tasksheet MHT3A002
+    source_type: task_sheet
+    version: "2021"
+    locator: >-
+      /J-Tech Classes/DSL 204 Brakes/Task Sheets/TS_MHT3A002.pdf
+    availability: available
+    notes: >-
+      Supports workspace preparation, use of manufacturer information,
+      preliminary brake-system identification, general shop safety, cleanup,
+      and discussion of findings.
+
+  - id: source.cdx-mht3c001
+    title: CDX Tasksheet MHT3C001
+    source_type: task_sheet
+    version: "2021"
+    locator: >-
+      /J-Tech Classes/DSL 204 Brakes/Task Sheets/TS_MHT3C001.pdf
+    availability: available
+    notes: >-
+      Supports foundation-brake shop safety controls, inspection practice,
+      documentation of needed action, and employability evaluation.
+
+  - id: source.hendrickson-l974
+    title: Drum Brake Maintenance Manual L974
+    source_type: manufacturer_reference
+    version: revision-e
+    locator: >-
+      /J-Tech Classes/DSL 204 Brakes/L974-Drum-Brake-Maintenance-Rev-E.pdf
+    availability: available
+    notes: >-
+      Candidate manufacturer resource for drum-brake inspection and service.
+      Applicability to the selected lab vehicle requires instructor review.
+
+  - id: source.oem-service-information
+    title: Service information for the selected lab vehicle
+    source_type: manufacturer_reference
+    version: vehicle-specific
+    availability: restricted
+    notes: >-
+      The instructor must select the current service procedure and
+      specifications that match the vehicle and installed foundation brake.
+
+scheduling:
+  sequence: 7
+  duration_minutes: 240
+  source_aliases:
+    - scheme: source-week-day
+      value: Week 4 Day 1
+  segments:
+    - id: segment.classroom
+      title: Foundation-brake preparation and inspection concepts
+      duration_minutes: 120
+      activity_ids:
+        - activity.activate-prior-knowledge
+        - activity.service-preparation
+        - activity.preliminary-inspection-concepts
+        - activity.shop-briefing
+    - id: segment.shop
+      title: Preliminary inspection and drum/shoe service practice
+      duration_minutes: 120
+      activity_ids:
+        - activity.instructor-demonstration
+        - activity.preliminary-inspection
+        - activity.drum-shoe-inspection
+        - activity.restore-and-close
+  origin:
+    classification: author_decision
+    source_refs:
+      - source.assignment-brief
+      - source.dsl204-framework
+    rationale: >-
+      Sequence 7 assumes two instructional meetings in each of the first three
+      source weeks. The 240-minute duration and segment allocation are a
+      validation design pending comparison with the approved lesson.
+    verification: requires_source_confirmation
+
+academic_references:
+  - id: academic.course.dsl204
+    label: DSL204 Brakes
+    kind: course
+    source_ref: source.assignment-brief
+  - id: academic.chapter.36
+    label: Chapter 36 - Foundation and Parking Brake Systems
+    kind: chapter
+    source_ref: source.dsl204-framework
+  - id: academic.task.mht3a002
+    label: Identify brake-system components and configurations
+    kind: task
+    source_ref: source.cdx-mht3a002
+    locator: CDX MHT3A002
+  - id: academic.task.foundation-service
+    label: Foundation-brake preliminary inspection and drum/shoe service
+    kind: task
+    source_ref: source.approved-lesson
+    locator: Exact approved task or learning-outcome code requires confirmation
+
+# This is the semantic content commonly displayed as a configuration board.
+# It uses references so the board cannot become a second copy of the lesson.
+instructional_brief:
+  warm_up_activity_id: activity.activate-prior-knowledge
+  objective_ids:
+    - objective.prepare-service
+    - objective.preliminary-inspection
+    - objective.inspect-drum-shoes
+    - objective.document-needed-action
+  standard_ids:
+    - standard.cdx.chapter-36
+    - standard.ase-foundation-brakes
+  essential_question_ids:
+    - question.safe-service-decision
+  closing_assessment_ids:
+    - assessment.exit-explanation
+
+essential_questions:
+  - id: question.safe-service-decision
+    prompt: >-
+      How do preparation and preliminary inspection affect both technician
+      safety and the accuracy of a drum-brake service decision?
+    objective_ids:
+      - objective.prepare-service
+      - objective.preliminary-inspection
+      - objective.inspect-drum-shoes
+      - objective.document-needed-action
+    origin:
+      classification: author_decision
+      source_refs:
+        - source.assignment-brief
+        - source.cdx-mht3a002
+        - source.cdx-mht3c001
+      rationale: >-
+        Synthesizes the named lesson scope into one question without copying an
+        unverified question from the unavailable approved lesson.
+      verification: requires_source_confirmation
+
+objectives:
+  - id: objective.prepare-service
+    statement: >-
+      Prepare the vehicle, work area, tools, service information, and personal
+      protective equipment for foundation-brake inspection and service.
+    domain: psychomotor
+    standard_ids:
+      - standard.cdx.chapter-36
+      - standard.ase-foundation-brakes
+    origin:
+      classification: author_decision
+      source_refs:
+        - source.assignment-brief
+        - source.cdx-mht3a002
+        - source.cdx-mht3c001
+      rationale: Derived from the approved title and supporting task-sheet practices.
+      verification: requires_source_confirmation
+
+  - id: objective.preliminary-inspection
+    statement: >-
+      Perform a preliminary visual inspection of the foundation-brake assembly
+      and identify conditions requiring further measurement or service.
+    domain: integrated
+    standard_ids:
+      - standard.cdx.chapter-36
+      - standard.ase-foundation-brakes
+    origin:
+      classification: author_decision
+      source_refs:
+        - source.assignment-brief
+        - source.cdx-mht3a002
+      rationale: Derived from the approved title and supporting task-sheet practices.
+      verification: requires_source_confirmation
+
+  - id: objective.inspect-drum-shoes
+    statement: >-
+      Inspect brake drum and shoe or lining condition using vehicle-specific
+      service information and determine whether each item is serviceable.
+    domain: psychomotor
+    standard_ids:
+      - standard.cdx.chapter-36
+      - standard.ase-foundation-brakes
+    origin:
+      classification: author_decision
+      source_refs:
+        - source.assignment-brief
+        - source.hendrickson-l974
+        - source.oem-service-information
+      rationale: Derived from the approved title and candidate service resources.
+      verification: requires_source_confirmation
+
+  - id: objective.document-needed-action
+    statement: >-
+      Record inspection evidence and communicate a needed-action decision that
+      is supported by manufacturer criteria.
+    domain: integrated
+    standard_ids:
+      - standard.ase-foundation-brakes
+    origin:
+      classification: author_decision
+      source_refs:
+        - source.cdx-mht3a002
+        - source.cdx-mht3c001
+        - source.oem-service-information
+      rationale: Makes the task-sheet evidence and decision expectation measurable.
+      verification: requires_source_confirmation
+
+standards:
+  - id: standard.cdx.chapter-36
+    framework: CDX Preferred Systems Section 03 - Brakes
+    code: Chapter 36
+    statement: Foundation and parking brake systems.
+    priority: required
+    origin:
+      classification: source_derived
+      source_refs:
+        - source.dsl204-framework
+      verification: verified
+
+  - id: standard.ase-foundation-brakes
+    framework: ASE Medium/Heavy Truck Brakes
+    code: exact-task-code-pending
+    statement: >-
+      Inspect and service foundation-brake drum and shoe components and
+      determine needed action.
+    priority: required
+    origin:
+      classification: author_decision
+      source_refs:
+        - source.approved-lesson
+      rationale: >-
+        Placeholder semantic statement for mapping; the exact approved
+        framework edition, code, and wording were not available.
+      verification: requires_source_confirmation
+
+materials:
+  - id: material.lab-vehicle
+    name: Medium- or heavy-duty vehicle with serviceable drum foundation brake
+    category: vehicle
+    quantity: 1
+    quantity_basis: per_team
+    specification: >-
+      Brake configuration and condition must be suitable for the approved
+      inspection scope.
+    origin:
+      classification: author_decision
+      source_refs:
+        - source.cdx-mht3a002
+        - source.hendrickson-l974
+      verification: requires_curriculum_review
+
+  - id: material.wheel-chocks
+    name: Wheel chocks
+    category: equipment
+    quantity: 2
+    quantity_basis: per_team
+    origin:
+      classification: source_derived
+      source_refs:
+        - source.cdx-mht3a002
+        - source.cdx-mht3c001
+      verification: verified
+
+  - id: material.lifting-equipment
+    name: Approved vehicle lifting and support equipment
+    category: equipment
+    quantity: 1
+    quantity_basis: per_team
+    specification: Rated for the selected vehicle and used per manufacturer procedure.
+    origin:
+      classification: source_derived
+      source_refs:
+        - source.cdx-mht3c001
+      verification: verified
+
+  - id: material.hand-tools
+    name: Manufacturer-specified hand tools
+    category: tool
+    quantity: 1
+    quantity_basis: per_team
+    origin:
+      classification: source_derived
+      source_refs:
+        - source.cdx-mht3a002
+        - source.cdx-mht3c001
+      verification: verified
+
+  - id: material.measurement-tools
+    name: Manufacturer-specified drum and lining measurement tools
+    category: tool
+    quantity: 1
+    quantity_basis: per_team
+    specification: Calibrated and capable of measuring the applicable service limits.
+    origin:
+      classification: author_decision
+      source_refs:
+        - source.hendrickson-l974
+        - source.oem-service-information
+      verification: requires_source_confirmation
+
+  - id: material.dust-control
+    name: Approved brake-dust control equipment
+    category: equipment
+    quantity: 1
+    quantity_basis: per_team
+    specification: >-
+      Equipment and method must comply with applicable exposure and disposal
+      requirements; compressed-air cleaning is not an approved substitute.
+    origin:
+      classification: author_decision
+      source_refs:
+        - source.cdx-mht3a002
+        - source.cdx-mht3c001
+      verification: requires_curriculum_review
+
+  - id: material.eye-protection
+    name: Safety eyewear
+    category: ppe
+    quantity: 1
+    quantity_basis: per_learner
+    origin:
+      classification: source_derived
+      source_refs:
+        - source.cdx-mht3a002
+        - source.cdx-mht3c001
+      verification: verified
+
+  - id: material.hand-protection
+    name: Task-appropriate hand protection
+    category: ppe
+    quantity: 1
+    quantity_basis: per_learner
+    origin:
+      classification: author_decision
+      source_refs:
+        - source.cdx-mht3a002
+        - source.cdx-mht3c001
+      verification: requires_curriculum_review
+
+  - id: material.inspection-record
+    name: Brake inspection record
+    category: consumable
+    quantity: 1
+    quantity_basis: per_learner
+    origin:
+      classification: author_decision
+      source_refs:
+        - source.cdx-mht3a002
+        - source.cdx-mht3c001
+      verification: requires_source_confirmation
+
+resources:
+  - id: resource.oem-service-information
+    title: Service information for the selected vehicle and brake assembly
+    resource_type: manual
+    source_ref: source.oem-service-information
+    locator: Instructor-selected current procedure
+    purpose: >-
+      Supplies component identification, warnings, disassembly sequence,
+      measurements, service limits, fastener specifications, and return-to-
+      service requirements.
+    required: true
+    origin:
+      classification: source_derived
+      source_refs:
+        - source.cdx-mht3a002
+        - source.cdx-mht3c001
+      verification: verified
+
+  - id: resource.drum-brake-maintenance
+    title: Drum Brake Maintenance Manual L974
+    resource_type: manual
+    source_ref: source.hendrickson-l974
+    locator: L974 revision E
+    purpose: Supports instructor preparation and applicable drum-brake service practice.
+    required: false
+    origin:
+      classification: author_decision
+      source_refs:
+        - source.hendrickson-l974
+      rationale: Applicability depends on the selected brake assembly.
+      verification: requires_curriculum_review
+
+  - id: resource.preliminary-inspection-task
+    title: CDX Tasksheet MHT3A002
+    resource_type: task_sheet
+    source_ref: source.cdx-mht3a002
+    locator: MHT3A002
+    purpose: >-
+      Supports preparation, brake-system identification, use of service
+      information, documentation, cleanup, and supervisor discussion.
+    required: false
+    origin:
+      classification: author_decision
+      source_refs:
+        - source.cdx-mht3a002
+      rationale: Supports part of the lesson but is not a drum/shoe service task.
+      verification: requires_curriculum_review
+
+terminology:
+  - id: term.foundation-brake
+    term: foundation brake
+    definition: >-
+      The wheel-end mechanical assembly that converts actuator force into
+      friction to slow or stop the vehicle.
+    aliases: []
+    origin:
+      classification: author_decision
+      source_refs:
+        - source.dsl204-framework
+      verification: requires_source_confirmation
+
+  - id: term.brake-drum
+    term: brake drum
+    definition: >-
+      A rotating friction member contacted by the brake linings in a drum-brake
+      assembly.
+    aliases:
+      - drum
+    origin:
+      classification: author_decision
+      source_refs:
+        - source.hendrickson-l974
+      verification: requires_source_confirmation
+
+  - id: term.brake-shoe
+    term: brake shoe
+    definition: >-
+      A curved support carrying friction lining that is forced against the
+      inside of a brake drum.
+    aliases:
+      - shoe
+    origin:
+      classification: author_decision
+      source_refs:
+        - source.hendrickson-l974
+      verification: requires_source_confirmation
+
+  - id: term.brake-lining
+    term: brake lining
+    definition: Friction material attached to a brake shoe.
+    aliases:
+      - lining
+    origin:
+      classification: author_decision
+      source_refs:
+        - source.hendrickson-l974
+      verification: requires_source_confirmation
+
+  - id: term.service-limit
+    term: service limit
+    definition: >-
+      A manufacturer-defined dimensional or condition threshold used to decide
+      whether a component may remain in service.
+    aliases: []
+    origin:
+      classification: author_decision
+      source_refs:
+        - source.oem-service-information
+      verification: requires_curriculum_review
+
+  - id: term.needed-action
+    term: needed action
+    definition: >-
+      The supported decision to continue inspection, adjust, repair, replace,
+      or return a component to service.
+    aliases: []
+    origin:
+      classification: author_decision
+      source_refs:
+        - source.cdx-mht3a002
+        - source.cdx-mht3c001
+      verification: requires_source_confirmation
+
+safety_requirements:
+  - id: safety.vehicle-movement
+    hazard: Unexpected vehicle movement
+    control: >-
+      Park on the approved surface, follow the instructor's immobilization
+      procedure, and chock the vehicle before inspection or service.
+    severity: danger
+    activity_ids:
+      - activity.instructor-demonstration
+      - activity.preliminary-inspection
+      - activity.drum-shoe-inspection
+      - activity.restore-and-close
+    material_ids:
+      - material.wheel-chocks
+    verification: Instructor verifies immobilization before work begins.
+    origin:
+      classification: source_derived
+      source_refs:
+        - source.cdx-mht3a002
+        - source.cdx-mht3c001
+      verification: verified
+
+  - id: safety.stored-energy
+    hazard: Stored pneumatic or spring energy in the brake system
+    control: >-
+      Follow vehicle-specific isolation and stored-energy procedures before
+      disturbing any brake component. Do not disassemble a spring-brake
+      chamber during this lesson.
+    severity: danger
+    activity_ids:
+      - activity.instructor-demonstration
+      - activity.preliminary-inspection
+      - activity.drum-shoe-inspection
+    material_ids: []
+    prerequisite: Instructor authorization and current manufacturer procedure.
+    verification: Instructor confirms the system is in the required safe state.
+    origin:
+      classification: author_decision
+      source_refs:
+        - source.cdx-mht3c001
+        - source.oem-service-information
+      verification: requires_curriculum_review
+
+  - id: safety.lifting
+    hazard: Vehicle fall or crushing while raised
+    control: >-
+      Use only approved, correctly rated lifting and support equipment in
+      accordance with its manufacturer procedure and instructor direction.
+    severity: danger
+    activity_ids:
+      - activity.instructor-demonstration
+      - activity.preliminary-inspection
+      - activity.drum-shoe-inspection
+    material_ids:
+      - material.lifting-equipment
+    prerequisite: Instructor permission and demonstrated lifting competency.
+    verification: Instructor verifies support points and stability before access.
+    origin:
+      classification: source_derived
+      source_refs:
+        - source.cdx-mht3c001
+      verification: verified
+
+  - id: safety.brake-dust
+    hazard: Exposure to hazardous brake dust
+    control: >-
+      Use the approved brake-dust control method, required PPE, ventilation,
+      and waste-handling procedure. Do not disperse dust with compressed air.
+    severity: warning
+    activity_ids:
+      - activity.instructor-demonstration
+      - activity.preliminary-inspection
+      - activity.drum-shoe-inspection
+      - activity.restore-and-close
+    material_ids:
+      - material.dust-control
+      - material.eye-protection
+      - material.hand-protection
+    prerequisite: Instructor identifies the approved exposure-control procedure.
+    verification: Instructor observes dust-control practice.
+    origin:
+      classification: author_decision
+      source_refs:
+        - source.cdx-mht3a002
+        - source.cdx-mht3c001
+      verification: requires_curriculum_review
+
+  - id: safety.ppe-and-tools
+    hazard: Eye, hand, or impact injury during inspection and service
+    control: >-
+      Wear task-appropriate PPE and use tools only for their intended purpose
+      and in serviceable condition.
+    severity: warning
+    activity_ids:
+      - activity.instructor-demonstration
+      - activity.preliminary-inspection
+      - activity.drum-shoe-inspection
+      - activity.restore-and-close
+    material_ids:
+      - material.eye-protection
+      - material.hand-protection
+      - material.hand-tools
+      - material.measurement-tools
+    verification: Instructor observes PPE and tool use.
+    origin:
+      classification: source_derived
+      source_refs:
+        - source.cdx-mht3a002
+        - source.cdx-mht3c001
+      verification: verified
+
+activities:
+  - id: activity.activate-prior-knowledge
+    sequence: 1
+    title: Brake-condition evidence warm-up
+    environment: classroom
+    method: warm_up
+    description: >-
+      Learners distinguish observations from repair conclusions using examples
+      of visible drum-brake conditions.
+    duration_minutes: 15
+    objective_ids:
+      - objective.preliminary-inspection
+      - objective.document-needed-action
+    material_ids: []
+    resource_ids: []
+    terminology_ids:
+      - term.needed-action
+    safety_requirement_ids: []
+    instructor_actions:
+      - Present two or three condition observations without supplying a diagnosis.
+      - Ask which additional evidence is needed before recommending service.
+    learner_actions:
+      - Separate observed facts from assumptions.
+      - Identify information needed to support a needed-action decision.
+    outputs:
+      - List of evidence needed before a service decision
+    origin:
+      classification: author_decision
+      source_refs:
+        - source.assignment-brief
+      verification: requires_source_confirmation
+
+  - id: activity.service-preparation
+    sequence: 2
+    title: Plan a safe foundation-brake service
+    environment: classroom
+    method: guided_discussion
+    description: >-
+      Learners develop the preparation sequence for the selected vehicle,
+      workspace, information, tools, PPE, and hazard controls.
+    duration_minutes: 45
+    objective_ids:
+      - objective.prepare-service
+    material_ids:
+      - material.lab-vehicle
+      - material.wheel-chocks
+      - material.lifting-equipment
+      - material.hand-tools
+      - material.measurement-tools
+      - material.dust-control
+      - material.eye-protection
+      - material.hand-protection
+    resource_ids:
+      - resource.oem-service-information
+      - resource.preliminary-inspection-task
+    terminology_ids:
+      - term.foundation-brake
+    safety_requirement_ids:
+      - safety.vehicle-movement
+      - safety.stored-energy
+      - safety.lifting
+      - safety.brake-dust
+      - safety.ppe-and-tools
+    instructor_actions:
+      - Model how to locate warnings and prerequisites in service information.
+      - Confirm which shop procedures require direct instructor authorization.
+    learner_actions:
+      - Build an ordered preparation checklist for the selected vehicle.
+      - Identify each hazard control and its verification point.
+    outputs:
+      - Vehicle-specific service preparation checklist
+    origin:
+      classification: author_decision
+      source_refs:
+        - source.cdx-mht3a002
+        - source.cdx-mht3c001
+        - source.oem-service-information
+      verification: requires_source_confirmation
+
+  - id: activity.preliminary-inspection-concepts
+    sequence: 3
+    title: Preliminary inspection and service limits
+    environment: classroom
+    method: direct_instruction
+    description: >-
+      Learners connect observable drum-and-shoe conditions, required
+      measurements, manufacturer service limits, and possible needed actions.
+    duration_minutes: 45
+    objective_ids:
+      - objective.preliminary-inspection
+      - objective.inspect-drum-shoes
+      - objective.document-needed-action
+    material_ids:
+      - material.measurement-tools
+      - material.inspection-record
+    resource_ids:
+      - resource.oem-service-information
+      - resource.drum-brake-maintenance
+    terminology_ids:
+      - term.brake-drum
+      - term.brake-shoe
+      - term.brake-lining
+      - term.service-limit
+      - term.needed-action
+    safety_requirement_ids:
+      - safety.brake-dust
+      - safety.ppe-and-tools
+    instructor_actions:
+      - Explain the difference between condition checks and dimensional checks.
+      - Demonstrate how a service limit supports a needed-action decision.
+    learner_actions:
+      - Match inspection evidence to the applicable service-information location.
+      - Explain why a visible condition may require a measurement before a decision.
+    outputs:
+      - Evidence-to-service-limit mapping
+    origin:
+      classification: author_decision
+      source_refs:
+        - source.assignment-brief
+        - source.hendrickson-l974
+        - source.oem-service-information
+      verification: requires_source_confirmation
+
+  - id: activity.shop-briefing
+    sequence: 4
+    title: Shop task briefing and readiness check
+    environment: classroom
+    method: assessment
+    description: >-
+      Each team explains its safe-state, inspection, measurement, and
+      documentation plan before entering the practical phase.
+    duration_minutes: 15
+    objective_ids:
+      - objective.prepare-service
+      - objective.preliminary-inspection
+    material_ids:
+      - material.inspection-record
+    resource_ids:
+      - resource.oem-service-information
+    terminology_ids:
+      - term.service-limit
+      - term.needed-action
+    safety_requirement_ids:
+      - safety.vehicle-movement
+      - safety.stored-energy
+      - safety.lifting
+      - safety.brake-dust
+      - safety.ppe-and-tools
+    instructor_actions:
+      - Approve, redirect, or stop each team based on its readiness explanation.
+    learner_actions:
+      - State the work sequence, hazards, controls, and stop-work conditions.
+    outputs:
+      - Instructor authorization to begin or a corrective preparation action
+    origin:
+      classification: author_decision
+      source_refs:
+        - source.cdx-mht3a002
+        - source.cdx-mht3c001
+      verification: requires_source_confirmation
+
+  - id: activity.instructor-demonstration
+    sequence: 5
+    title: Demonstrate safe access and preliminary inspection
+    environment: shop
+    method: demonstration
+    description: >-
+      The instructor demonstrates the approved safe-state verification,
+      access sequence, dust control, systematic visual inspection, and
+      evidence recording process on the selected assembly.
+    duration_minutes: 25
+    objective_ids:
+      - objective.prepare-service
+      - objective.preliminary-inspection
+      - objective.document-needed-action
+    material_ids:
+      - material.lab-vehicle
+      - material.wheel-chocks
+      - material.lifting-equipment
+      - material.hand-tools
+      - material.dust-control
+      - material.eye-protection
+      - material.hand-protection
+      - material.inspection-record
+    resource_ids:
+      - resource.oem-service-information
+    terminology_ids:
+      - term.foundation-brake
+      - term.needed-action
+    safety_requirement_ids:
+      - safety.vehicle-movement
+      - safety.stored-energy
+      - safety.lifting
+      - safety.brake-dust
+      - safety.ppe-and-tools
+    instructor_actions:
+      - Demonstrate only the vehicle-specific procedure approved for this session.
+      - Narrate decision points and stop-work conditions.
+    learner_actions:
+      - Observe and record the sequence and verification points.
+      - Ask questions before beginning team practice.
+    procedure_steps:
+      - Confirm authorization, vehicle identity, and applicable service information.
+      - Verify vehicle immobilization and the required brake-system safe state.
+      - Establish approved access and brake-dust controls.
+      - Perform an outside-to-inside visual inspection.
+      - Record observations without converting them prematurely into conclusions.
+    outputs:
+      - Demonstration observation record
+    origin:
+      classification: author_decision
+      source_refs:
+        - source.cdx-mht3a002
+        - source.cdx-mht3c001
+        - source.oem-service-information
+      verification: requires_source_confirmation
+
+  - id: activity.preliminary-inspection
+    sequence: 6
+    title: Team preliminary foundation-brake inspection
+    environment: shop
+    method: guided_practice
+    description: >-
+      Teams establish the approved safe state, inspect the assembly
+      systematically, and document conditions requiring measurement or
+      instructor review.
+    duration_minutes: 50
+    objective_ids:
+      - objective.prepare-service
+      - objective.preliminary-inspection
+      - objective.document-needed-action
+    material_ids:
+      - material.lab-vehicle
+      - material.wheel-chocks
+      - material.lifting-equipment
+      - material.hand-tools
+      - material.dust-control
+      - material.eye-protection
+      - material.hand-protection
+      - material.inspection-record
+    resource_ids:
+      - resource.oem-service-information
+      - resource.preliminary-inspection-task
+    terminology_ids:
+      - term.foundation-brake
+      - term.brake-drum
+      - term.brake-shoe
+      - term.brake-lining
+      - term.needed-action
+    safety_requirement_ids:
+      - safety.vehicle-movement
+      - safety.stored-energy
+      - safety.lifting
+      - safety.brake-dust
+      - safety.ppe-and-tools
+    instructor_actions:
+      - Observe safe-state verification and stop unsafe work immediately.
+      - Question learners about evidence and next inspection steps.
+    learner_actions:
+      - Complete the approved preparation sequence.
+      - Inspect accessible foundation-brake components systematically.
+      - Record observations and flag conditions requiring measurement.
+    procedure_steps:
+      - Verify the correct vehicle and service information.
+      - Complete and verify all required hazard controls.
+      - Inspect the assembly for condition, security, contamination, and damage.
+      - Identify evidence that requires a dimensional check or further service.
+      - Review preliminary findings with the instructor.
+    outputs:
+      - Completed preliminary inspection observations
+    origin:
+      classification: author_decision
+      source_refs:
+        - source.assignment-brief
+        - source.cdx-mht3a002
+        - source.cdx-mht3c001
+      verification: requires_source_confirmation
+
+  - id: activity.drum-shoe-inspection
+    sequence: 7
+    title: Drum and shoe inspection and needed-action decision
+    environment: shop
+    method: guided_practice
+    description: >-
+      Under instructor direction, teams inspect and measure drum-and-shoe
+      components within the approved lesson scope and support a needed-action
+      decision with manufacturer criteria.
+    duration_minutes: 30
+    objective_ids:
+      - objective.inspect-drum-shoes
+      - objective.document-needed-action
+    material_ids:
+      - material.lab-vehicle
+      - material.hand-tools
+      - material.measurement-tools
+      - material.dust-control
+      - material.eye-protection
+      - material.hand-protection
+      - material.inspection-record
+    resource_ids:
+      - resource.oem-service-information
+      - resource.drum-brake-maintenance
+    terminology_ids:
+      - term.brake-drum
+      - term.brake-shoe
+      - term.brake-lining
+      - term.service-limit
+      - term.needed-action
+    safety_requirement_ids:
+      - safety.stored-energy
+      - safety.lifting
+      - safety.brake-dust
+      - safety.ppe-and-tools
+    instructor_actions:
+      - Authorize each procedure step within the selected assembly's service scope.
+      - Verify measurement technique and interpretation of service limits.
+    learner_actions:
+      - Inspect drum friction surface and shoe or lining condition.
+      - Perform only instructor-authorized measurements.
+      - Compare evidence with current manufacturer criteria.
+      - Record and explain the needed-action decision.
+    procedure_steps:
+      - Confirm the authorized inspection and measurement scope.
+      - Inspect drum condition and record applicable measurements.
+      - Inspect shoe, lining, and accessible hardware condition.
+      - Compare observations and measurements with service limits.
+      - Determine and document needed action; do not install parts unless directed.
+    outputs:
+      - Drum-and-shoe inspection evidence
+      - Manufacturer-criteria-based needed-action decision
+    origin:
+      classification: author_decision
+      source_refs:
+        - source.assignment-brief
+        - source.hendrickson-l974
+        - source.oem-service-information
+      verification: requires_source_confirmation
+
+  - id: activity.restore-and-close
+    sequence: 8
+    title: Restore, clean, and explain findings
+    environment: shop
+    method: closure
+    description: >-
+      Teams return the vehicle and workspace to the instructor-approved
+      condition, account for tools and waste, and explain their evidence and
+      needed-action decision.
+    duration_minutes: 15
+    objective_ids:
+      - objective.prepare-service
+      - objective.document-needed-action
+    material_ids:
+      - material.lab-vehicle
+      - material.hand-tools
+      - material.measurement-tools
+      - material.dust-control
+      - material.inspection-record
+    resource_ids:
+      - resource.oem-service-information
+    terminology_ids:
+      - term.service-limit
+      - term.needed-action
+    safety_requirement_ids:
+      - safety.vehicle-movement
+      - safety.brake-dust
+      - safety.ppe-and-tools
+    instructor_actions:
+      - Verify vehicle, tool, waste, and workspace disposition.
+      - Ask each learner to connect one observation to a supported decision.
+    learner_actions:
+      - Restore the vehicle and work area as directed.
+      - Submit the inspection record.
+      - Explain one evidence-to-decision trace.
+    procedure_steps:
+      - Return the vehicle to the instructor-approved condition.
+      - Account for and return tools and equipment.
+      - Dispose of controlled waste using the approved process.
+      - Leave the workspace clean and orderly.
+      - Discuss findings and needed action with the instructor.
+    outputs:
+      - Restored work area and vehicle
+      - Submitted inspection record
+      - Individual evidence-to-decision explanation
+    origin:
+      classification: author_decision
+      source_refs:
+        - source.cdx-mht3a002
+        - source.cdx-mht3c001
+      verification: requires_source_confirmation
+
+assessments:
+  - id: assessment.readiness-check
+    title: Shop readiness check
+    assessment_type: formative
+    purpose: >-
+      Determine whether each team can begin practical work safely and with an
+      appropriate inspection plan.
+    objective_ids:
+      - objective.prepare-service
+      - objective.preliminary-inspection
+    activity_ids:
+      - activity.shop-briefing
+    evidence:
+      - Team explanation of work sequence, hazards, controls, and stop-work conditions
+      - Correct selection of current service information and required equipment
+    criteria:
+      - id: criterion.readiness.sequence
+        statement: The team states a logical vehicle-specific work sequence.
+        required: true
+      - id: criterion.readiness.safety
+        statement: The team identifies all applicable hazards and controls.
+        required: true
+      - id: criterion.readiness.resources
+        statement: The team has the required service information, tools, and PPE.
+        required: true
+    feedback: Immediate instructor authorization, redirection, or stop-work instruction.
+    security: instructor
+    origin:
+      classification: author_decision
+      source_refs:
+        - source.cdx-mht3a002
+        - source.cdx-mht3c001
+      verification: requires_source_confirmation
+
+  - id: assessment.practical-observation
+    title: Foundation-brake practical observation
+    assessment_type: formative
+    purpose: >-
+      Evaluate safe work, systematic inspection, measurement practice,
+      documentation, and use of manufacturer criteria.
+    objective_ids:
+      - objective.prepare-service
+      - objective.preliminary-inspection
+      - objective.inspect-drum-shoes
+      - objective.document-needed-action
+    activity_ids:
+      - activity.preliminary-inspection
+      - activity.drum-shoe-inspection
+      - activity.restore-and-close
+    evidence:
+      - Instructor observation of practical work
+      - Completed inspection record
+      - Recorded observations and measurements
+      - Supported needed-action decision
+    criteria:
+      - id: criterion.practical.safety
+        statement: Applies all required safety controls without bypassing a stop-work condition.
+        required: true
+      - id: criterion.practical.information
+        statement: Uses service information applicable to the selected vehicle and assembly.
+        required: true
+      - id: criterion.practical.inspection
+        statement: Performs the authorized inspection systematically and records evidence accurately.
+        required: true
+      - id: criterion.practical.measurement
+        statement: Uses the authorized measurement tool correctly and interprets the applicable limit.
+        required: true
+      - id: criterion.practical.decision
+        statement: Supports the needed-action decision with recorded evidence and manufacturer criteria.
+        required: true
+      - id: criterion.practical.stewardship
+        statement: Restores the vehicle, tools, and workspace to the required condition.
+        required: true
+    feedback: >-
+      Instructor provides immediate safety feedback and records targeted
+      coaching for any criterion not yet demonstrated.
+    security: instructor
+    origin:
+      classification: author_decision
+      source_refs:
+        - source.cdx-mht3a002
+        - source.cdx-mht3c001
+        - source.oem-service-information
+      verification: requires_source_confirmation
+
+  - id: assessment.exit-explanation
+    title: Evidence-to-decision exit explanation
+    assessment_type: formative
+    purpose: >-
+      Confirm that each learner can explain how inspection evidence and a
+      service limit support a safe needed-action decision.
+    objective_ids:
+      - objective.preliminary-inspection
+      - objective.inspect-drum-shoes
+      - objective.document-needed-action
+    activity_ids:
+      - activity.restore-and-close
+    evidence:
+      - Individual oral or written evidence-to-decision explanation
+    criteria:
+      - id: criterion.exit.evidence
+        statement: Names a specific observation or measurement from the practical work.
+        required: true
+      - id: criterion.exit.limit
+        statement: Identifies the applicable manufacturer criterion or required next check.
+        required: true
+      - id: criterion.exit.action
+        statement: States a needed action consistent with the cited evidence.
+        required: true
+    feedback: Brief instructor correction before dismissal or assigned remediation.
+    security: student
+    origin:
+      classification: author_decision
+      source_refs:
+        - source.assignment-brief
+        - source.oem-service-information
+      verification: requires_source_confirmation
+
+homework:
+  - id: homework.inspect-evidence-review
+    title: Inspection evidence review
+    instructions: >-
+      Review the submitted inspection record. Select one drum or shoe
+      observation and identify the current service-information location used
+      to determine its needed action.
+    objective_ids:
+      - objective.inspect-drum-shoes
+      - objective.document-needed-action
+    resource_ids:
+      - resource.oem-service-information
+    deliverable: >-
+      One evidence, one service-information locator, and one supported
+      needed-action statement.
+    estimated_minutes: 20
+    origin:
+      classification: author_decision
+      source_refs:
+        - source.assignment-brief
+        - source.oem-service-information
+      verification: requires_source_confirmation
+
+instructor_guidance:
+  - id: guidance.evidence-before-conclusion
+    category: content_emphasis
+    guidance: >-
+      Require learners to state the observation or measurement before naming a
+      repair. The lesson is about an evidence-based decision, not parts
+      replacement by assumption.
+    activity_ids:
+      - activity.activate-prior-knowledge
+      - activity.preliminary-inspection-concepts
+      - activity.preliminary-inspection
+      - activity.drum-shoe-inspection
+    origin:
+      classification: author_decision
+      source_refs:
+        - source.cdx-mht3a002
+        - source.cdx-mht3c001
+      verification: requires_source_confirmation
+
+  - id: guidance.vehicle-specific-information
+    category: shop_tip
+    guidance: >-
+      Verify that every team is using information for the actual axle and brake
+      assembly. A generic limit or procedure must not override the applicable
+      manufacturer specification.
+    activity_ids:
+      - activity.service-preparation
+      - activity.instructor-demonstration
+      - activity.preliminary-inspection
+      - activity.drum-shoe-inspection
+    origin:
+      classification: author_decision
+      source_refs:
+        - source.oem-service-information
+      verification: requires_curriculum_review
+
+  - id: guidance.stop-work
+    category: misconception
+    guidance: >-
+      Learners may interpret a visible defect as permission to continue
+      disassembly. Reinforce that a finding can instead trigger a stop-work and
+      instructor-review condition.
+    activity_ids:
+      - activity.preliminary-inspection
+      - activity.drum-shoe-inspection
+    origin:
+      classification: author_decision
+      source_refs:
+        - source.cdx-mht3a002
+        - source.cdx-mht3c001
+      verification: requires_curriculum_review
+
+  - id: guidance.flex
+    category: flex
+    guidance: >-
+      If practical access is delayed, use removed training components to
+      rehearse condition description and service-limit lookup. Do not treat the
+      substitute activity as evidence of vehicle-service competency.
+    activity_ids:
+      - activity.preliminary-inspection
+      - activity.drum-shoe-inspection
+    origin:
+      classification: author_decision
+      source_refs:
+        - source.assignment-brief
+      verification: requires_curriculum_review
+
+reflection:
+  prompts:
+    - id: reflection.objective-evidence
+      prompt: Which objective had insufficient learner evidence, and what evidence was missing?
+      focus: objective_evidence
+    - id: reflection.safety
+      prompt: Which hazard control required the most correction or clarification?
+      focus: safety
+    - id: reflection.pacing
+      prompt: Did the planned sequence allow enough time for inspection, measurement, and cleanup?
+      focus: pacing
+    - id: reflection.revision
+      prompt: What instructional change should be reviewed before this lesson is taught again?
+      focus: revision
+  origin:
+    classification: author_decision
+    source_refs: []
+    rationale: >-
+      Renderer-independent reflection questions support lesson improvement;
+      renderers decide whether and how to provide a response area.
+    verification: requires_curriculum_review
+
+notes:
+  - id: note.approved-source-gap
+    category: provenance
+    text: >-
+      The approved DSL204 Week 4 Day 1 lesson document was unavailable during
+      this mapping. All items marked requires_source_confirmation must be
+      compared with that document before the lifecycle status may become
+      approved.
+    audience: curriculum_reviewer
+    origin:
+      classification: computed
+      source_refs:
+        - source.approved-lesson
+      verification: verified
+
+  - id: note.course-linkage-gap
+    category: provenance
+    text: >-
+      A canonical unit ID and session ID are intentionally omitted because the
+      current DSL204 course records do not yet contain the Chapter 36 unit or
+      Week 4 session. Add those references only after the course records define
+      them.
+    audience: curriculum_reviewer
+    origin:
+      classification: computed
+      source_refs:
+        - source.dsl204-framework
+      verification: verified
+
+  - id: note.renderer-independence
+    category: review
+    text: >-
+      This record contains no page, slide, table, form-field, font, file-name,
+      LMS-package, or output-format instruction. Clock dates and times belong
+      to scheduling outputs; the Week 4 Day 1 value is retained only as a
+      non-authoritative source alias.
+    audience: curriculum_reviewer
+    origin:
+      classification: author_decision
+      source_refs:
+        - source.assignment-brief
+      verification: verified

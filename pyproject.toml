@@ -30,6 +30,7 @@ classifiers = [
 ]
 dependencies = [
   "jsonschema>=4.23,<5",
+  "PyYAML>=6,<7",
 ]
 
 [project.urls]

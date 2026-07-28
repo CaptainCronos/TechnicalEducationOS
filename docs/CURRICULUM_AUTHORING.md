@@ -43,6 +43,30 @@ Never edit a generated lesson plan, guide, calendar, or LMS export as curriculum
 Change the unit or session and regenerate. The `weeks/` format and the
 `generate --week` commands exist only to reproduce legacy approved artifacts.
 
+## Canonical lesson authoring
+
+When one session needs a governed, artifact-complete lesson source, author a
+Canonical Lesson Model YAML record in `curriculum/courses/COURSE_ID/lessons/`.
+The CLM binds session instruction, safety, activities, assessment, homework,
+guidance, and reflection without adding presentation.
+
+Validate it with:
+
+```bash
+python scripts/validate_schemas.py
+```
+
+Use stable IDs and references. In particular, the instructional brief
+references canonical objective, standard, question, activity, and assessment
+records rather than repeating their text. Classroom and shop instruction share
+the same activity type and use `environment` for selection.
+
+See the [Canonical Lesson Model
+Specification](specifications/canonical-lesson-model.md) and [renderer
+contract](../renderers/canonical-lesson-contract.md). A lesson with unavailable
+sources or unverified content must remain `draft` or `in_review`; renderers
+cannot fill its gaps.
+
 Institution Profiles own operating rules and presentation configuration, not
 course content. Academic calendars own term boundaries and events, not course
 IDs or preassigned sessions. The Scheduler is the only component that combines

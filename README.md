@@ -127,6 +127,7 @@ coverage review, and CI behavior are documented in
 - [Public API](docs/API.md)
 - [Developer guide](docs/DEVELOPMENT.md)
 - [Curriculum authoring](docs/CURRICULUM_AUTHORING.md)
+- [Canonical Lesson Model](docs/specifications/canonical-lesson-model.md)
 - [Architecture](docs/architecture/overview.md)
 - [Testing](docs/TESTING.md)
 - [Compatibility](docs/COMPATIBILITY.md)

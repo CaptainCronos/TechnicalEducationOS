@@ -1,0 +1,1060 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://technicaleducationos.local/schemas/canonical-lesson.schema.json",
+  "title": "TechnicalEducationOS canonical lesson",
+  "description": "Renderer-independent instructional truth for one lesson.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "lesson",
+    "sources",
+    "scheduling",
+    "academic_references",
+    "instructional_brief",
+    "essential_questions",
+    "objectives",
+    "standards",
+    "materials",
+    "resources",
+    "terminology",
+    "safety_requirements",
+    "activities",
+    "assessments",
+    "homework",
+    "instructor_guidance",
+    "reflection",
+    "notes"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "lesson": {
+      "$ref": "#/$defs/lesson_metadata"
+    },
+    "sources": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/source"
+      }
+    },
+    "scheduling": {
+      "$ref": "#/$defs/scheduling"
+    },
+    "academic_references": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/academic_reference"
+      }
+    },
+    "instructional_brief": {
+      "$ref": "#/$defs/instructional_brief"
+    },
+    "essential_questions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/essential_question"
+      }
+    },
+    "objectives": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/objective"
+      }
+    },
+    "standards": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/standard"
+      }
+    },
+    "materials": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/material"
+      }
+    },
+    "resources": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/resource"
+      }
+    },
+    "terminology": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/term"
+      }
+    },
+    "safety_requirements": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/safety_requirement"
+      }
+    },
+    "activities": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/activity"
+      }
+    },
+    "assessments": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/assessment"
+      }
+    },
+    "homework": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/homework"
+      }
+    },
+    "instructor_guidance": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/guidance"
+      }
+    },
+    "reflection": {
+      "$ref": "#/$defs/reflection"
+    },
+    "notes": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/note"
+      }
+    }
+  },
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9._-]*$"
+    },
+    "non_empty_string": {
+      "type": "string",
+      "minLength": 1
+    },
+    "id_list": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/id"
+      }
+    },
+    "non_empty_id_list": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/id"
+      }
+    },
+    "string_list": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/non_empty_string"
+      }
+    },
+    "lifecycle": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "version",
+        "last_reviewed"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "draft",
+            "in_review",
+            "approved",
+            "superseded"
+          ]
+        },
+        "version": {
+          "type": "string",
+          "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+        },
+        "last_reviewed": {
+          "type": "string",
+          "format": "date"
+        },
+        "authors": {
+          "$ref": "#/$defs/string_list"
+        },
+        "reviewers": {
+          "$ref": "#/$defs/string_list"
+        },
+        "approved_by": {
+          "$ref": "#/$defs/string_list"
+        },
+        "approval_date": {
+          "type": "string",
+          "format": "date"
+        },
+        "change_summary": {
+          "$ref": "#/$defs/non_empty_string"
+        }
+      }
+    },
+    "origin": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "classification",
+        "source_refs"
+      ],
+      "properties": {
+        "classification": {
+          "enum": [
+            "source_derived",
+            "author_decision",
+            "institution_required",
+            "computed"
+          ]
+        },
+        "source_refs": {
+          "$ref": "#/$defs/id_list"
+        },
+        "rationale": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "verification": {
+          "enum": [
+            "verified",
+            "requires_source_confirmation",
+            "requires_curriculum_review"
+          ]
+        }
+      }
+    },
+    "lesson_metadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "course_id",
+        "title",
+        "lifecycle"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "course_id": {
+          "$ref": "#/$defs/id"
+        },
+        "unit_id": {
+          "$ref": "#/$defs/id"
+        },
+        "session_id": {
+          "$ref": "#/$defs/id"
+        },
+        "title": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "summary": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "language": {
+          "type": "string",
+          "pattern": "^[a-z]{2,3}(-[A-Z]{2})?$"
+        },
+        "lifecycle": {
+          "$ref": "#/$defs/lifecycle"
+        }
+      }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "title",
+        "source_type",
+        "version",
+        "availability"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "title": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "source_type": {
+          "enum": [
+            "approved_lesson",
+            "course_framework",
+            "standard",
+            "textbook",
+            "manufacturer_reference",
+            "task_sheet",
+            "instructor_input",
+            "other"
+          ]
+        },
+        "version": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "locator": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "availability": {
+          "enum": [
+            "available",
+            "not_available",
+            "restricted"
+          ]
+        },
+        "notes": {
+          "$ref": "#/$defs/non_empty_string"
+        }
+      }
+    },
+    "scheduling": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sequence",
+        "duration_minutes",
+        "segments",
+        "origin"
+      ],
+      "properties": {
+        "sequence": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "duration_minutes": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "source_aliases": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "scheme",
+              "value"
+            ],
+            "properties": {
+              "scheme": {
+                "$ref": "#/$defs/non_empty_string"
+              },
+              "value": {
+                "$ref": "#/$defs/non_empty_string"
+              }
+            }
+          }
+        },
+        "segments": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "title",
+              "duration_minutes",
+              "activity_ids"
+            ],
+            "properties": {
+              "id": {
+                "$ref": "#/$defs/id"
+              },
+              "title": {
+                "$ref": "#/$defs/non_empty_string"
+              },
+              "duration_minutes": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "activity_ids": {
+                "$ref": "#/$defs/non_empty_id_list"
+              }
+            }
+          }
+        },
+        "origin": {
+          "$ref": "#/$defs/origin"
+        }
+      }
+    },
+    "academic_reference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "label",
+        "kind",
+        "source_ref"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "label": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "kind": {
+          "enum": [
+            "course",
+            "module",
+            "chapter",
+            "learning_outcome",
+            "task",
+            "standard_set",
+            "other"
+          ]
+        },
+        "source_ref": {
+          "$ref": "#/$defs/id"
+        },
+        "locator": {
+          "$ref": "#/$defs/non_empty_string"
+        }
+      }
+    },
+    "instructional_brief": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "warm_up_activity_id",
+        "objective_ids",
+        "standard_ids",
+        "essential_question_ids",
+        "closing_assessment_ids"
+      ],
+      "properties": {
+        "warm_up_activity_id": {
+          "$ref": "#/$defs/id"
+        },
+        "objective_ids": {
+          "$ref": "#/$defs/non_empty_id_list"
+        },
+        "standard_ids": {
+          "$ref": "#/$defs/id_list"
+        },
+        "essential_question_ids": {
+          "$ref": "#/$defs/non_empty_id_list"
+        },
+        "closing_assessment_ids": {
+          "$ref": "#/$defs/non_empty_id_list"
+        }
+      }
+    },
+    "essential_question": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "prompt",
+        "objective_ids",
+        "origin"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "prompt": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "objective_ids": {
+          "$ref": "#/$defs/non_empty_id_list"
+        },
+        "origin": {
+          "$ref": "#/$defs/origin"
+        }
+      }
+    },
+    "objective": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "statement",
+        "domain",
+        "standard_ids",
+        "origin"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "statement": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "domain": {
+          "enum": [
+            "cognitive",
+            "psychomotor",
+            "affective",
+            "integrated"
+          ]
+        },
+        "standard_ids": {
+          "$ref": "#/$defs/id_list"
+        },
+        "origin": {
+          "$ref": "#/$defs/origin"
+        }
+      }
+    },
+    "standard": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "framework",
+        "code",
+        "statement",
+        "origin"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "framework": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "code": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "statement": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "priority": {
+          "enum": [
+            "required",
+            "recommended",
+            "supporting"
+          ]
+        },
+        "origin": {
+          "$ref": "#/$defs/origin"
+        }
+      }
+    },
+    "material": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name",
+        "category",
+        "origin"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "name": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "category": {
+          "enum": [
+            "tool",
+            "equipment",
+            "vehicle",
+            "component",
+            "consumable",
+            "ppe",
+            "facility"
+          ]
+        },
+        "quantity": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "quantity_basis": {
+          "enum": [
+            "per_learner",
+            "per_team",
+            "per_class"
+          ]
+        },
+        "specification": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "substitution_policy": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "origin": {
+          "$ref": "#/$defs/origin"
+        }
+      }
+    },
+    "resource": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "title",
+        "resource_type",
+        "source_ref",
+        "purpose",
+        "origin"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "title": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "resource_type": {
+          "enum": [
+            "presentation",
+            "manual",
+            "task_sheet",
+            "diagram",
+            "video",
+            "reading",
+            "checklist",
+            "dataset",
+            "other"
+          ]
+        },
+        "source_ref": {
+          "$ref": "#/$defs/id"
+        },
+        "locator": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "purpose": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "origin": {
+          "$ref": "#/$defs/origin"
+        }
+      }
+    },
+    "term": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "term",
+        "definition",
+        "origin"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "term": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "definition": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "aliases": {
+          "$ref": "#/$defs/string_list"
+        },
+        "origin": {
+          "$ref": "#/$defs/origin"
+        }
+      }
+    },
+    "safety_requirement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "hazard",
+        "control",
+        "severity",
+        "activity_ids",
+        "material_ids",
+        "origin"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "hazard": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "control": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "severity": {
+          "enum": [
+            "advisory",
+            "caution",
+            "warning",
+            "danger"
+          ]
+        },
+        "activity_ids": {
+          "$ref": "#/$defs/non_empty_id_list"
+        },
+        "material_ids": {
+          "$ref": "#/$defs/id_list"
+        },
+        "prerequisite": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "verification": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "origin": {
+          "$ref": "#/$defs/origin"
+        }
+      }
+    },
+    "activity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "sequence",
+        "title",
+        "environment",
+        "method",
+        "description",
+        "duration_minutes",
+        "objective_ids",
+        "material_ids",
+        "resource_ids",
+        "terminology_ids",
+        "safety_requirement_ids",
+        "instructor_actions",
+        "learner_actions",
+        "outputs",
+        "origin"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "sequence": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "title": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "environment": {
+          "enum": [
+            "classroom",
+            "shop",
+            "field",
+            "online",
+            "independent",
+            "any"
+          ]
+        },
+        "method": {
+          "enum": [
+            "warm_up",
+            "direct_instruction",
+            "guided_discussion",
+            "demonstration",
+            "guided_practice",
+            "independent_practice",
+            "collaborative_practice",
+            "assessment",
+            "cleanup",
+            "closure",
+            "other"
+          ]
+        },
+        "description": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "duration_minutes": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "objective_ids": {
+          "$ref": "#/$defs/non_empty_id_list"
+        },
+        "material_ids": {
+          "$ref": "#/$defs/id_list"
+        },
+        "resource_ids": {
+          "$ref": "#/$defs/id_list"
+        },
+        "terminology_ids": {
+          "$ref": "#/$defs/id_list"
+        },
+        "safety_requirement_ids": {
+          "$ref": "#/$defs/id_list"
+        },
+        "instructor_actions": {
+          "$ref": "#/$defs/string_list"
+        },
+        "learner_actions": {
+          "$ref": "#/$defs/string_list"
+        },
+        "procedure_steps": {
+          "$ref": "#/$defs/string_list"
+        },
+        "outputs": {
+          "$ref": "#/$defs/string_list"
+        },
+        "origin": {
+          "$ref": "#/$defs/origin"
+        }
+      }
+    },
+    "criterion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "statement"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "statement": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "required": {
+          "type": "boolean"
+        }
+      }
+    },
+    "assessment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "title",
+        "assessment_type",
+        "purpose",
+        "objective_ids",
+        "activity_ids",
+        "evidence",
+        "criteria",
+        "feedback",
+        "security",
+        "origin"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "title": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "assessment_type": {
+          "enum": [
+            "diagnostic",
+            "formative",
+            "summative"
+          ]
+        },
+        "purpose": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "objective_ids": {
+          "$ref": "#/$defs/non_empty_id_list"
+        },
+        "activity_ids": {
+          "$ref": "#/$defs/non_empty_id_list"
+        },
+        "evidence": {
+          "$ref": "#/$defs/string_list"
+        },
+        "criteria": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/criterion"
+          }
+        },
+        "feedback": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "security": {
+          "enum": [
+            "public",
+            "student",
+            "instructor",
+            "restricted"
+          ]
+        },
+        "origin": {
+          "$ref": "#/$defs/origin"
+        }
+      }
+    },
+    "homework": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "title",
+        "instructions",
+        "objective_ids",
+        "resource_ids",
+        "deliverable",
+        "origin"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "title": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "instructions": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "objective_ids": {
+          "$ref": "#/$defs/non_empty_id_list"
+        },
+        "resource_ids": {
+          "$ref": "#/$defs/id_list"
+        },
+        "deliverable": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "estimated_minutes": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "origin": {
+          "$ref": "#/$defs/origin"
+        }
+      }
+    },
+    "guidance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "category",
+        "guidance",
+        "activity_ids",
+        "origin"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "category": {
+          "enum": [
+            "content_emphasis",
+            "misconception",
+            "pacing",
+            "shop_tip",
+            "differentiation",
+            "flex",
+            "remediation",
+            "extension",
+            "other"
+          ]
+        },
+        "guidance": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "activity_ids": {
+          "$ref": "#/$defs/id_list"
+        },
+        "origin": {
+          "$ref": "#/$defs/origin"
+        }
+      }
+    },
+    "reflection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "prompts",
+        "origin"
+      ],
+      "properties": {
+        "prompts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "prompt",
+              "focus"
+            ],
+            "properties": {
+              "id": {
+                "$ref": "#/$defs/id"
+              },
+              "prompt": {
+                "$ref": "#/$defs/non_empty_string"
+              },
+              "focus": {
+                "enum": [
+                  "objective_evidence",
+                  "pacing",
+                  "safety",
+                  "resources",
+                  "learner_support",
+                  "revision"
+                ]
+              }
+            }
+          }
+        },
+        "origin": {
+          "$ref": "#/$defs/origin"
+        }
+      }
+    },
+    "note": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "category",
+        "text",
+        "audience",
+        "origin"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "category": {
+          "enum": [
+            "instructional",
+            "safety",
+            "review",
+            "provenance",
+            "other"
+          ]
+        },
+        "text": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "audience": {
+          "enum": [
+            "all",
+            "instructor",
+            "curriculum_reviewer"
+          ]
+        },
+        "origin": {
+          "$ref": "#/$defs/origin"
+        }
+      }
+    }
+  }
+}

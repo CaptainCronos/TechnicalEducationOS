@@ -41,7 +41,9 @@ The documents below define how that constitution is implemented.
 - [Knowledge Sources Specification](specifications/knowledge-sources.md)
 - [Course Blueprint Specification](specifications/course-blueprint.md)
 - [Curriculum Model Specification](specifications/curriculum-model.md)
+- [Canonical Lesson Model Specification](specifications/canonical-lesson-model.md)
 - [Educational Artifact Specification](specifications/educational-artifacts.md)
+- [Canonical Lesson Renderer Contract](../renderers/canonical-lesson-contract.md)
 - [Document Verification and Artifact Validation](ARTIFACT_VALIDATION.md)
 - [Integration and Regression Testing](TESTING.md)
 - [Traceability Specification](specifications/traceability.md)
@@ -51,6 +53,7 @@ The documents below define how that constitution is implemented.
 - `decisions/` — accepted architectural decision records.
 - `blueprints/` — blueprint authoring and review guidance.
 - `standards/` — standards-specific ingestion guidance.
+- `reviews/` — dated validation and engineering review findings.
 - `CURRICULUM_AUTHORING.md` — canonical unit/session authoring and scheduling.
 - [`examples/reference_curriculum/`](../examples/reference_curriculum/README.md)
   — executable reference curriculum and permanent regression dataset.
