@@ -3,6 +3,17 @@
 The repository constitution is [`PROJECT_HANDOFF.md`](../PROJECT_HANDOFF.md).
 The documents below define how that constitution is implemented.
 
+## Using and contributing
+
+- [Installation](INSTALLATION.md)
+- [CLI reference](CLI.md)
+- [Public API](API.md)
+- [Developer guide](DEVELOPMENT.md)
+- [Testing](TESTING.md)
+- [Release procedure](RELEASING.md)
+- [v1.2.0-alpha1 release notes](releases/v1.2.0-alpha1.md)
+- [v1.2.0-alpha1 release audit](releases/v1.2.0-alpha1-audit.md)
+
 ## Architecture
 
 - [TEOS Architecture Overview](architecture/overview.md)
@@ -28,6 +39,7 @@ The documents below define how that constitution is implemented.
 - `CURRICULUM_AUTHORING.md` — canonical unit/session authoring and scheduling.
 - [`examples/reference_curriculum/`](../examples/reference_curriculum/README.md)
   — executable reference curriculum and permanent regression dataset.
+- `archive/` — historical phase records that are not current instructions.
 
 Normative terms such as **MUST**, **MUST NOT**, **SHOULD**, and **MAY** describe
 requirements, recommendations, and permitted options respectively.

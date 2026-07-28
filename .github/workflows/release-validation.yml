@@ -15,13 +15,14 @@ concurrency:
 
 jobs:
   wheel:
-    name: Installed wheel / Python ${{ matrix.python-version }}
+    name: Installed ${{ matrix.distribution }} / Python ${{ matrix.python-version }}
     runs-on: ubuntu-latest
     timeout-minutes: 15
     strategy:
       fail-fast: false
       matrix:
         python-version: ["3.11", "3.12"]
+        distribution: ["wheel", "sdist"]
 
     steps:
       - name: Check out repository
@@ -38,20 +39,25 @@ jobs:
       - name: Build distributions
         run: python -m build
 
-      - name: Create clean wheel environment
-        run: python -m venv "${{ runner.temp }}/teos-wheel-venv"
+      - name: Create clean installation environment
+        run: python -m venv "${{ runner.temp }}/teos-install-venv"
 
-      - name: Install wheel
+      - name: Install distribution
+        shell: bash
         run: |
-          "${{ runner.temp }}/teos-wheel-venv/bin/python" \
-            -m pip install --disable-pip-version-check dist/*.whl
+          if [[ "${{ matrix.distribution }}" == "wheel" ]]; then
+            artifact=(dist/*.whl)
+          else
+            artifact=(dist/*.tar.gz)
+          fi
+          "${{ runner.temp }}/teos-install-venv/bin/python" \
+            -m pip install --disable-pip-version-check "${artifact[0]}"
 
       - name: Verify installed package and CLI
         run: |
-          "${{ runner.temp }}/teos-wheel-venv/bin/python" \
+          "${{ runner.temp }}/teos-install-venv/bin/python" \
             scripts/verify_installed_package.py \
             --repository-root "${{ github.workspace }}"
 
       - name: Verify checkout was not modified
         run: git diff --exit-code
-

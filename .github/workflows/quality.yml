@@ -34,11 +34,17 @@ jobs:
       - name: Validate JSON Schema contracts
         run: python scripts/validate_schemas.py
 
+      - name: Lint Python
+        run: python -m ruff check .
+
+      - name: Check Markdown links
+        run: python scripts/check_markdown_links.py
+
       - name: Verify editable CLI
         run: |
+          teos --version
           teos --help
           teos build --course curriculum/courses/dsl204
 
       - name: Verify checkout was not modified
         run: git diff --exit-code
-

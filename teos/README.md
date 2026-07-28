@@ -5,6 +5,7 @@ sessions onto institution calendars, resolves calendar aliases, and renders
 artifacts from the resolved session.
 
 ```bash
+python -m teos --version
 python -m teos build --course curriculum/courses/dsl204
 
 python -m teos schedule \
@@ -34,8 +35,11 @@ unit; they never consume weeks or calendar dates.
 commands for reproducing approved week-based artifacts. Do not use them for new
 curriculum.
 
-Run the dependency-free test suite with:
+Run the standard test suite from an editable development installation with:
 
 ```bash
-python -m unittest discover -s tests -v
+python -m pytest -m "not performance"
 ```
+
+See the [CLI reference](../docs/CLI.md) and
+[public API guide](../docs/API.md) for the supported interfaces.

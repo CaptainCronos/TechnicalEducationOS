@@ -11,7 +11,6 @@ from typing import Any
 from jsonschema import Draft202012Validator
 from jsonschema.exceptions import SchemaError, ValidationError
 
-
 REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_DIRECTORY = REPOSITORY_ROOT / "schemas"
 SCHEMA_RECORDS = {

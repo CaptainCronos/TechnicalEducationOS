@@ -5,8 +5,10 @@ Every TEOS development session begins with:
 1. [`PROJECT_HANDOFF.md`](PROJECT_HANDOFF.md) — repository constitution;
 2. [`docs/architecture/overview.md`](docs/architecture/overview.md) — governing
    system boundaries;
-3. [`ROADMAP.md`](ROADMAP.md) — milestone order; and
-4. the relevant subsystem specification in `docs/specifications/`.
+3. [`docs/DEVELOPMENT.md`](docs/DEVELOPMENT.md) — supported setup and quality
+   commands;
+4. [`ROADMAP.md`](ROADMAP.md) — post-alpha milestones; and
+5. the relevant subsystem specification in `docs/specifications/`.
 
 The current architecture foundation separates registered knowledge sources,
 course blueprints, structured curriculum models, and generated artifacts.

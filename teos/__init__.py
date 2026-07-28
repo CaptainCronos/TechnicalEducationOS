@@ -1,6 +1,6 @@
 """TechnicalEducationOS public application API."""
 
-__version__ = "0.1.0"
+__version__ = "1.2.0a1"
 
 from teos.application import BuildConfig, BuildError, BuildResult, build
 

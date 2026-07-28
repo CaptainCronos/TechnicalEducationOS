@@ -10,7 +10,6 @@ from teos import BuildError, build
 from teos.records import RecordError, validate_curriculum
 from teos.scheduler import schedule_sessions
 
-
 pytestmark = pytest.mark.regression
 
 

@@ -17,7 +17,6 @@ from teos.generators import GENERATORS
 from teos.records import load_curriculum
 from teos.session_render import SESSION_RENDERERS
 
-
 pytestmark = [pytest.mark.end_to_end, pytest.mark.regression]
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[2]

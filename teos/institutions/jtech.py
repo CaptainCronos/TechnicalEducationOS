@@ -9,8 +9,8 @@ from __future__ import annotations
 
 import copy
 import io
-import zipfile
 import xml.etree.ElementTree as ElementTree
+import zipfile
 from pathlib import Path
 from typing import Any, Iterable
 

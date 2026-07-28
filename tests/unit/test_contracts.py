@@ -10,7 +10,6 @@ from teos.generators import GENERATORS
 from teos.records import RecordError, validate_course, validate_curriculum
 from teos.session_render import SESSION_RENDERERS
 
-
 pytestmark = pytest.mark.unit
 
 

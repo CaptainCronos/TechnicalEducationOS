@@ -4,30 +4,48 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "technicaleducationos"
-version = "0.1.0"
+version = "1.2.0a1"
 description = "A curriculum compiler for technical education."
 readme = "README.md"
 requires-python = ">=3.11"
 license = "MIT"
+license-files = ["LICENSE"]
 authors = [
-  { name = "Captain Cronos" },
+  { name = "Joseph Dobransky" },
+]
+keywords = [
+  "curriculum",
+  "education",
+  "technical-education",
 ]
 classifiers = [
   "Development Status :: 3 - Alpha",
+  "Intended Audience :: Education",
+  "Operating System :: OS Independent",
   "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
+  "Topic :: Education",
 ]
 dependencies = [
   "jsonschema>=4.23,<5",
 ]
 
+[project.urls]
+Homepage = "https://github.com/CaptainCronos/TechnicalEducationOS"
+Documentation = "https://github.com/CaptainCronos/TechnicalEducationOS/tree/main/docs"
+Issues = "https://github.com/CaptainCronos/TechnicalEducationOS/issues"
+Repository = "https://github.com/CaptainCronos/TechnicalEducationOS.git"
+Changelog = "https://github.com/CaptainCronos/TechnicalEducationOS/blob/main/CHANGELOG.md"
+
 [project.optional-dependencies]
 dev = [
   "build>=1.2,<2",
-  "jsonschema>=4.23,<5",
   "pytest>=8.3,<10",
   "pytest-cov>=6,<8",
+  "ruff>=0.12,<1",
+  "twine>=6,<7",
 ]
 
 [project.scripts]
@@ -58,3 +76,11 @@ source = ["teos"]
 [tool.coverage.report]
 show_missing = true
 skip_covered = false
+fail_under = 85
+
+[tool.ruff]
+target-version = "py311"
+line-length = 88
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "I"]

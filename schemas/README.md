@@ -17,10 +17,8 @@ Current executable schemas:
 - `institution.schema.json` — operational Institution Profile, meeting rules,
   and presentation configuration.
 
-Blueprint, knowledge-source, curriculum-model, traceability, and artifact
-manifest schemas will be added with their implementation milestones. A schema
-MUST follow the governing prose specification and MUST NOT be invented merely
-to satisfy one renderer.
+Any future schema MUST follow the governing prose specification and MUST NOT be
+invented merely to satisfy one renderer.
 
 Runtime validation also checks cross-record and semantic relationships that
 JSON Schema cannot conveniently express.

@@ -8,7 +8,6 @@ import pytest
 
 from teos import BuildError, build
 
-
 pytestmark = pytest.mark.regression
 
 

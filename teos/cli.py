@@ -7,7 +7,9 @@ import json
 import sys
 from pathlib import Path
 
-from teos.application import BuildConfig, build as build_application
+from teos import __version__
+from teos.application import BuildConfig
+from teos.application import build as build_application
 from teos.audit import coverage_findings
 from teos.docx import render_administrative_docx
 from teos.records import (
@@ -19,8 +21,6 @@ from teos.records import (
     validate_institution,
     validate_week,
 )
-from teos.scheduler import resolve_session, schedule_sessions
-from teos.session_render import SESSION_RENDERERS
 from teos.render import (
     assessment_batches,
     render_administrative,
@@ -30,6 +30,8 @@ from teos.render import (
     render_instructor,
     render_lab,
 )
+from teos.scheduler import resolve_session, schedule_sessions
+from teos.session_render import SESSION_RENDERERS
 
 
 def _load(args: argparse.Namespace):
@@ -301,6 +303,11 @@ def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="teos",
         description="Validate, audit, and generate documents from curriculum records.",
+    )
+    parser.add_argument(
+        "--version",
+        action="version",
+        version=f"%(prog)s {__version__}",
     )
     subparsers = parser.add_subparsers(dest="command", required=True)
     build = subparsers.add_parser(

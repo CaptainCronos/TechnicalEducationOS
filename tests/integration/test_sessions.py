@@ -22,7 +22,6 @@ from teos.scheduler import (
 )
 from teos.session_render import render_administrative_session
 
-
 pytestmark = pytest.mark.integration
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[2]

@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import hashlib
-import json
 import tempfile
 import unittest
 from copy import deepcopy
@@ -14,7 +13,6 @@ from teos.cli import main
 from teos.records import load_curriculum, load_json, validate_institution
 from teos.scheduler import schedule_sessions
 from teos.session_render import SESSION_RENDERERS
-
 
 pytestmark = pytest.mark.regression
 

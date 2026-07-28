@@ -1,0 +1,96 @@
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: Build and verify release artifacts
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+
+      - name: Install release tooling
+        run: python -m pip install --disable-pip-version-check build twine
+
+      - name: Build distributions
+        run: python scripts/build_release_artifacts.py
+
+      - name: Validate metadata and distribution set
+        run: |
+          python -m twine check dist/*
+          test "$(find dist -maxdepth 1 -type f -name '*.whl' | wc -l)" -eq 1
+          test "$(find dist -maxdepth 1 -type f -name '*.tar.gz' | wc -l)" -eq 1
+
+      - name: Verify wheel and source distribution installs
+        run: |
+          python -m venv "${{ runner.temp }}/wheel"
+          "${{ runner.temp }}/wheel/bin/python" -m pip install dist/*.whl
+          "${{ runner.temp }}/wheel/bin/python" scripts/verify_installed_package.py \
+            --repository-root "${{ github.workspace }}"
+          python -m venv "${{ runner.temp }}/sdist"
+          "${{ runner.temp }}/sdist/bin/python" -m pip install dist/*.tar.gz
+          "${{ runner.temp }}/sdist/bin/python" scripts/verify_installed_package.py \
+            --repository-root "${{ github.workspace }}"
+
+      - name: Create checksums
+        run: sha256sum dist/* > SHA256SUMS
+
+      - name: Upload verified artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: teos-release-artifacts
+          path: |
+            dist/*.whl
+            dist/*.tar.gz
+            SHA256SUMS
+          if-no-files-found: error
+          retention-days: 30
+
+  draft-release:
+    name: Create draft GitHub release
+    if: github.ref_type == 'tag'
+    needs: verify
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Download verified artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: teos-release-artifacts
+          path: release-artifacts
+
+      - name: Create draft pre-release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          release_flags=(
+            --draft
+            --verify-tag
+            --title "TechnicalEducationOS ${GITHUB_REF_NAME}"
+            --notes-file "docs/releases/${GITHUB_REF_NAME}.md"
+          )
+          if [[ "${GITHUB_REF_NAME}" == *-* ]]; then
+            release_flags+=(--prerelease)
+          fi
+          gh release create "${GITHUB_REF_NAME}" \
+            release-artifacts/* \
+            "${release_flags[@]}"

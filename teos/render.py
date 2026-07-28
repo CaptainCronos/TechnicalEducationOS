@@ -1,4 +1,4 @@
-"""Deterministic Markdown renderers for Phase 1 lesson plans."""
+"""Deterministic Markdown renderers for legacy week-based lesson plans."""
 
 from __future__ import annotations
 

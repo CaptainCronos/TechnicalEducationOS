@@ -4,6 +4,7 @@
 [![Test Status](https://github.com/CaptainCronos/TechnicalEducationOS/actions/workflows/tests.yml/badge.svg)](https://github.com/CaptainCronos/TechnicalEducationOS/actions/workflows/tests.yml)
 ![Coverage](https://img.shields.io/badge/coverage-report%20artifact-blue)
 ![Python Version](https://img.shields.io/badge/python-3.11%20%7C%203.12-blue)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
 TechnicalEducationOS (TEOS) is a curriculum compiler. It turns educational
 standards, institutional constraints, and instructional resources into a
@@ -14,8 +15,48 @@ The curriculum model is authoritative. Slides and manuals are evidence,
 templates are presentation assets, and generated documents are disposable
 outputs.
 
+> **Alpha software:** `v1.2.0-alpha1` is intended for evaluation and
+> integration testing. Validate generated educational content before use.
+
 Read the [repository constitution](PROJECT_HANDOFF.md), then the
 [architecture overview](docs/architecture/overview.md).
+
+## Install
+
+TEOS requires Python 3.11 or 3.12.
+
+```bash
+python -m venv .venv
+.venv/bin/python -m pip install technicaleducationos==1.2.0a1
+.venv/bin/teos --version
+```
+
+For a source checkout or pre-release artifact, follow the complete
+[installation guide](docs/INSTALLATION.md). The Python distribution contains
+the application; curriculum, schemas, institution profiles, locales, themes,
+and templates remain explicit repository inputs.
+
+## Quick start
+
+From a source checkout with an editable installation:
+
+```bash
+teos build --course examples/reference_curriculum/curriculum
+teos build \
+  --repository examples/reference_curriculum \
+  --schemas schemas \
+  --institution north-valley-community-college \
+  --calendar fall-2026-semester \
+  --meeting-pattern monday-wednesday-evening \
+  --locale en-US \
+  --theme institution-branded \
+  --renderers all \
+  --generators all \
+  --output /tmp/teos-reference-build
+```
+
+The complete build creates a manifest, compiled curriculum, schedule,
+intermediate renderer records, and 96 Markdown, HTML, DOCX, and PDF artifacts.
 
 ## Compiler pipeline
 
@@ -57,7 +98,7 @@ them without transferring curriculum ownership. Week/day requests are resolved
 through a generated schedule before rendering. Legacy week records remain
 read-only inputs solely for reproducing approved documents.
 
-See [ROADMAP.md](ROADMAP.md) for the current milestone sequence.
+See [ROADMAP.md](ROADMAP.md) for post-alpha milestones.
 
 ## Quality verification
 
@@ -77,3 +118,19 @@ failure behavior are documented in the
 Test categories, regression snapshots, marker commands, performance baselines,
 coverage review, and CI behavior are documented in
 [Integration and Regression Testing](docs/TESTING.md).
+
+## Documentation
+
+- [Installation](docs/INSTALLATION.md)
+- [CLI reference](docs/CLI.md)
+- [Public API](docs/API.md)
+- [Developer guide](docs/DEVELOPMENT.md)
+- [Curriculum authoring](docs/CURRICULUM_AUTHORING.md)
+- [Architecture](docs/architecture/overview.md)
+- [Testing](docs/TESTING.md)
+- [Release procedure](docs/RELEASING.md)
+- [Security policy](SECURITY.md)
+
+TEOS is distributed under the [MIT License](LICENSE). See
+[third-party notices](THIRD_PARTY_NOTICES.md) for dependency and asset
+attribution.

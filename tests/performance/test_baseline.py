@@ -13,7 +13,6 @@ from teos.records import load_curriculum, load_json, validate_curriculum
 from teos.scheduler import schedule_sessions
 from teos.session_render import SESSION_RENDERERS
 
-
 pytestmark = pytest.mark.performance
 
 

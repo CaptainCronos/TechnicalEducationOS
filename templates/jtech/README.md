@@ -1,7 +1,8 @@
-# jtech
+# J-Tech presentation template
 
-Purpose:
-Describe the purpose of this directory.
+`admin_lesson_plan_template.docx` is the project-approved blank presentation
+asset used by the deprecated J-Tech administrative compatibility adapter.
 
-Status:
-Placeholder
+It supplies layout and Word package structure only. Curriculum content comes
+from validated records. Approved completed examples are isolated under
+`tests/fixtures/jtech/` and are never runtime inputs or distribution contents.

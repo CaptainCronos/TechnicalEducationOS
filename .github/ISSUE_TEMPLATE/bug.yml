@@ -1,0 +1,51 @@
+name: Bug report
+description: Report a reproducible TEOS defect.
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Do not report vulnerabilities or private student data here. Follow SECURITY.md for security reports.
+  - type: input
+    id: version
+    attributes:
+      label: TEOS version
+      placeholder: 1.2.0a1
+    validations:
+      required: true
+  - type: input
+    id: python
+    attributes:
+      label: Python version and operating system
+      placeholder: CPython 3.12.4 on Ubuntu 24.04
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Reproduction
+      description: Provide minimal safe inputs and exact commands or API calls.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior and diagnostics
+    validations:
+      required: true
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Safety checks
+      options:
+        - label: I removed credentials, private student data, and proprietary curriculum content.
+          required: true
+        - label: This is not a security vulnerability.
+          required: true

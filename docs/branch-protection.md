@@ -30,5 +30,7 @@ Protect tags matching `v*` with a repository ruleset that:
 - blocks force updates;
 - allows bypass only for an explicitly named emergency role.
 
-Release and deployment automation are intentionally outside the scope of this
-phase.
+The `Release` workflow validates a manually dispatched build without changing
+GitHub release state. A protected `v*` tag additionally creates a draft
+pre-release from freshly verified artifacts. Maintainer review and an explicit
+publish action remain required.

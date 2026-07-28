@@ -12,7 +12,6 @@ import pytest
 from teos import BuildConfig
 from teos.records import load_curriculum, load_json
 
-
 REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
 REFERENCE_ROOT = REPOSITORY_ROOT / "examples" / "reference_curriculum"
 SCHEMA_ROOT = REPOSITORY_ROOT / "schemas"

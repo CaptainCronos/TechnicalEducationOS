@@ -250,44 +250,40 @@ documents and produces each schedule twice to verify byte-for-byte determinism.
 ### Regression suite
 
 ```bash
-python -m pytest tests/test_reference_curriculum.py -q
-python -m pytest
+python -m pytest tests/regression/test_reference_curriculum.py -q
+python -m pytest -m "not performance"
 ```
 
 The focused suite covers frozen schemas, complete compilation, every supported
 component collection, cross-unit mapping, both schedules, holiday behavior,
-session immutability, renderer hashes, CLI execution, and presentation-resource
-isolation.
+session immutability, renderer hashes, CLI execution, physical document
+generation, and presentation-resource isolation.
 
-## CLI compatibility and document generation
+## Complete document generation
 
-The currently implemented canonical commands are `build`, `schedule`, and
-`render`. There is no `validate` or `compile` subcommand; `build` performs the
-canonical load and validation. The existing `generate` command is a deprecated
-v1 week-record compatibility path and cannot consume this v2 reference course.
+The application pipeline renders administrative, instructor, and lab
+intermediates for all eight sessions, then generates Markdown, HTML, DOCX, and
+PDF. A complete configuration produces 96 physical artifacts plus compiled,
+schedule, renderer, and manifest records.
 
-The canonical renderer currently emits Markdown only. HTML, DOCX, and PDF
-generation from a shared rendered intermediate representation is not present in
-the repository. The existing DOCX function is tied to the deprecated v1 daily
-lesson record and therefore is not used here. Adding adapters or new CLI
-commands would change implementation/API scope and is intentionally excluded
-from this data-only reference phase.
+Use the maintained
+[End-to-End Reference Build runbook](../../docs/END_TO_END_BUILD.md) for the
+wheel-installed CLI command, public API equivalent, output manifest,
+determinism procedure, and failure behavior. `generate`, `audit`, and
+`generate-administrative` are deprecated v1 compatibility commands and cannot
+consume this v2 reference course.
 
 ## Known limitations
 
-- Standard IDs are stored and exercised, but the runtime does not resolve them
-  against a governed standard-record type.
 - The v2 model has no explicit prerequisite or cross-reference edge and no
-  dependency-graph API exposed by the current package.
+  author-facing dependency-edge field.
 - Canonical renderers cover administrative lesson plan, instructor guide, and
   lab sheet only. There are no canonical assessment, resource-list,
   student-guide, or course-outline renderers.
-- Themes and locales are illustrative presentation resources but are not
-  consumed by the current renderer.
-- Canonical HTML, DOCX, and PDF document generators are not implemented.
+- The Python distribution installs application code only. The Reference
+  Curriculum and schemas remain explicit repository inputs.
 - The course uses only current-limited low-voltage trainers and is not
   production electrical safety instruction.
 
-These gaps are documented rather than bypassed with new domain objects or
-public APIs, preserving the frozen architecture and making unsupported success
-criteria visible to future phases.
+These limits are explicit so the fixture does not imply unsupported curriculum
+or artifact coverage.

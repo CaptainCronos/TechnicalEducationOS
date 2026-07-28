@@ -31,7 +31,6 @@ from teos.render import (
     render_lab,
 )
 
-
 pytestmark = pytest.mark.integration
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[2]
@@ -320,6 +319,9 @@ class ApprovedLessonPlanTests(unittest.TestCase):
             day_number = lesson["day_number"]
             reference = reference_document_text(
                 REPOSITORY_ROOT
+                / "tests"
+                / "fixtures"
+                / "legacy"
                 / f"DSL204_Week5_Admin_LessonPlan_Day{day_number}_v1.0.docx"
             )
             expected_curriculum = [
@@ -362,7 +364,11 @@ class ApprovedLessonPlanTests(unittest.TestCase):
         )
         rendered = document_bytes_text(content)
         approved = reference_document_text(
-            REPOSITORY_ROOT / "DSL204_Week5_Admin_LessonPlan_Day1_v1.0.docx"
+            REPOSITORY_ROOT
+            / "tests"
+            / "fixtures"
+            / "legacy"
+            / "DSL204_Week5_Admin_LessonPlan_Day1_v1.0.docx"
         )
         objectives = {
             item["id"]: item for item in self.week["objectives"]
@@ -420,7 +426,8 @@ class ApprovedLessonPlanTests(unittest.TestCase):
         )
         approved_path = (
             REPOSITORY_ROOT
-            / "templates"
+            / "tests"
+            / "fixtures"
             / "jtech"
             / "FUN101 – Week 7 Day 1 Administrative Lesson Plan.docx"
         )
@@ -502,7 +509,11 @@ class ApprovedLessonPlanTests(unittest.TestCase):
             )
         )
         approved = reference_document_text(
-            REPOSITORY_ROOT / "DSL204_Week5_Admin_LessonPlan_Day2_v1.0.docx"
+            REPOSITORY_ROOT
+            / "tests"
+            / "fixtures"
+            / "legacy"
+            / "DSL204_Week5_Admin_LessonPlan_Day2_v1.0.docx"
         )
         for value in (
             lesson["title"],

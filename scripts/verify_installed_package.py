@@ -63,6 +63,10 @@ def main() -> int:
         work_directory = Path(temporary)
         teos_command = str(Path(sys.executable).parent / "teos")
 
+        version_result = _run([teos_command, "--version"], cwd=work_directory)
+        if version_result.stdout.strip() != f"teos {package_version}":
+            raise RuntimeError("teos --version did not match package metadata")
+
         help_result = _run([teos_command, "--help"], cwd=work_directory)
         if "Validate, audit, and generate" not in help_result.stdout:
             raise RuntimeError("teos --help did not contain the expected diagnostic")

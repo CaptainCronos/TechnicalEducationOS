@@ -8,7 +8,6 @@ import textwrap
 import zipfile
 from typing import Any
 
-
 GENERATOR_IDS = ("markdown", "html", "docx", "pdf")
 
 
