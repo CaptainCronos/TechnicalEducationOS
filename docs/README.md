@@ -17,6 +17,7 @@ The documents below define how that constitution is implemented.
 - [Curriculum Model Specification](specifications/curriculum-model.md)
 - [Educational Artifact Specification](specifications/educational-artifacts.md)
 - [Document Verification and Artifact Validation](ARTIFACT_VALIDATION.md)
+- [Integration and Regression Testing](TESTING.md)
 - [Traceability Specification](specifications/traceability.md)
 
 ## Supporting records

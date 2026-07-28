@@ -6,6 +6,8 @@ import unittest
 from copy import deepcopy
 from pathlib import Path
 
+import pytest
+
 from teos.cli import main
 from teos.records import (
     RecordError,
@@ -21,7 +23,9 @@ from teos.scheduler import (
 from teos.session_render import render_administrative_session
 
 
-REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
+pytestmark = pytest.mark.integration
+
+REPOSITORY_ROOT = Path(__file__).resolve().parents[2]
 DSL204_DIRECTORY = REPOSITORY_ROOT / "curriculum" / "courses" / "dsl204"
 FALL_2026 = (
     REPOSITORY_ROOT

@@ -112,6 +112,27 @@ def _validate_catalog(
         raise BuildError(f"{identifier_field} {identifier!r} has invalid {content_field}")
 
 
+def _validate_template(path: Path) -> None:
+    try:
+        content = path.read_text(encoding="utf-8")
+    except UnicodeDecodeError as exc:
+        raise BuildError(f"template is not valid UTF-8: {path}") from exc
+    required = {
+        "{{ artifact_title }}",
+        "{{ context }}",
+        "{{ content }}",
+        "{{ footer }}",
+    }
+    missing = sorted(
+        placeholder for placeholder in required if placeholder not in content
+    )
+    if missing:
+        raise BuildError(
+            f"template {path} is missing required placeholder(s): "
+            f"{', '.join(missing)}"
+        )
+
+
 def _localized_content(
     content: str,
     artifact_type: str,
@@ -257,6 +278,7 @@ def _build(config: BuildConfig) -> BuildResult:
     template_path = repository / template_relative
     if not template_path.is_file():
         raise BuildError(f"template not found: {template_path}")
+    _validate_template(template_path)
 
     course_path = course_directory / "course.json"
     sessions_path = course_directory / "sessions.json"

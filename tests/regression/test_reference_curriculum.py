@@ -7,6 +7,7 @@ import unittest
 from copy import deepcopy
 from pathlib import Path
 
+import pytest
 from jsonschema import Draft202012Validator
 
 from teos.cli import main
@@ -15,7 +16,9 @@ from teos.scheduler import schedule_sessions
 from teos.session_render import SESSION_RENDERERS
 
 
-REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
+pytestmark = pytest.mark.regression
+
+REPOSITORY_ROOT = Path(__file__).resolve().parents[2]
 REFERENCE_ROOT = REPOSITORY_ROOT / "examples" / "reference_curriculum"
 COURSE_DIRECTORY = REFERENCE_ROOT / "curriculum"
 SCHEMA_DIRECTORY = REPOSITORY_ROOT / "schemas"

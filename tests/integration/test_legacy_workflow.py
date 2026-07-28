@@ -9,6 +9,8 @@ import zipfile
 from copy import deepcopy
 from pathlib import Path
 
+import pytest
+
 from teos.audit import coverage_findings
 from teos.cli import main
 from teos.docx import render_administrative_docx
@@ -30,7 +32,9 @@ from teos.render import (
 )
 
 
-REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
+pytestmark = pytest.mark.integration
+
+REPOSITORY_ROOT = Path(__file__).resolve().parents[2]
 DSL204_DIRECTORY = REPOSITORY_ROOT / "curriculum" / "courses" / "dsl204"
 J_TECH_OVERLAY = REPOSITORY_ROOT / "institutions" / "j-tech" / "institution.json"
 ADMINISTRATIVE_TEMPLATE = (

@@ -1,0 +1,17 @@
+{
+  "curriculum/course.json": "f5dfa4229f945faa6c8c96301a03de782bd5590c8b787ce863fde99362d954da",
+  "curriculum/sessions.json": "66566028ea2891b2d8642ee663a6bfe21f9448bc4a24218b7c0ccdd7d35d2443",
+  "curriculum/units/circuit-diagnosis.json": "5a0ebf0e30f9facc45e9aa6612c5c1e4019342e12487e5870977381ad71d40dd",
+  "curriculum/units/safe-measurement.json": "ce0326dccf3731a77cd7a4728edbb561ba7e8fd29732e72ef529c5b76b6d2198",
+  "institutions/community-college/calendars/fall-2026-semester.json": "3cd96d2f50a6493ef343c8adc5288447d994fd78005bba8ecd4a033c2c2ed803",
+  "institutions/community-college/institution.json": "aa15bfbff663f0b0692789a400d041a09fe4a65a5cf155cf0f017cf2c2937255",
+  "institutions/trade-school/calendars/accelerated-8-week.json": "22dd5994c61e7a9bd446233ef9c1e2598676c093e33321c46560221a77d2d0ca",
+  "institutions/trade-school/institution.json": "ea81eb15a7b79c5c1b7c829d3a6a3d495488419b5591ef205a4bfdbfe282f20e",
+  "locales/en-US.json": "3bfb10043688ed25f8cc17d2a12dce0cf2f68b023225e82e78bc0b42279cc25a",
+  "locales/es-US.json": "159afd9e13cfd0df1b55794bc5e90c9ea7e0f1a4377c66178006c9d4e61646c5",
+  "templates/dark/lesson-plan.md": "a1b499826d5374ce0d41c3b413852cb9e4a8d4dbe98841c06aa648d790bbff71",
+  "templates/default/lesson-plan.md": "a1b499826d5374ce0d41c3b413852cb9e4a8d4dbe98841c06aa648d790bbff71",
+  "themes/dark.json": "46a436d575174ba3024522d17a47d11fea636f0dc3230922003a1c15815070f8",
+  "themes/default.json": "edf83745f8fbeb9246aaf525a2575047dfa0b83823e105e871e6084f7b9d0ea4",
+  "themes/institution-branded.json": "b8ee65bb75efd2150c599c40cc8c1bd7136e75e58e7b64e33ba5a2690a55e28c"
+}

@@ -44,7 +44,11 @@ addopts = [
 filterwarnings = ["error"]
 testpaths = ["tests"]
 markers = [
+  "unit: isolated contract and implementation tests",
+  "integration: subsystem interface and interoperability tests",
   "end_to_end: complete installed-application pipeline verification",
+  "regression: permanent behavior and canonical dataset protection",
+  "performance: optional representative execution-time baselines",
 ]
 
 [tool.coverage.run]

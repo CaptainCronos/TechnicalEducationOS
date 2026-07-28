@@ -1,7 +1,5 @@
-# unit
+# Unit tests
 
-Purpose:
-Describe the purpose of this directory.
-
-Status:
-Placeholder
+These tests isolate small validation, rendering, and generator contracts.
+They use in-memory records and bytes wherever practical. Cross-subsystem
+workflows belong in `../integration`.

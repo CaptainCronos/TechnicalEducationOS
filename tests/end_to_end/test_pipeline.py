@@ -13,7 +13,7 @@ from teos import BuildConfig, BuildError, build
 from teos.cli import main
 
 
-pytestmark = pytest.mark.end_to_end
+pytestmark = [pytest.mark.end_to_end, pytest.mark.regression]
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[2]
 REFERENCE_ROOT = REPOSITORY_ROOT / "examples" / "reference_curriculum"

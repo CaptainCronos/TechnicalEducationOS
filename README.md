@@ -73,3 +73,7 @@ The complete wheel-installed reference pipeline, canonical command,
 configuration matrix, output manifest, API example, determinism method, and
 failure behavior are documented in the
 [End-to-End Reference Build runbook](docs/END_TO_END_BUILD.md).
+
+Test categories, regression snapshots, marker commands, performance baselines,
+coverage review, and CI behavior are documented in
+[Integration and Regression Testing](docs/TESTING.md).
