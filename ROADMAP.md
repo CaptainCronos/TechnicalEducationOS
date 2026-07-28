@@ -5,6 +5,13 @@ community-driven evolution. The roadmap communicates intent, not a promise of
 scope or date. Accepted work still requires an available steward, review,
 tests, documentation, and release approval.
 
+The detailed post-alpha platform assessment, technical-debt inventory,
+architecture recommendations, capability sequencing, release objectives,
+risks, metrics, prioritized backlog, and open questions are maintained in the
+[TEOS v2 Strategic Roadmap and Architecture Evolution](docs/STRATEGIC_ROADMAP_V2.md).
+That document is a planning proposal; accepted scope still follows the intake
+and RFC rules below.
+
 ## Planning horizons
 
 - **Now** — accepted work for the active milestone with an owner and exit

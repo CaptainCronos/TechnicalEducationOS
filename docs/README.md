@@ -21,6 +21,7 @@ The documents below define how that constitution is implemented.
 
 - [Project governance](../GOVERNANCE.md)
 - [Roadmap](../ROADMAP.md)
+- [v2 Strategic Roadmap and Architecture Evolution](STRATEGIC_ROADMAP_V2.md)
 - [Plugin ecosystem governance](PLUGIN_GOVERNANCE.md)
 - [Documentation governance](DOCUMENTATION_GOVERNANCE.md)
 - [Long-term maintenance](MAINTENANCE.md)
