@@ -1,0 +1,12 @@
+{
+  "locale": "en-US",
+  "strings": {
+    "artifact.administrative.title": "Administrative Lesson Plan",
+    "artifact.instructor.title": "Instructor Guide",
+    "artifact.lab.title": "Lab Sheet",
+    "label.assessment": "Assessment",
+    "label.materials": "Materials",
+    "label.objectives": "Objectives",
+    "label.session": "Session"
+  }
+}

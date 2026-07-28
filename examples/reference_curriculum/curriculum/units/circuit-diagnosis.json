@@ -1,0 +1,150 @@
+{
+  "schema_version": "2.0",
+  "id": "unit.circuit-diagnosis",
+  "course_id": "tec101",
+  "title": "Series and Parallel Circuit Diagnosis",
+  "competency_ids": [
+    "comp.electrical-safety",
+    "comp.measurement",
+    "comp.circuit-analysis",
+    "comp.troubleshooting"
+  ],
+  "objectives": [
+    {
+      "id": "obj.predict-circuit-values",
+      "statement": "Calculate expected voltage, current, and equivalent resistance for basic series and parallel circuits.",
+      "competency_ids": [
+        "comp.circuit-analysis"
+      ]
+    },
+    {
+      "id": "obj.compare-evidence",
+      "statement": "Compare expected and measured circuit values and identify evidence that is consistent with an open, short, or high-resistance fault.",
+      "competency_ids": [
+        "comp.measurement",
+        "comp.circuit-analysis",
+        "comp.troubleshooting"
+      ]
+    },
+    {
+      "id": "obj.isolate-fault",
+      "statement": "Apply safe, half-split diagnostic tests to isolate a single introduced fault and document the confirming measurement.",
+      "competency_ids": [
+        "comp.electrical-safety",
+        "comp.measurement",
+        "comp.troubleshooting"
+      ]
+    }
+  ],
+  "lectures": [
+    {
+      "id": "lecture.circuit-rules",
+      "title": "Series and parallel circuit rules and expected values",
+      "objective_ids": [
+        "obj.predict-circuit-values",
+        "obj.compare-evidence"
+      ]
+    },
+    {
+      "id": "lecture.diagnostic-process",
+      "title": "Complaint verification, expected results, half-split testing, and confirmation",
+      "objective_ids": [
+        "obj.compare-evidence",
+        "obj.isolate-fault"
+      ]
+    }
+  ],
+  "demonstrations": [
+    {
+      "id": "demo.voltage-drop",
+      "title": "Loaded voltage-drop testing across a high-resistance connection",
+      "objective_ids": [
+        "obj.compare-evidence",
+        "obj.isolate-fault"
+      ]
+    },
+    {
+      "id": "demo.half-split",
+      "title": "Half-split isolation of an open circuit",
+      "objective_ids": [
+        "obj.isolate-fault"
+      ]
+    }
+  ],
+  "labs": [
+    {
+      "id": "lab.build-circuits",
+      "title": "Build and verify series and parallel circuits",
+      "objective_ids": [
+        "obj.predict-circuit-values",
+        "obj.compare-evidence"
+      ],
+      "procedure": [
+        "Calculate expected values from the schematic before energizing.",
+        "Build the series circuit and complete a point-to-point inspection.",
+        "Measure source, component, and total values and compare them with predictions.",
+        "Repeat the process for the parallel circuit."
+      ],
+      "deliverables": [
+        "Annotated schematic and expected-versus-measured value table for both circuits."
+      ],
+      "safety_notes": [
+        "De-energize before changing circuit topology.",
+        "Apply the measurement controls established in the preceding unit."
+      ]
+    },
+    {
+      "id": "lab.fault-isolation",
+      "title": "Single-fault isolation",
+      "objective_ids": [
+        "obj.compare-evidence",
+        "obj.isolate-fault"
+      ],
+      "procedure": [
+        "Verify the reported symptom without altering the circuit.",
+        "Mark expected results at candidate test points on the schematic.",
+        "Use half-split tests to narrow the fault location.",
+        "Identify the fault as open, short, or high resistance.",
+        "Remove the introduced fault and confirm normal operation."
+      ],
+      "deliverables": [
+        "Diagnostic worksheet showing symptom, test sequence, readings, conclusion, and post-repair confirmation."
+      ],
+      "safety_notes": [
+        "Use only instructor-installed faults on the current-limited trainer.",
+        "Stop if observed behavior differs from the trainer fault card."
+      ]
+    }
+  ],
+  "assessments": [
+    {
+      "id": "assess.circuit-check",
+      "title": "Circuit prediction check",
+      "type": "formative",
+      "objective_ids": [
+        "obj.predict-circuit-values",
+        "obj.compare-evidence"
+      ],
+      "description": "Learner calculates expected values and explains how one measured result supports or contradicts the prediction."
+    },
+    {
+      "id": "assess.diagnostic-practical",
+      "title": "Fault-isolation practical",
+      "type": "summative",
+      "objective_ids": [
+        "obj.compare-evidence",
+        "obj.isolate-fault"
+      ],
+      "description": "Learner safely isolates one introduced fault using an ordered test plan, records evidence, and confirms restored operation."
+    }
+  ],
+  "required_resources": [
+    "Current-limited 24 V DC series-parallel trainer",
+    "CAT-rated digital multimeter with fused current input",
+    "Series and parallel circuit schematics",
+    "Instructor fault cards",
+    "Circuit calculation worksheet",
+    "Diagnostic process worksheet"
+  ],
+  "estimated_minutes": 360
+}

@@ -1,0 +1,36 @@
+{
+  "schema_version": "2.0",
+  "calendar_id": "fall-2026-semester",
+  "institution_id": "north-valley-community-college",
+  "term_id": "fall-2026",
+  "name": "Fall 2026 Semester",
+  "first_day": "2026-08-24",
+  "last_day": "2026-12-18",
+  "events": [
+    {
+      "name": "Labor Day",
+      "type": "holiday",
+      "start_date": "2026-09-07",
+      "end_date": "2026-09-07"
+    },
+    {
+      "name": "Faculty development day",
+      "type": "faculty_work_day",
+      "start_date": "2026-09-09",
+      "end_date": "2026-09-09"
+    },
+    {
+      "name": "Thanksgiving break",
+      "type": "break",
+      "start_date": "2026-11-25",
+      "end_date": "2026-11-27"
+    },
+    {
+      "name": "Optional learning laboratory",
+      "type": "faculty_work_day",
+      "start_date": "2026-10-14",
+      "end_date": "2026-10-14",
+      "instructional": true
+    }
+  ]
+}

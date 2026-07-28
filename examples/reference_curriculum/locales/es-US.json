@@ -1,0 +1,12 @@
+{
+  "locale": "es-US",
+  "strings": {
+    "artifact.administrative.title": "Plan de lección administrativo",
+    "artifact.instructor.title": "Guía del instructor",
+    "artifact.lab.title": "Hoja de laboratorio",
+    "label.assessment": "Evaluación",
+    "label.materials": "Materiales",
+    "label.objectives": "Objetivos",
+    "label.session": "Sesión"
+  }
+}

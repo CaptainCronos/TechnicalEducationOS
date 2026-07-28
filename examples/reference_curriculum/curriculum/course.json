@@ -1,0 +1,66 @@
+{
+  "schema_version": "2.0",
+  "course_id": "tec101",
+  "title": "Introduction to Technical Electricity",
+  "description": "A compact introductory course in electrical safety, measurement, series and parallel circuits, and evidence-based troubleshooting.",
+  "credit_hours": 1,
+  "contact_hours": 12,
+  "standards": [
+    "OSHA 29 CFR 1910.334(c)(1) — test instruments and equipment",
+    "NFPA 70E — electrically safe work practices",
+    "TEOS Electrical Fundamentals EF-1 — apply electrical quantities and relationships",
+    "TEOS Electrical Fundamentals EF-2 — measure and evaluate direct-current circuits",
+    "TEOS Electrical Fundamentals EF-3 — diagnose basic electrical faults"
+  ],
+  "competencies": [
+    {
+      "id": "comp.electrical-safety",
+      "statement": "Select and apply controls for electrical measurement and low-voltage circuit work.",
+      "standard_ids": [
+        "OSHA.1910.334.c.1",
+        "NFPA70E.ESWP"
+      ]
+    },
+    {
+      "id": "comp.measurement",
+      "statement": "Select, connect, and interpret a digital multimeter for voltage, resistance, and current measurements.",
+      "standard_ids": [
+        "OSHA.1910.334.c.1",
+        "TEOS.EF-2"
+      ]
+    },
+    {
+      "id": "comp.circuit-analysis",
+      "statement": "Predict and verify voltage, current, and resistance in basic series and parallel direct-current circuits.",
+      "standard_ids": [
+        "TEOS.EF-1",
+        "TEOS.EF-2"
+      ]
+    },
+    {
+      "id": "comp.troubleshooting",
+      "statement": "Use a repeatable test plan and measured evidence to isolate open, short, and high-resistance faults.",
+      "standard_ids": [
+        "NFPA70E.ESWP",
+        "TEOS.EF-2",
+        "TEOS.EF-3"
+      ]
+    }
+  ],
+  "modules": [
+    {
+      "id": "module.measurement",
+      "title": "Safe Measurement",
+      "unit_ids": [
+        "unit.safe-measurement"
+      ]
+    },
+    {
+      "id": "module.circuits",
+      "title": "Circuit Analysis and Troubleshooting",
+      "unit_ids": [
+        "unit.circuit-diagnosis"
+      ]
+    }
+  ]
+}

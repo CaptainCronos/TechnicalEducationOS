@@ -1,0 +1,145 @@
+{
+  "schema_version": "2.0",
+  "id": "unit.safe-measurement",
+  "course_id": "tec101",
+  "title": "Electrical Safety and Digital Multimeter Use",
+  "competency_ids": [
+    "comp.electrical-safety",
+    "comp.measurement"
+  ],
+  "objectives": [
+    {
+      "id": "obj.control-hazards",
+      "statement": "Given a low-voltage trainer, identify electrical hazards and establish a safe measurement condition before connecting a meter.",
+      "competency_ids": [
+        "comp.electrical-safety"
+      ]
+    },
+    {
+      "id": "obj.select-meter-mode",
+      "statement": "Select the correct meter function, range, lead ports, and connection method for voltage, resistance, and current.",
+      "competency_ids": [
+        "comp.electrical-safety",
+        "comp.measurement"
+      ]
+    },
+    {
+      "id": "obj.verify-quantities",
+      "statement": "Measure and record source voltage, component resistance, and circuit current within the trainer tolerance.",
+      "competency_ids": [
+        "comp.measurement"
+      ]
+    }
+  ],
+  "lectures": [
+    {
+      "id": "lecture.safe-work",
+      "title": "Energy sources, de-energization, meter categories, and lead inspection",
+      "objective_ids": [
+        "obj.control-hazards",
+        "obj.select-meter-mode"
+      ]
+    },
+    {
+      "id": "lecture.measurement",
+      "title": "Voltage, resistance, and current measurement relationships",
+      "objective_ids": [
+        "obj.select-meter-mode",
+        "obj.verify-quantities"
+      ]
+    }
+  ],
+  "demonstrations": [
+    {
+      "id": "demo.live-dead-live",
+      "title": "Live-dead-live meter verification on an isolated low-voltage trainer",
+      "objective_ids": [
+        "obj.control-hazards",
+        "obj.select-meter-mode"
+      ]
+    },
+    {
+      "id": "demo.meter-connections",
+      "title": "Parallel voltage and series current connections",
+      "objective_ids": [
+        "obj.select-meter-mode",
+        "obj.verify-quantities"
+      ]
+    }
+  ],
+  "labs": [
+    {
+      "id": "lab.meter-setup",
+      "title": "Meter inspection and setup",
+      "objective_ids": [
+        "obj.control-hazards",
+        "obj.select-meter-mode"
+      ],
+      "procedure": [
+        "Inspect the trainer, meter body, fuse rating, and leads before use.",
+        "Identify the expected quantity and energy state before choosing a function.",
+        "Place leads in the correct ports and state how the meter will connect.",
+        "Prove meter operation on the trainer check point before and after the measurement."
+      ],
+      "deliverables": [
+        "Completed pre-use inspection and measurement setup checklist."
+      ],
+      "safety_notes": [
+        "Use only the current-limited 24 V DC trainer.",
+        "De-energize before resistance measurements or lead-port changes.",
+        "Do not place a meter configured for current directly across the source."
+      ]
+    },
+    {
+      "id": "lab.measure-quantities",
+      "title": "Measure electrical quantities",
+      "objective_ids": [
+        "obj.select-meter-mode",
+        "obj.verify-quantities"
+      ],
+      "procedure": [
+        "Measure source voltage with the meter connected in parallel.",
+        "De-energize and isolate the load before measuring its resistance.",
+        "Reconfigure the circuit and meter to measure current in series.",
+        "Compare each result with the expected range and resolve any discrepancy."
+      ],
+      "deliverables": [
+        "Measurement table containing expected values, measured values, units, and tolerance decisions."
+      ],
+      "safety_notes": [
+        "Confirm lead location and function selection before energizing.",
+        "Return the current lead to the voltage-resistance port after use."
+      ]
+    }
+  ],
+  "assessments": [
+    {
+      "id": "assess.safety-brief",
+      "title": "Measurement safety briefing",
+      "type": "formative",
+      "objective_ids": [
+        "obj.control-hazards",
+        "obj.select-meter-mode"
+      ],
+      "description": "Learner explains the energy state, connection method, meter setup, and stop-work conditions before making a measurement."
+    },
+    {
+      "id": "assess.meter-practical",
+      "title": "Digital multimeter practical",
+      "type": "summative",
+      "objective_ids": [
+        "obj.select-meter-mode",
+        "obj.verify-quantities"
+      ],
+      "description": "Learner safely completes voltage, resistance, and current measurements and evaluates each result against the stated tolerance."
+    }
+  ],
+  "required_resources": [
+    "Current-limited 24 V DC electrical trainer",
+    "CAT-rated digital multimeter with fused current input",
+    "Insulated test leads",
+    "Trainer schematic and expected-value table",
+    "Pre-use inspection and measurement checklist"
+  ],
+  "estimated_minutes": 360
+}

@@ -1,0 +1,453 @@
+{
+  "schema_version": "2.0",
+  "course_id": "tec101",
+  "sessions": [
+    {
+      "id": "session.1",
+      "session_number": 1,
+      "unit_id": "unit.safe-measurement",
+      "title": "Electrical hazards and measurement controls",
+      "phase": "theory",
+      "duration_minutes": 90,
+      "objective_ids": [
+        "obj.control-hazards",
+        "obj.select-meter-mode"
+      ],
+      "instruction": {
+        "essential_question": "What must be known before a meter lead touches a circuit?",
+        "preparation": [
+          "Verify every trainer is current-limited to 24 V DC.",
+          "Stage one damaged lead set as a clearly labeled inspection example."
+        ],
+        "materials": [
+          "Current-limited 24 V DC electrical trainer",
+          "CAT-rated digital multimeter with fused current input",
+          "Pre-use inspection and measurement checklist"
+        ],
+        "activities": [
+          {
+            "id": "activity.1.warm-up",
+            "category": "warm_up",
+            "description": "Sort sample measurement scenarios into proceed, correct first, and stop-work groups.",
+            "objective_ids": [
+              "obj.control-hazards"
+            ]
+          },
+          {
+            "id": "activity.1.academic",
+            "category": "academic",
+            "description": "Trace the decisions from expected quantity and energy state to function, lead ports, and connection method.",
+            "objective_ids": [
+              "obj.control-hazards",
+              "obj.select-meter-mode"
+            ]
+          },
+          {
+            "id": "activity.1.exit",
+            "category": "exit",
+            "description": "State one condition that requires de-energization and one that requires stopping work.",
+            "objective_ids": [
+              "obj.control-hazards"
+            ]
+          }
+        ],
+        "assessment_ids": [
+          "assess.safety-brief"
+        ],
+        "common_technician_errors": [
+          "Choosing a meter function before identifying the expected quantity.",
+          "Treating an undamaged-looking lead as proof that it is suitable."
+        ],
+        "instructor_shop_tip": "Require learners to say the expected result aloud before they connect the meter.",
+        "flex_activities": "Use additional scenario cards for learners who finish early."
+      }
+    },
+    {
+      "id": "session.2",
+      "session_number": 2,
+      "unit_id": "unit.safe-measurement",
+      "title": "Meter setup and connection demonstration",
+      "phase": "demonstration",
+      "duration_minutes": 90,
+      "objective_ids": [
+        "obj.control-hazards",
+        "obj.select-meter-mode"
+      ],
+      "instruction": {
+        "essential_question": "Why do voltage and current measurements require different circuit connections?",
+        "activities": [
+          {
+            "id": "activity.2.warm-up",
+            "category": "warm_up",
+            "description": "Inspect a meter setup and identify the deliberate configuration error.",
+            "objective_ids": [
+              "obj.control-hazards",
+              "obj.select-meter-mode"
+            ]
+          },
+          {
+            "id": "activity.2.academic",
+            "category": "academic",
+            "description": "Observe and narrate live-dead-live verification, parallel voltage measurement, and series current measurement.",
+            "objective_ids": [
+              "obj.select-meter-mode"
+            ]
+          },
+          {
+            "id": "activity.2.shop",
+            "category": "shop",
+            "description": "Rehearse function, port, and connection choices on a de-energized trainer.",
+            "objective_ids": [
+              "obj.control-hazards",
+              "obj.select-meter-mode"
+            ]
+          },
+          {
+            "id": "activity.2.exit",
+            "category": "exit",
+            "description": "Sketch the meter connection for one assigned quantity.",
+            "objective_ids": [
+              "obj.select-meter-mode"
+            ]
+          }
+        ],
+        "assessment_ids": [
+          "assess.safety-brief"
+        ],
+        "common_technician_errors": [
+          "Connecting an ammeter in parallel.",
+          "Changing lead ports while the circuit is energized."
+        ],
+        "instructor_shop_tip": "Pause before energizing and have the class audit the complete setup.",
+        "flex_activities": "Compare autoranging and manual-ranging meter displays."
+      }
+    },
+    {
+      "id": "session.3",
+      "session_number": 3,
+      "unit_id": "unit.safe-measurement",
+      "title": "Electrical quantity measurement lab",
+      "phase": "lab",
+      "duration_minutes": 90,
+      "objective_ids": [
+        "obj.select-meter-mode",
+        "obj.verify-quantities"
+      ],
+      "instruction": {
+        "essential_question": "How does a measured value become trustworthy evidence?",
+        "activities": [
+          {
+            "id": "activity.3.warm-up",
+            "category": "warm_up",
+            "description": "Predict the acceptable range for three trainer measurements.",
+            "objective_ids": [
+              "obj.verify-quantities"
+            ]
+          },
+          {
+            "id": "activity.3.shop",
+            "category": "shop",
+            "description": "Complete voltage, resistance, and current measurements using the lab procedure.",
+            "objective_ids": [
+              "obj.select-meter-mode",
+              "obj.verify-quantities"
+            ]
+          },
+          {
+            "id": "activity.3.exit",
+            "category": "exit",
+            "description": "Defend one tolerance decision using the expected and measured values.",
+            "objective_ids": [
+              "obj.verify-quantities"
+            ]
+          }
+        ],
+        "assessment_ids": [
+          "assess.meter-practical"
+        ],
+        "common_technician_errors": [
+          "Recording a number without its unit.",
+          "Comparing a measurement with a nominal value but ignoring tolerance."
+        ],
+        "instructor_shop_tip": "Check the current-input fuse before diagnosing a learner's zero-current reading.",
+        "flex_activities": "Repeat one measurement on a second trainer and compare tolerances."
+      }
+    },
+    {
+      "id": "session.4",
+      "session_number": 4,
+      "unit_id": "unit.safe-measurement",
+      "title": "Digital multimeter practical",
+      "phase": "assessment",
+      "duration_minutes": 90,
+      "objective_ids": [
+        "obj.select-meter-mode",
+        "obj.verify-quantities"
+      ],
+      "instruction": {
+        "essential_question": "Can the complete measurement process be performed safely and independently?",
+        "activities": [
+          {
+            "id": "activity.4.warm-up",
+            "category": "warm_up",
+            "description": "Individually review the practical rubric and identify the stop-work criteria.",
+            "objective_ids": [
+              "obj.select-meter-mode"
+            ]
+          },
+          {
+            "id": "activity.4.shop",
+            "category": "shop",
+            "description": "Perform the assigned voltage, resistance, and current measurements without coaching.",
+            "objective_ids": [
+              "obj.select-meter-mode",
+              "obj.verify-quantities"
+            ]
+          },
+          {
+            "id": "activity.4.exit",
+            "category": "exit",
+            "description": "Submit the signed measurement record and restore the station.",
+            "objective_ids": [
+              "obj.verify-quantities"
+            ]
+          }
+        ],
+        "assessment_ids": [
+          "assess.meter-practical"
+        ],
+        "common_technician_errors": [
+          "Skipping the post-measurement proof test.",
+          "Leaving the lead in the current port."
+        ],
+        "instructor_shop_tip": "Score the process and safety controls as well as numerical accuracy.",
+        "flex_activities": "Use an oral safety briefing while learners wait for a practical station."
+      }
+    },
+    {
+      "id": "session.5",
+      "session_number": 5,
+      "unit_id": "unit.circuit-diagnosis",
+      "title": "Series and parallel circuit relationships",
+      "phase": "theory",
+      "duration_minutes": 90,
+      "objective_ids": [
+        "obj.predict-circuit-values",
+        "obj.compare-evidence"
+      ],
+      "instruction": {
+        "essential_question": "Which electrical quantities are shared and which divide in each circuit topology?",
+        "preparation": [
+          "Verify component values on both circuit trainers.",
+          "Prepare one worked example and one incomplete schematic."
+        ],
+        "activities": [
+          {
+            "id": "activity.5.warm-up",
+            "category": "warm_up",
+            "description": "Classify four schematics as series, parallel, or neither.",
+            "objective_ids": [
+              "obj.predict-circuit-values"
+            ]
+          },
+          {
+            "id": "activity.5.academic",
+            "category": "academic",
+            "description": "Calculate expected source, branch, component, and equivalent values from trainer schematics.",
+            "objective_ids": [
+              "obj.predict-circuit-values",
+              "obj.compare-evidence"
+            ]
+          },
+          {
+            "id": "activity.5.exit",
+            "category": "exit",
+            "description": "Explain which single measurement would best test one assigned prediction.",
+            "objective_ids": [
+              "obj.compare-evidence"
+            ]
+          }
+        ],
+        "assessment_ids": [
+          "assess.circuit-check"
+        ],
+        "common_technician_errors": [
+          "Applying a series rule to parallel branch current.",
+          "Calculating after measuring and treating the measurement as the prediction."
+        ],
+        "instructor_shop_tip": "Keep expected values visible beside measured values so discrepancies drive the next question.",
+        "flex_activities": "Calculate the effect of one resistor tolerance at its upper limit."
+      }
+    },
+    {
+      "id": "session.6",
+      "session_number": 6,
+      "unit_id": "unit.circuit-diagnosis",
+      "title": "Build, measure, and compare circuits",
+      "phase": "integrated",
+      "duration_minutes": 90,
+      "objective_ids": [
+        "obj.predict-circuit-values",
+        "obj.compare-evidence"
+      ],
+      "instruction": {
+        "essential_question": "What should be investigated when a sound calculation and a careful measurement disagree?",
+        "activities": [
+          {
+            "id": "activity.6.warm-up",
+            "category": "warm_up",
+            "description": "Audit a sample expected-versus-measured table for missing evidence.",
+            "objective_ids": [
+              "obj.compare-evidence"
+            ]
+          },
+          {
+            "id": "activity.6.academic",
+            "category": "academic",
+            "description": "Finalize expected values and identify acceptable tolerances before assembly.",
+            "objective_ids": [
+              "obj.predict-circuit-values"
+            ]
+          },
+          {
+            "id": "activity.6.shop",
+            "category": "shop",
+            "description": "Build both topologies, inspect before energizing, and compare measurements with predictions.",
+            "objective_ids": [
+              "obj.predict-circuit-values",
+              "obj.compare-evidence"
+            ]
+          },
+          {
+            "id": "activity.6.exit",
+            "category": "exit",
+            "description": "Identify the strongest evidence that each assembled circuit matches its schematic.",
+            "objective_ids": [
+              "obj.compare-evidence"
+            ]
+          }
+        ],
+        "assessment_ids": [
+          "assess.circuit-check"
+        ],
+        "common_technician_errors": [
+          "Energizing before the point-to-point inspection.",
+          "Moving several conductors before documenting the original discrepancy."
+        ],
+        "instructor_shop_tip": "Photograph or sketch the circuit before correcting a wiring discrepancy.",
+        "flex_activities": "Swap stations and audit another team's evidence table."
+      }
+    },
+    {
+      "id": "session.7",
+      "session_number": 7,
+      "unit_id": "unit.circuit-diagnosis",
+      "title": "Evidence-based fault isolation",
+      "phase": "demonstration",
+      "duration_minutes": 90,
+      "objective_ids": [
+        "obj.compare-evidence",
+        "obj.isolate-fault"
+      ],
+      "instruction": {
+        "essential_question": "How can each test eliminate the largest number of possible fault locations?",
+        "activities": [
+          {
+            "id": "activity.7.warm-up",
+            "category": "warm_up",
+            "description": "Order five diagnostic actions from complaint verification through confirmation.",
+            "objective_ids": [
+              "obj.isolate-fault"
+            ]
+          },
+          {
+            "id": "activity.7.academic",
+            "category": "academic",
+            "description": "Interpret measurements that distinguish open, short, and high-resistance symptoms.",
+            "objective_ids": [
+              "obj.compare-evidence"
+            ]
+          },
+          {
+            "id": "activity.7.shop",
+            "category": "shop",
+            "description": "Observe half-split and loaded voltage-drop demonstrations, then propose each next test.",
+            "objective_ids": [
+              "obj.compare-evidence",
+              "obj.isolate-fault"
+            ]
+          },
+          {
+            "id": "activity.7.exit",
+            "category": "exit",
+            "description": "Write the expected result for the first test on an assigned fault card.",
+            "objective_ids": [
+              "obj.isolate-fault"
+            ]
+          }
+        ],
+        "assessment_ids": [
+          "assess.diagnostic-practical"
+        ],
+        "common_technician_errors": [
+          "Replacing a component because it is easy to reach rather than because evidence implicates it.",
+          "Using resistance testing on an energized circuit."
+        ],
+        "instructor_shop_tip": "Ask what a passing result eliminates before allowing the next measurement.",
+        "flex_activities": "Model a second fault using only a schematic and provided readings."
+      }
+    },
+    {
+      "id": "session.8",
+      "session_number": 8,
+      "unit_id": "unit.circuit-diagnosis",
+      "title": "Fault-isolation practical",
+      "phase": "assessment",
+      "duration_minutes": 90,
+      "objective_ids": [
+        "obj.compare-evidence",
+        "obj.isolate-fault"
+      ],
+      "instruction": {
+        "essential_question": "Does the recorded evidence uniquely support the diagnosis?",
+        "activities": [
+          {
+            "id": "activity.8.warm-up",
+            "category": "warm_up",
+            "description": "Review the individual practical rubric and diagnostic worksheet.",
+            "objective_ids": [
+              "obj.isolate-fault"
+            ]
+          },
+          {
+            "id": "activity.8.shop",
+            "category": "shop",
+            "description": "Verify, isolate, identify, remove, and confirm one instructor-installed trainer fault.",
+            "objective_ids": [
+              "obj.compare-evidence",
+              "obj.isolate-fault"
+            ]
+          },
+          {
+            "id": "activity.8.exit",
+            "category": "exit",
+            "description": "Submit the diagnostic worksheet and explain the confirming measurement.",
+            "objective_ids": [
+              "obj.compare-evidence",
+              "obj.isolate-fault"
+            ]
+          }
+        ],
+        "assessment_ids": [
+          "assess.diagnostic-practical"
+        ],
+        "common_technician_errors": [
+          "Declaring the fault before one measurement uniquely supports it.",
+          "Failing to confirm normal operation after removing the fault."
+        ],
+        "instructor_shop_tip": "Use equivalent fault cards across stations and record the selected card with the rubric.",
+        "flex_activities": "Learners awaiting a station critique a completed diagnostic record."
+      }
+    }
+  ]
+}

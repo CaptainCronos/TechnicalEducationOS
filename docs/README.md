@@ -24,6 +24,8 @@ The documents below define how that constitution is implemented.
 - `blueprints/` — blueprint authoring and review guidance.
 - `standards/` — standards-specific ingestion guidance.
 - `CURRICULUM_AUTHORING.md` — canonical unit/session authoring and scheduling.
+- [`examples/reference_curriculum/`](../examples/reference_curriculum/README.md)
+  — executable reference curriculum and permanent regression dataset.
 
 Normative terms such as **MUST**, **MUST NOT**, **SHOULD**, and **MAY** describe
 requirements, recommendations, and permitted options respectively.

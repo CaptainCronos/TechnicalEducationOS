@@ -1,0 +1,36 @@
+{
+  "schema_version": "2.0",
+  "calendar_id": "accelerated-8-week",
+  "institution_id": "metro-trade-institute",
+  "term_id": "accelerated-2026-4",
+  "name": "Accelerated 8-Week Term",
+  "first_day": "2026-10-19",
+  "last_day": "2026-12-11",
+  "events": [
+    {
+      "name": "Instructor certification day",
+      "type": "faculty_work_day",
+      "start_date": "2026-10-29",
+      "end_date": "2026-10-29"
+    },
+    {
+      "name": "Veterans Day closure",
+      "type": "institutional_closure",
+      "start_date": "2026-11-11",
+      "end_date": "2026-11-11"
+    },
+    {
+      "name": "Thanksgiving closure",
+      "type": "holiday",
+      "start_date": "2026-11-26",
+      "end_date": "2026-11-27"
+    },
+    {
+      "name": "Employer demonstration day",
+      "type": "graduation",
+      "start_date": "2026-12-03",
+      "end_date": "2026-12-03",
+      "instructional": true
+    }
+  ]
+}

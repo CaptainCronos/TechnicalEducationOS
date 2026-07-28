@@ -1,0 +1,10 @@
+{
+  "theme_id": "institution-branded",
+  "name": "North Valley Branded",
+  "tokens": {
+    "background": "#ffffff",
+    "foreground": "#17324d",
+    "accent": "#b56a1f",
+    "font_family": "Georgia, serif"
+  }
+}

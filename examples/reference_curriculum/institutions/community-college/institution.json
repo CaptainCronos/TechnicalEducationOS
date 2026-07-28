@@ -1,0 +1,77 @@
+{
+  "schema_version": "2.0",
+  "institution_id": "north-valley-community-college",
+  "institution_name": "North Valley Community College",
+  "academic_year": {
+    "academic_year_id": "2026-2027",
+    "name": "2026–2027 Academic Year",
+    "start_date": "2026-08-01",
+    "end_date": "2027-07-31",
+    "terms": [
+      {
+        "term_id": "fall-2026",
+        "name": "Fall 2026 Semester",
+        "calendar_id": "fall-2026-semester"
+      }
+    ]
+  },
+  "meeting_patterns": [
+    {
+      "pattern_id": "monday-wednesday-evening",
+      "name": "Monday / Wednesday Evening",
+      "starts_on": "2026-08-24",
+      "ends_on": "2026-12-16",
+      "first_week_number": 1,
+      "meetings": [
+        {
+          "weekday": "monday",
+          "day": 1,
+          "start_time": "18:00",
+          "duration_minutes": 90
+        },
+        {
+          "weekday": "wednesday",
+          "day": 2,
+          "start_time": "18:00",
+          "duration_minutes": 90
+        }
+      ]
+    }
+  ],
+  "class_length_minutes": 90,
+  "program_structure": {
+    "division": "Applied Technologies",
+    "delivery_mode": "in_person"
+  },
+  "lesson_plan_templates": {
+    "administrative": "examples/reference_curriculum/templates/default/lesson-plan.md"
+  },
+  "branding": {
+    "display_name": "North Valley Community College",
+    "theme_id": "institution-branded",
+    "locale": "en-US"
+  },
+  "footer_requirements": [
+    "North Valley Community College — Applied Technologies"
+  ],
+  "required_administrative_fields": [
+    "course",
+    "session",
+    "instructor"
+  ],
+  "attendance_policy": {
+    "record_each_meeting": true
+  },
+  "lms": {
+    "provider": "canvas"
+  },
+  "grading": {
+    "minimum_passing_percent": 70
+  },
+  "assessment_policy": {
+    "practical_retake_limit": 1
+  },
+  "report_formats": {
+    "default": "html"
+  }
+}

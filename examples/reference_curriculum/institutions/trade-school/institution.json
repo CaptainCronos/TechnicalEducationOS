@@ -1,0 +1,77 @@
+{
+  "schema_version": "2.0",
+  "institution_id": "metro-trade-institute",
+  "institution_name": "Metro Trade Institute",
+  "academic_year": {
+    "academic_year_id": "2026",
+    "name": "2026 Training Year",
+    "start_date": "2026-01-01",
+    "end_date": "2026-12-31",
+    "terms": [
+      {
+        "term_id": "accelerated-2026-4",
+        "name": "Accelerated Term 4",
+        "calendar_id": "accelerated-8-week"
+      }
+    ]
+  },
+  "meeting_patterns": [
+    {
+      "pattern_id": "tuesday-thursday-day",
+      "name": "Tuesday / Thursday Day",
+      "starts_on": "2026-10-20",
+      "ends_on": "2026-12-10",
+      "first_week_number": 1,
+      "meetings": [
+        {
+          "weekday": "tuesday",
+          "day": 1,
+          "start_time": "09:00",
+          "duration_minutes": 90
+        },
+        {
+          "weekday": "thursday",
+          "day": 2,
+          "start_time": "13:00",
+          "duration_minutes": 90
+        }
+      ]
+    }
+  ],
+  "class_length_minutes": 90,
+  "program_structure": {
+    "program": "Industrial Maintenance Foundations",
+    "delivery_mode": "in_person_accelerated"
+  },
+  "lesson_plan_templates": {
+    "administrative": "examples/reference_curriculum/templates/dark/lesson-plan.md"
+  },
+  "branding": {
+    "display_name": "Metro Trade Institute",
+    "theme_id": "dark",
+    "locale": "es-US"
+  },
+  "footer_requirements": [
+    "Metro Trade Institute — Industrial Maintenance Foundations"
+  ],
+  "required_administrative_fields": [
+    "course",
+    "session",
+    "cohort"
+  ],
+  "attendance_policy": {
+    "record_each_meeting": true
+  },
+  "lms": {
+    "provider": "moodle"
+  },
+  "grading": {
+    "minimum_passing_percent": 75
+  },
+  "assessment_policy": {
+    "practical_retake_limit": 2
+  },
+  "report_formats": {
+    "default": "markdown"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "theme_id": "default",
+  "name": "TEOS Default",
+  "tokens": {
+    "background": "#ffffff",
+    "foreground": "#1f2933",
+    "accent": "#2457a7",
+    "font_family": "system-ui, sans-serif"
+  }
+}
